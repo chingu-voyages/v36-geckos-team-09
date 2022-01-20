@@ -15,8 +15,8 @@ const App = () => {
     return (
         <Router>
             <Box className='app'>
-                <Navbar />
                 <Box maxWidth='1000px' margin='0 auto'>
+                    <Navbar />
                     <Switch>
                         <Route path='/' element={<Home />} />
                         <Route path='/play' element={<h1>Play</h1>} />

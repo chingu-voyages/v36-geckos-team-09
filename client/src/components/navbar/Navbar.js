@@ -8,7 +8,7 @@ import { NAVBAR_BUTTONS } from '../../static';
 
 const Navbar = () => {
     return (
-        <AppBar className='navbar' position='static'>
+        <AppBar className='navbar' position='static' elevation={0}>
             <Container>
                 <Toolbar className='navbar__toolbar'>
                     <ButtonGroup
