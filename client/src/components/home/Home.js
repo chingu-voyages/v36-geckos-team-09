@@ -11,6 +11,7 @@ const Home = () => {
             flexDirection='column'
             alignItems='center'
             color='white'
+            textAlign='center'
         >
             <GiCardPickup size='8rem' />
             <Typography variant='h2' mt={2}>
