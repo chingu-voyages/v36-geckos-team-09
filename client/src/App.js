@@ -1,3 +1,4 @@
+import React from 'react';
 import { 
   BrowserRouter as Router,
   Routes as Switch,
@@ -5,6 +6,9 @@ import {
   Link
 } from 'react-router-dom'
 import './App.css';
+import Collections from './components/Collections'
+import AddFlashcard from './components/AddFlashcard'
+import EditFlashcard from './components/EditFlashcard'
 
 function App() {
   return (
@@ -27,7 +31,9 @@ function App() {
         <Route path="/" element={<h1>Home</h1>} /> 
         <Route path="/play" element={<h1>Play</h1>} />
         <Route path="/about" element={<h1>About Us</h1>} />
-        <Route path="/collections" element={<h1>Manage Collections</h1>} />
+        <Route path="/collections" element={ <Collections />} />
+        <Route path="/collections/add-flashcard" element={ <AddFlashcard />} />
+        <Route path="/collections/edit-flashcard/:id" element={ <EditFlashcard />} />
       </Switch>
       
     </Router>
