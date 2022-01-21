@@ -1,0 +1,13 @@
+@import './_config';
+
+@media (max-width: 480px) {
+    .navbar__btn-grp {
+        flex-direction: column;
+    }
+
+    .navbar__btn {
+        border-color: $color-secondary-transparent !important;
+        border-radius: 0.4rem !important;
+        margin-bottom: 1rem !important;
+    }
+}
