@@ -1,0 +1,21 @@
+@import './abstracts/_config';
+
+.about__icon {
+    color: $color-secondary-transparent;
+    animation: bounce 5s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.3);
+        color: $color-white;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
