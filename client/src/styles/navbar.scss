@@ -1,0 +1,25 @@
+@import './abstracts/_config';
+
+.navbar {
+    background: transparent !important;
+    padding: 2rem 0;
+    margin-bottom: 5rem;
+
+    &__toolbar {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__btn {
+        padding: 0 !important;
+    }
+
+    &__link {
+        padding: 1rem 1.5rem;
+        text-decoration: none;
+        font-size: 1.3rem;
+        color: $color-white;
+    }
+}
+
+@import './abstracts/_responsive';

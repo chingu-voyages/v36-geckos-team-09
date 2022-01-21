@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const AddFlashcard = props => {
 
-   /*  const initialFlashcardState = {
+    /* const initialFlashcardState = {
         prompt: "",
         answers: ['1','2','3','4'],
         right_answer: 1
