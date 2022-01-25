@@ -11,9 +11,10 @@ import { Box, Container } from '@mui/material';
 import Home from './components/home/Home';
 import Navbar from './components/navbar/Navbar';
 import About from './components/about/About';
-import Collections from './components/collections/Collections';
+import ManageCollections from './components/collections/ManageCollections';
 import AddFlashcard from './components/collections/AddFlashcard';
 import EditFlashcard from './components/collections/EditFlashcard';
+import CollectionDetails from './components/collections/CollectionDetails';
 
 const App = () => {
     return (
@@ -33,15 +34,19 @@ const App = () => {
                             <Route path='/play' element={<h1>Play</h1>} />
                             <Route path='/about' element={<About />} />
                             <Route
-                                path='/collections'
-                                element={<Collections />}
+                                path='/manage-collections'
+                                element={<ManageCollections />}
                             />
                             <Route
-                                path='/collections/add-flashcard'
+                                path='/collections/:collectionName'
+                                element={<CollectionDetails />}
+                            />
+                            <Route
+                                path='/manage-collections/add-flashcard'
                                 element={<AddFlashcard />}
                             />
                             <Route
-                                path='/collections/edit-flashcard/:id'
+                                path='/manage-collections/edit-flashcard/:id'
                                 element={<EditFlashcard />}
                             />
                         </Switch>

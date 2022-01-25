@@ -1,108 +1,54 @@
-import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import FlashcardsDataService from '../../services/flashcards_service';
 
-export default function Collections() {
-    const [flashcards, setFlashcards] = useState([]);
-    /* const [searchPrompt, setSearchPrompt ] = useState(""); */
+import '../../styles/collections.scss';
+import {
+    List,
+    ListItem,
+    ListItemText,
+    ListItemAvatar,
+    Avatar,
+    Typography,
+    Button,
+} from '@mui/material';
+import { BsFillCollectionFill } from 'react-icons/bs';
 
-    useEffect(() => {
-        retrieveFlashcards();
-    }, [flashcards]);
-
-    /*   const onChangeSearchName = e => {
-    const searchName = e.target.value;
-    setSearchName(searchName);
-  };
- */
-
-    const retrieveFlashcards = () => {
-        FlashcardsDataService.getAll()
-            .then((response) => {
-                //console.log(response.data);
-                setFlashcards(response.data.flashcards);
-            })
-            .catch((e) => {
-                console.log(e);
-            });
-    };
-
-    /*   const refreshList = () => {
-    retrieveFlashcards();
-  }; */
-
-    const find = (query, by) => {
-        FlashcardsDataService.find(query, by)
-            .then((response) => {
-                console.log(response.data);
-                setFlashcards(response.data.flashcards);
-            })
-            .catch((e) => {
-                console.log(e);
-            });
-    };
-
-    const deleteFlashcard = (flashcardId, index) => {
-        FlashcardsDataService.deleteFlashcard(flashcardId)
-            .then((response) => {})
-            .catch((e) => {
-                console.log(e);
-            });
-    };
-
-    /*   const findByName = () => {
-    find(searchName, "name")
-  }; */
-
+const Collections = ({ collections }) => {
     return (
-        <div>
-            <Link to={'/collections/add-flashcard'}>Add Flashcard</Link>
-
-            <br></br>
-            <br></br>
-
-            {flashcards.map((flashcard, index) => {
-                return (
-                    <div key={flashcard._id}>
-                        <div className='flashcard'>
-                            <div className='flashcard-body'>
-                                <h2 className='flashcard-prompt'>
-                                    {flashcard.prompt}
-                                </h2>
-                                <p className='flashcard-text'>
-                                    <strong>1: </strong>
-                                    {flashcard.answers[0]}
-                                    <br />
-                                    <strong>2: </strong>
-                                    {flashcard.answers[1]}
-                                    <br />
-                                    <strong>3: </strong>
-                                    {flashcard.answers[2]}
-                                    <br />
-                                    <strong>4: </strong>
-                                    {flashcard.answers[3]}
-                                    <br />
-                                    <strong>Right Answer: </strong>
-                                    {flashcard.right_answer}
-                                    <br /> {/* for testing purposes */}
-                                </p>
-                            </div>
-                            <Link
-                                to={`/collections/edit-flashcard/${flashcard._id}`}
-                            >
-                                Edit Flashcard
-                            </Link>
-                            <button
-                                onClick={() =>
-                                    deleteFlashcard(flashcard._id, index)
+        <List className='collections'>
+            {collections.map((collection) => (
+                <Link
+                    to={`/collections/${collection.name}`}
+                    key={collection.id}
+                >
+                    <Button className='collections__btn'>
+                        <ListItem className='collections__item'>
+                            <ListItemAvatar>
+                                <Avatar className='collections__avatar'>
+                                    <BsFillCollectionFill
+                                        className='collections__icon'
+                                        size='2.5rem'
+                                    />
+                                </Avatar>
+                            </ListItemAvatar>
+                            <ListItemText
+                                disableTypography
+                                primary={
+                                    <Typography className='collections__name'>
+                                        {collection.name}
+                                    </Typography>
                                 }
-                            >
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                );
-            })}
-        </div>
+                                secondary={
+                                    <Typography className='collections__date'>
+                                        {collection.date}
+                                    </Typography>
+                                }
+                            />
+                        </ListItem>
+                    </Button>
+                </Link>
+            ))}
+        </List>
     );
-}
+};
+
+export default Collections;

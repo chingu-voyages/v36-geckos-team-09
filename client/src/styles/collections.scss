@@ -1,0 +1,41 @@
+@import './abstracts/_config';
+
+.collections {
+    margin-top: 2rem !important;
+    margin-bottom: 2rem;
+    background-color: transparent;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+
+    &__btn {
+        width: 100% !important;
+        color: $color-black !important;
+        text-transform: capitalize !important;
+        padding-left: 0 !important;
+
+        &:hover {
+            background-color: $color-white-transparent !important;
+        }
+    }
+
+    &__icon {
+        color: $color-secondary;
+    }
+
+    &__avatar {
+        width: 50px !important;
+        height: 50px !important;
+        margin-right: 1rem;
+    }
+
+    &__name {
+        font-size: 1.8rem !important;
+        font-weight: 500 !important;
+    }
+
+    &__date {
+        font-size: 1.2rem !important;
+    }
+}
