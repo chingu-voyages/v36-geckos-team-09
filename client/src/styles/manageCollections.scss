@@ -1,0 +1,27 @@
+@import './abstracts/_config';
+
+.manage-collections {
+    &__add-btn {
+        border-width: 0.3rem !important;
+        font-size: 1.2rem !important;
+        color: $color-white !important;
+    }
+
+    &__form {
+        padding: 1rem;
+        width: 300px !important;
+        display: flex;
+    }
+
+    &__input {
+        flex: 90%;
+        margin-right: 1rem;
+        font-size: 1.4rem !important;
+    }
+
+    &__submit-btn {
+        flex: 10%;
+        padding: 0 !important;
+        min-width: unset !important;
+    }
+}
