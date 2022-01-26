@@ -1,9 +1,7 @@
-
-
- import {
+import {
     BrowserRouter as Router,
     Routes as Switch,
-    Route
+    Route,
 } from 'react-router-dom';
 
 import './styles/app.scss';
@@ -13,9 +11,10 @@ import { Box, Container } from '@mui/material';
 import Home from './components/home/Home';
 import Navbar from './components/navbar/Navbar';
 import About from './components/about/About';
-import Collections from './components/Collections'
-import AddFlashcard from './components/AddFlashcard'
-import EditFlashcard from './components/EditFlashcard'
+import ManageCollections from './components/collections/ManageCollections';
+import AddFlashcard from './components/collections/AddFlashcard';
+import EditFlashcard from './components/collections/EditFlashcard';
+import CollectionDetails from './components/collections/CollectionDetails';
 
 const App = () => {
     return (
@@ -34,9 +33,22 @@ const App = () => {
                             <Route path='/' element={<Home />} />
                             <Route path='/play' element={<h1>Play</h1>} />
                             <Route path='/about' element={<About />} />
-                            <Route path="/collections" element={ <Collections />} />
-                            <Route path="/collections/add-flashcard" element={ <AddFlashcard />} />
-                            <Route path="/collections/edit-flashcard/:id" element={ <EditFlashcard />} />
+                            <Route
+                                path='/manage-collections'
+                                element={<ManageCollections />}
+                            />
+                            <Route
+                                path='/collections/:collectionName'
+                                element={<CollectionDetails />}
+                            />
+                            <Route
+                                path='/manage-collections/add-flashcard'
+                                element={<AddFlashcard />}
+                            />
+                            <Route
+                                path='/manage-collections/edit-flashcard/:id'
+                                element={<EditFlashcard />}
+                            />
                         </Switch>
                     </Container>
                 </Box>
@@ -45,5 +57,4 @@ const App = () => {
     );
 };
 
- export default App;
- 
+export default App;

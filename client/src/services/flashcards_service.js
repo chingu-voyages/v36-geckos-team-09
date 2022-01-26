@@ -12,7 +12,6 @@ class FlashcardsDataService {
   getCollection(collection_name){
     return http.get(`/collection/${collection_name}`);
   }
-  //implement getCollection()
 
   find(query, by = "prompt", page = 0) {
     return http.get(`?${by}=${query}&page=${page}`);

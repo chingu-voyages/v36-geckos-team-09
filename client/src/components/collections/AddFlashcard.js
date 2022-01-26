@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FlashcardsDataService from "../services/flashcards_service";
+import FlashcardsDataService from "../../services/flashcards_service";
 import { Link } from "react-router-dom";
 
 const AddFlashcard = props => {
