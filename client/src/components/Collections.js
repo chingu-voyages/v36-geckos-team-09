@@ -9,7 +9,7 @@ export default function Collections() {
 
   useEffect(() => {
     retrieveFlashcards();
-  }, [flashcards]);
+  }, []);
 
 /*   const onChangeSearchName = e => {
     const searchName = e.target.value;
@@ -18,9 +18,9 @@ export default function Collections() {
  */
 
   const retrieveFlashcards = () => {
-    FlashcardsDataService.getAll()
+    FlashcardsDataService.getCollection('lolle')
       .then(response => {
-        //console.log(response.data);
+        console.log(response.data.flashcards);
         setFlashcards(response.data.flashcards);
         
       })

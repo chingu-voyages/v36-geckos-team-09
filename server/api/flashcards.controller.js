@@ -34,7 +34,26 @@ export default class FlashcardsController {
         res.status(404).json({ error: "Flashcard Not found" })
         return
       }
+      
       res.json(flashcard)
+    } catch (e) {
+      console.log(`api, ${e}`)
+      res.status(500).json({ error: e })
+    }
+  }
+
+  static async apiGetFlashcardByCollection(req, res, next) {
+    try {
+      let collection_name = req.params.collection_name || {}
+      let flashcardsCollection = await FlashcardsDAO.getFlashcardByCollection(collection_name)
+      if (!flashcardsCollection) {
+        res.status(404).json({ error: "Flashcards Collection Not found" })
+        return
+      }
+      let response = { 
+        flashcards: flashcardsCollection
+      }
+      res.json(response)
     } catch (e) {
       console.log(`api, ${e}`)
       res.status(500).json({ error: e })
@@ -43,11 +62,13 @@ export default class FlashcardsController {
 
   static async apiPostFlashcard(req, res, next) {
     try {
+      const collection_name= req.body.collection_name
       const prompt = req.body.prompt
       const answers =  req.body.answers 
       const right_answer = req.body.right_answer
 
       const FlashcardResponse = await FlashcardsDAO.addFlashcard(
+        collection_name,
         prompt,
         answers,
         right_answer,
@@ -72,12 +93,14 @@ export default class FlashcardsController {
   static async apiUpdateFlashcard(req, res, next) {
     try {
       const flashcardId = req.body._id
+      const collection_name = req.body.collection_name
       const prompt = req.body.prompt
       const answers = req.body.answers
-      const right_answer= req.body.right_answers
+      const right_answer= req.body.right_answer
 
       const flashcardResponse = await FlashcardsDAO.updateFlashcard(
         flashcardId,
+        collection_name,
         prompt,
         answers,
         right_answer,
