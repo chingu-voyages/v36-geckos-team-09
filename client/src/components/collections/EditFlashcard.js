@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import FlashcardsDataService from '../../services/flashcards_service';
 import { Link } from 'react-router-dom';
@@ -32,6 +33,7 @@ const EditFlashcard = (props) => {
             .catch((e) => {
                 console.log(e);
             });
+
     };
 
     return (
@@ -129,8 +131,11 @@ const EditFlashcard = (props) => {
                     </div>
                 )}
             </div>
+
         </div>
     );
 };
 
+
 export default EditFlashcard;
+

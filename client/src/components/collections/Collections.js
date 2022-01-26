@@ -51,4 +51,6 @@ const Collections = ({ collections }) => {
     );
 };
 
+
 export default Collections;
+

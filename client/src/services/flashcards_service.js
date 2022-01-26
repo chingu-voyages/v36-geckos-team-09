@@ -9,9 +9,15 @@ class FlashcardsDataService {
         return http.get(`/id/${id}`);
     }
 
-    find(query, by = 'prompt', page = 0) {
-        return http.get(`?${by}=${query}&page=${page}`);
+
+    getCollection(collection_name){
+      return http.get(`/collection/${collection_name}`);
     }
+
+    find(query, by = "prompt", page = 0) {
+      return http.get(`?${by}=${query}&page=${page}`);
+    } 
+        
 
     createFlashcard(data) {
         return http.post('/', data);
