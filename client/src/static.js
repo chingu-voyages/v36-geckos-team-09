@@ -4,3 +4,5 @@ export const NAVBAR_BUTTONS = [
     { id: 2, text: 'about us', link: '/about' },
     { id: 3, text: 'manage collections', link: '/manage-collections' },
 ];
+
+export const ANSWER_PREFIX = ['A', 'B', 'C', 'D'];

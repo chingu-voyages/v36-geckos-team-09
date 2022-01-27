@@ -1,0 +1,17 @@
+@import './abstracts/_config';
+
+.collection {
+    &__back-btn {
+        padding: 0 !important;
+        min-width: unset !important;
+        color: $color-white !important;
+
+        &:hover {
+            color: $color-secondary !important;
+        }
+    }
+
+    &-table {
+        background-color: transparent !important;
+    }
+}

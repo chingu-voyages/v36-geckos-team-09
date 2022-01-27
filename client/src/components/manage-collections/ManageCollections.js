@@ -96,7 +96,7 @@ const ManageCollections = () => {
                 date: newCollectionDate,
             };
 
-            setCollections((prevState) => [...prevState, newCollection]);
+            setCollections((prevState) => [newCollection, ...prevState]);
 
             setAnchorEl(null);
         }
