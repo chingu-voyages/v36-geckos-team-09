@@ -71,8 +71,8 @@ const ManageCollections = () => {
 
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleAddClick = (event) => {
-        setAnchorEl(event.currentTarget);
+    const handleAddClick = (e) => {
+        setAnchorEl(e.currentTarget);
     };
 
     const handleClose = () => {
@@ -115,6 +115,7 @@ const ManageCollections = () => {
                 Add New Collection
             </Button>
             <Popover
+                className='manage-collections__dropdown'
                 id={id}
                 open={isOpen}
                 anchorEl={anchorEl}
@@ -132,6 +133,7 @@ const ManageCollections = () => {
                 >
                     <Input
                         className='manage-collections__input'
+                        type='text'
                         fullWidth
                         autoFocus
                         placeholder='Collection name'

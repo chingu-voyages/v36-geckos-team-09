@@ -1,41 +1,94 @@
+import { useState } from 'react';
+
 import { useParams, Link } from 'react-router-dom';
 
 import CollectionTable from './CollectionTable';
+import NewFlashcard from './flashcard/NewFlashcard';
 
 import '../../../styles/collection.scss';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, Popover } from '@mui/material';
 import { BsFillArrowLeftSquareFill } from 'react-icons/bs';
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
 const Collection = () => {
     const { collectionName } = useParams();
 
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleAddClick = (e) => {
+        setAnchorEl(e.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const isOpen = Boolean(anchorEl);
+    const id = isOpen ? 'simple-popover' : undefined;
+
+    const [flashcardsCollection, setFlashCardsCollection] = useState([]);
+
     return (
         <Box className='collection'>
-            <Link to='/manage-collections'>
-                <Button className='collection__back-btn' size='large'>
-                    <BsFillArrowLeftSquareFill size='3rem' />
-                </Button>
-            </Link>
-            <Typography
-                variant='h2'
-                fontSize='4rem'
-                color='white'
-                mt={3}
-                mb={3}
+            <Box
+                className='collection__title-box'
                 display='flex'
+                alignItems='center'
+                mb={3}
             >
-                Collections
+                <Link to='/manage-collections'>
+                    <Button className='collection__back-btn' size='large'>
+                        <BsFillArrowLeftSquareFill size='2rem' />
+                    </Button>
+                </Link>
                 <Typography
-                    fontWeight={500}
-                    variant='span'
-                    fontSize='4rem'
-                    color='secondary'
+                    className='collection__title'
+                    variant='h2'
+                    fontSize='3rem'
+                    color='white'
+                    display='flex'
                 >
-                    /
+                    Collections
+                    <Typography
+                        className='collection__title-span'
+                        fontWeight={500}
+                        variant='span'
+                        fontSize='3rem'
+                        color='secondary'
+                    >
+                        /
+                    </Typography>
+                    {collectionName}
                 </Typography>
-                {collectionName}
-            </Typography>
-            <CollectionTable />
+            </Box>
+
+            <Button
+                className='manage-collections__add-btn'
+                onClick={handleAddClick}
+                color='secondary'
+                variant='outlined'
+                startIcon={isOpen ? <AiOutlineMinus /> : <AiOutlinePlus />}
+                aria-describedby={id}
+            >
+                Add New Flashcard
+            </Button>
+            <Popover
+                className='manage-collections__dropdown'
+                id={id}
+                open={isOpen}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+            >
+                <NewFlashcard
+                    setFlashCardsCollection={setFlashCardsCollection}
+                />
+            </Popover>
+
+            <CollectionTable flashcardsCollection={flashcardsCollection} />
         </Box>
     );
 };

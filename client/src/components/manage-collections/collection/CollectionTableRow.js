@@ -14,19 +14,49 @@ import {
 } from '@mui/material';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
-const CollectionTableRow = ({ row }) => {
+const CollectionTableRow = ({ row, index }) => {
     const [isRowOpen, setIsRowOpen] = useState(false);
+
+    const rowIndex = index + 1;
 
     const rowItems = Object.values(row).slice(2);
 
-    const handleClick = () => {
-        setIsRowOpen(!isRowOpen);
-    };
+    const handleClick = () => setIsRowOpen(!isRowOpen);
 
     return (
         <>
             <TableRow>
-                <TableCell>
+                <TableCell component='th' scope='row'>
+                    <Typography
+                        className='collection__prefix'
+                        variant='h6'
+                        fontWeight={700}
+                        fontSize='1.3rem'
+                        mr='0.3rem'
+                        display='inline'
+                    >
+                        <Typography
+                            className='collection__prefix'
+                            variant='span'
+                            fontWeight={700}
+                            fontSize='1rem'
+                            mr='1rem'
+                            color='white'
+                        >
+                            {rowIndex}.
+                        </Typography>
+                        Q:
+                    </Typography>
+                    <Typography
+                        variant='h6'
+                        fontSize='1.2rem'
+                        color='white'
+                        display='inline'
+                    >
+                        {row.question}
+                    </Typography>
+                </TableCell>
+                <TableCell className='collection__question-cell'>
                     <IconButton
                         aria-label='expand row'
                         size='small'
@@ -38,25 +68,6 @@ const CollectionTableRow = ({ row }) => {
                             <IoIosArrowDown size='1.5rem' />
                         )}
                     </IconButton>
-                </TableCell>
-                <TableCell component='th' scope='row'>
-                    <Typography
-                        variant='h6'
-                        fontWeight={700}
-                        fontSize='1.3rem'
-                        mr='0.3rem'
-                        display='inline'
-                    >
-                        Q:
-                    </Typography>
-                    <Typography
-                        variant='h6'
-                        fontSize='1.2rem'
-                        color='white'
-                        display='inline'
-                    >
-                        {row.question}
-                    </Typography>
                 </TableCell>
             </TableRow>
             <TableRow>
@@ -77,6 +88,7 @@ const CollectionTableRow = ({ row }) => {
                                                         scope='row'
                                                     >
                                                         <Typography
+                                                            className='collection__prefix'
                                                             variant='p'
                                                             fontWeight={700}
                                                             fontSize='1.2rem'
@@ -103,6 +115,7 @@ const CollectionTableRow = ({ row }) => {
                                                     scope='row'
                                                 >
                                                     <Typography
+                                                        className='collection__prefix'
                                                         variant='p'
                                                         fontWeight={700}
                                                         fontSize='1.2rem'

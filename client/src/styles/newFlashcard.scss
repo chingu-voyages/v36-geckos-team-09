@@ -1,0 +1,33 @@
+@import './abstracts/_config';
+
+.new-flashcard {
+    padding: 2rem;
+    width: 100% !important;
+    max-width: 600px !important;
+
+    .new-flashcard__question {
+        width: 100%;
+        margin-bottom: 2rem;
+        font-size: 1.4rem;
+
+        ::placeholder {
+            font-size: 1.4rem;
+            color: $color-secondary !important;
+        }
+    }
+
+    &__answer {
+        width: 100%;
+        margin-bottom: 1rem;
+        font-size: 1.4rem !important;
+
+        ::placeholder {
+            font-size: 1.4rem;
+            color: $color-secondary !important;
+        }
+    }
+
+    &__submit-btn {
+        width: 15rem;
+    }
+}
