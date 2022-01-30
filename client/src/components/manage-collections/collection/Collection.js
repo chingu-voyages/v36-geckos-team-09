@@ -85,6 +85,7 @@ const Collection = () => {
             >
                 <NewFlashcard
                     setFlashCardsCollection={setFlashCardsCollection}
+                    handleClose={handleClose}
                 />
             </Popover>
 

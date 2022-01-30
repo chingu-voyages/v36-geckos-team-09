@@ -7,13 +7,17 @@ import FlashcardsDataService from '../../services/flashcards_service';
 import Collections from './Collections';
 
 import '../../styles/manageCollections.scss';
-import { Button, Box, Popover, Input } from '@mui/material';
+import { Button, Box, Popover, Input, Typography } from '@mui/material';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 
 import { format } from 'fecha';
 
 import { v4 as uuidv4 } from 'uuid';
+
+import { useForm } from 'react-hook-form';
+import { joiResolver } from '@hookform/resolvers/joi';
+import { addNewCollectionSchema } from '../../utils';
 
 const ManageCollections = () => {
     const [flashcards, setFlashcards] = useState([]);
@@ -82,24 +86,34 @@ const ManageCollections = () => {
     const isOpen = Boolean(anchorEl);
     const id = isOpen ? 'simple-popover' : undefined;
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const [newCollectionError, setNewCollectionError] = useState(
+        'This field is required!',
+    );
 
-        const newCollectionName = e.target.elements['collection-name'].value;
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset,
+    } = useForm({
+        resolver: joiResolver(addNewCollectionSchema),
+    });
 
-        if (newCollectionName) {
-            const newCollectionDate = format(new Date(), 'mediumDate');
+    const submitForm = (data) => {
+        const newCollectionName = data.collectionName;
+        const newCollectionDate = format(new Date(), 'mediumDate');
 
-            const newCollection = {
-                id: uuidv4(),
-                name: newCollectionName,
-                date: newCollectionDate,
-            };
+        const newCollection = {
+            id: uuidv4(),
+            name: newCollectionName,
+            date: newCollectionDate,
+        };
 
-            setCollections((prevState) => [newCollection, ...prevState]);
+        setCollections((prevState) => [newCollection, ...prevState]);
 
-            setAnchorEl(null);
-        }
+        setAnchorEl(null);
+
+        reset();
     };
 
     return (
@@ -127,18 +141,19 @@ const ManageCollections = () => {
             >
                 <form
                     className='manage-collections__form'
-                    onSubmit={handleSubmit}
+                    onSubmit={handleSubmit(submitForm)}
                     noValidate
                     autoComplete='off'
                 >
                     <Input
                         className='manage-collections__input'
                         type='text'
-                        fullWidth
                         autoFocus
                         placeholder='Collection name'
-                        name='collection-name'
+                        name='collectionName'
+                        {...register('collectionName')}
                     />
+
                     <Button
                         className='manage-collections__submit-btn'
                         type='submit'
@@ -147,6 +162,9 @@ const ManageCollections = () => {
                         <BsFillArrowRightSquareFill size='2rem' />
                     </Button>
                 </form>
+                <Typography mb={1} ml={1} className='new-flashcard__error'>
+                    {errors.collectionName && newCollectionError}
+                </Typography>
             </Popover>
 
             <Collections collections={collections} />

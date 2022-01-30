@@ -8,15 +8,25 @@ export const NAVBAR_BUTTONS = [
 export const ANSWER_PREFIX = ['A', 'B', 'C', 'D'];
 
 export const NEW_FLASHCARD_INPUTS = [
-    { id: 0, placeholder: 'Question', name: 'question', class: 'question' },
-    { id: 1, placeholder: 'Answer A', name: 'answer-a', class: 'answer' },
-    { id: 2, placeholder: 'Answer B', name: 'answer-b', class: 'answer' },
-    { id: 3, placeholder: 'Answer C', name: 'answer-c', class: 'answer' },
-    { id: 4, placeholder: 'Answer D', name: 'answer-d', class: 'answer' },
+    { id: 0, placeholder: 'Question *', name: 'question', class: 'question' },
+    { id: 1, placeholder: 'Answer A *', name: 'answerA', class: 'answer' },
+    { id: 2, placeholder: 'Answer B *', name: 'answerB', class: 'answer' },
+    {
+        id: 3,
+        placeholder: 'Answer C *',
+        name: 'answerC',
+        class: 'answer',
+    },
+    {
+        id: 4,
+        placeholder: 'Answer D *',
+        name: 'answerD',
+        class: 'answer',
+    },
     {
         id: 5,
-        placeholder: 'Correct Answer',
-        name: 'correct-answer',
+        placeholder: 'Correct Answer (A, B, C, D) *',
+        name: 'correctAnswer',
         class: 'answer',
     },
 ];

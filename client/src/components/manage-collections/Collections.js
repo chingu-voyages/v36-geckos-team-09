@@ -38,7 +38,10 @@ const Collections = ({ collections }) => {
                                     </Typography>
                                 }
                                 secondary={
-                                    <Typography className='collections__date'>
+                                    <Typography
+                                        className='collections__date'
+                                        fontWeight={500}
+                                    >
                                         {collection.date}
                                     </Typography>
                                 }

@@ -5,10 +5,10 @@
     width: 100% !important;
     max-width: 600px !important;
 
-    .new-flashcard__question {
+    &__question {
         width: 100%;
-        margin-bottom: 2rem;
-        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        font-size: 1.4rem !important;
 
         ::placeholder {
             font-size: 1.4rem;
@@ -17,8 +17,8 @@
     }
 
     &__answer {
+        margin-bottom: 0.5rem;
         width: 100%;
-        margin-bottom: 1rem;
         font-size: 1.4rem !important;
 
         ::placeholder {
@@ -29,5 +29,9 @@
 
     &__submit-btn {
         width: 15rem;
+    }
+
+    &__error {
+        color: $color-red;
     }
 }
