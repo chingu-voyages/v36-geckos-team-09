@@ -86,10 +86,6 @@ const ManageCollections = () => {
     const isOpen = Boolean(anchorEl);
     const id = isOpen ? 'simple-popover' : undefined;
 
-    const [newCollectionError, setNewCollectionError] = useState(
-        'This field is required!',
-    );
-
     const {
         register,
         handleSubmit,
@@ -163,7 +159,7 @@ const ManageCollections = () => {
                     </Button>
                 </form>
                 <Typography mb={1} ml={1} className='new-flashcard__error'>
-                    {errors.collectionName && newCollectionError}
+                    {errors.collectionName && 'This field is required!'}
                 </Typography>
             </Popover>
 
