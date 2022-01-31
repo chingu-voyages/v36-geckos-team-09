@@ -54,7 +54,7 @@ export default class FlashcardsDAO {
     }
   }
 
-  //to implement
+  
   static async getFlashcardByID(id) {
     try {
 
@@ -72,10 +72,30 @@ export default class FlashcardsDAO {
     }
   }
 
-  static async addFlashcard(prompt, answers, right_answer) {
+  static async getFlashcardByCollection(collection_name) {
     try {
-      const flashcardDoc = { prompt: prompt,
-          answers: answers,
+
+      return await flashcards.aggregate([
+        {
+            $match: {
+                collection_name: collection_name
+            }
+        }]).toArray()
+       
+
+      
+    } catch (e) {
+      console.error(`Something went wrong in getFlashcardsByCollection: ${e}`)
+      throw e
+    }
+  }
+
+  static async addFlashcard(collection_name, prompt, answers, right_answer) {
+    try {
+      const flashcardDoc = { 
+        collection_name,
+        prompt: prompt,
+        answers: answers,
         right_answer:right_answer }
 
       return await flashcards.insertOne(flashcardDoc)
@@ -99,11 +119,12 @@ export default class FlashcardsDAO {
     }
   }
 
-  static async updateFlashcard(flashcardId, prompt, answers, right_answer) {
+  
+  static async updateFlashcard(flashcardId, collection_name, prompt, answers, right_answer) {
     try {
       const updateResponse = await flashcards.updateOne(
         { _id: ObjectId(flashcardId)},
-        { $set: { prompt: prompt, answers: answers, right_answer: right_answer } },
+        { $set: { collection_name: collection_name, prompt: prompt, answers: answers, right_answer: right_answer } },
       )
 
       return updateResponse
