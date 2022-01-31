@@ -75,16 +75,12 @@ const ManageCollections = () => {
 
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleAddClick = (e) => {
-        setAnchorEl(e.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
     const isOpen = Boolean(anchorEl);
     const id = isOpen ? 'simple-popover' : undefined;
+
+    const handleAddClick = (e) => setAnchorEl(e.currentTarget);
+
+    const handleClose = () => setAnchorEl(null);
 
     const {
         register,

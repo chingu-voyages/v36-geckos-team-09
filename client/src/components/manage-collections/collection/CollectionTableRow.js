@@ -21,7 +21,7 @@ const CollectionTableRow = ({ row, index }) => {
 
     const rowItems = Object.values(row).slice(2);
 
-    const handleClick = () => setIsRowOpen(!isRowOpen);
+    const handleClick = () => setIsRowOpen((prevState) => !prevState);
 
     return (
         <>

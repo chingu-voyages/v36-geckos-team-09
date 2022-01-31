@@ -19,17 +19,23 @@ const NewFlashcard = ({ setFlashCardsCollection, handleClose }) => {
     });
 
     const submitForm = (data) => {
-        const flashcardValues = {
+        const { question, answerA, answerB, answerC, answerD, correctAnswer } =
+            data;
+
+        const newFlashcardValues = {
             id: uuidv4(),
-            question: data.question,
-            answerA: data.answerA,
-            answerB: data.answerB,
-            answerC: data.answerC,
-            answerD: data.answerD,
-            correctAnswer: data.correctAnswer,
+            question,
+            answerA,
+            answerB,
+            answerC,
+            answerD,
+            correctAnswer,
         };
 
-        setFlashCardsCollection((prevState) => [...prevState, flashcardValues]);
+        setFlashCardsCollection((prevState) => [
+            ...prevState,
+            newFlashcardValues,
+        ]);
 
         handleClose();
     };
