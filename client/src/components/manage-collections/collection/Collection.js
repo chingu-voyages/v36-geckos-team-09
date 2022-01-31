@@ -15,14 +15,12 @@ const Collection = () => {
 
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleAddClick = (e) => setAnchorEl(e.currentTarget);
-
-    const handleClose = () => setAnchorEl(null);
-
     const isOpen = Boolean(anchorEl);
     const id = isOpen ? 'simple-popover' : undefined;
 
-    const [flashcardsCollection, setFlashCardsCollection] = useState([]);
+    const handleAddClick = (e) => setAnchorEl(e.currentTarget);
+
+    const handleClose = () => setAnchorEl(null);
 
     return (
         <Box className='collection'>
@@ -79,13 +77,10 @@ const Collection = () => {
                     horizontal: 'left',
                 }}
             >
-                <NewFlashcard
-                    setFlashCardsCollection={setFlashCardsCollection}
-                    handleClose={handleClose}
-                />
+                <NewFlashcard handleClose={handleClose} />
             </Popover>
 
-            <CollectionTable flashcardsCollection={flashcardsCollection} />
+            <CollectionTable />
         </Box>
     );
 };

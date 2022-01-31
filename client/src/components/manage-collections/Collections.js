@@ -12,7 +12,11 @@ import {
 } from '@mui/material';
 import { BsFillCollectionFill } from 'react-icons/bs';
 
-const Collections = ({ collections }) => {
+import { useSelector } from 'react-redux';
+
+const Collections = () => {
+    const collections = useSelector((state) => state.collections.collections);
+
     return (
         <List className='collections'>
             {collections.map((collection) => (
@@ -54,6 +58,4 @@ const Collections = ({ collections }) => {
     );
 };
 
-
 export default Collections;
-

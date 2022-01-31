@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { NEW_FLASHCARD_INPUTS } from '../../../../static';
 
 import '../../../../styles/newFlashcard.scss';
@@ -9,7 +11,14 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { newFlashcardSchema } from '../../../../utils';
 
-const NewFlashcard = ({ setFlashCardsCollection, handleClose }) => {
+import { useDispatch } from 'react-redux';
+import { flashcardsCollectionSlice } from '../../../../redux/slices/flashcardsCollectionSlice';
+
+const NewFlashcard = ({ handleClose }) => {
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+    const dispatch = useDispatch();
+
     const {
         register,
         handleSubmit,
@@ -19,10 +28,12 @@ const NewFlashcard = ({ setFlashCardsCollection, handleClose }) => {
     });
 
     const submitForm = (data) => {
+        setIsButtonDisabled(true);
+
         const { question, answerA, answerB, answerC, answerD, correctAnswer } =
             data;
 
-        const newFlashcardValues = {
+        const newFlashcard = {
             id: uuidv4(),
             question,
             answerA,
@@ -32,10 +43,9 @@ const NewFlashcard = ({ setFlashCardsCollection, handleClose }) => {
             correctAnswer,
         };
 
-        setFlashCardsCollection((prevState) => [
-            ...prevState,
-            newFlashcardValues,
-        ]);
+        dispatch(
+            flashcardsCollectionSlice.actions.addNewFlashcard(newFlashcard),
+        );
 
         handleClose();
     };
@@ -92,6 +102,7 @@ const NewFlashcard = ({ setFlashCardsCollection, handleClose }) => {
                     size='large'
                     color='secondary'
                     type='submit'
+                    disabled={isButtonDisabled}
                 >
                     Add
                 </Button>
