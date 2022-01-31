@@ -2,7 +2,13 @@ import CollectionTableRow from './CollectionTableRow';
 
 import { Table, TableBody, TableContainer, Paper } from '@mui/material';
 
-const CollectionTable = ({ flashcardsCollection }) => {
+import { useSelector } from 'react-redux';
+
+const CollectionTable = () => {
+    const flashcardsCollection = useSelector(
+        (state) => state.flashcardsCollection.flashcardsCollection,
+    );
+
     return (
         <TableContainer className='collection-table' component={Paper}>
             <Table aria-label='collapsible table'>

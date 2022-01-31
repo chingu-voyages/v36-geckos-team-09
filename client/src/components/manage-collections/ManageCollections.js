@@ -19,6 +19,9 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { addNewCollectionSchema } from '../../utils';
 
+import { useDispatch } from 'react-redux';
+import { collectionsSlice } from '../../redux/slices/collectionsSlice';
+
 const ManageCollections = () => {
     const [flashcards, setFlashcards] = useState([]);
     /* const [searchPrompt, setSearchPrompt ] = useState(""); */
@@ -71,20 +74,16 @@ const ManageCollections = () => {
     find(searchName, "name")
   }; */
 
-    const [collections, setCollections] = useState([]);
+    const dispatch = useDispatch();
 
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const handleAddClick = (e) => {
-        setAnchorEl(e.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
     const isOpen = Boolean(anchorEl);
     const id = isOpen ? 'simple-popover' : undefined;
+
+    const handleAddClick = (e) => setAnchorEl(e.currentTarget);
+
+    const handleClose = () => setAnchorEl(null);
 
     const {
         register,
@@ -105,7 +104,7 @@ const ManageCollections = () => {
             date: newCollectionDate,
         };
 
-        setCollections((prevState) => [newCollection, ...prevState]);
+        dispatch(collectionsSlice.actions.addNewCollection(newCollection));
 
         setAnchorEl(null);
 
@@ -163,7 +162,7 @@ const ManageCollections = () => {
                 </Typography>
             </Popover>
 
-            <Collections collections={collections} />
+            <Collections />
 
             <div>
                 <Link to={'/collections/add-flashcard'}>Add Flashcard</Link>
