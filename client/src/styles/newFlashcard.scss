@@ -1,0 +1,37 @@
+@import './abstracts/_config';
+
+.new-flashcard {
+    padding: 2rem;
+    width: 100% !important;
+    max-width: 600px !important;
+
+    &__question {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        font-size: 1.4rem !important;
+
+        ::placeholder {
+            font-size: 1.4rem;
+            color: $color-secondary !important;
+        }
+    }
+
+    &__answer {
+        margin-bottom: 0.5rem;
+        width: 100%;
+        font-size: 1.4rem !important;
+
+        ::placeholder {
+            font-size: 1.4rem;
+            color: $color-secondary !important;
+        }
+    }
+
+    &__submit-btn {
+        width: 15rem;
+    }
+
+    &__error {
+        color: $color-red;
+    }
+}
