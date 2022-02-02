@@ -1,6 +1,6 @@
 @import './_config';
 
-@media (max-width: 480px) {
+@media (max-width: 500px) {
     .navbar {
         &__btn-grp {
             flex-direction: column;
@@ -11,5 +11,19 @@
             border-radius: 0.4rem !important;
             margin-bottom: 1rem !important;
         }
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 300px) {
+    .collection {
+        &__title,
+        &__title-span {
+            font-size: 2rem !important;
+        }
+    }
+
+    .manage-collections__add-btn {
+        font-size: 1rem !important;
     }
 }

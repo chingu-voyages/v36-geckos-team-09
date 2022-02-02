@@ -1,0 +1,28 @@
+@import './abstracts/_config';
+
+.collection {
+    &__back-btn {
+        padding: 0 !important;
+        min-width: unset !important;
+        color: $color-white !important;
+        margin-right: 1rem !important;
+
+        &:hover {
+            color: $color-secondary !important;
+        }
+    }
+
+    &-table {
+        background-color: transparent !important;
+        margin-top: 3rem;
+    }
+
+    &__prefix {
+        color: $color-grey !important;
+    }
+
+    &__question-cell {
+        display: flex !important;
+        justify-content: flex-end;
+    }
+}

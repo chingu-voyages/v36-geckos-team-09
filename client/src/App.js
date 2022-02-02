@@ -11,10 +11,10 @@ import { Box, Container } from '@mui/material';
 import Home from './components/home/Home';
 import Navbar from './components/navbar/Navbar';
 import About from './components/about/About';
-import ManageCollections from './components/collections/ManageCollections';
-import AddFlashcard from './components/collections/AddFlashcard';
-import EditFlashcard from './components/collections/EditFlashcard';
-import CollectionDetails from './components/collections/CollectionDetails';
+import ManageCollections from './components/manage-collections/ManageCollections';
+import AddFlashcard from './components/manage-collections/AddFlashcard';
+import EditFlashcard from './components/manage-collections/EditFlashcard';
+import Collection from './components/manage-collections/collection/Collection';
 
 const App = () => {
     return (
@@ -39,7 +39,7 @@ const App = () => {
                             />
                             <Route
                                 path='/collections/:collectionName'
-                                element={<CollectionDetails />}
+                                element={<Collection />}
                             />
                             <Route
                                 path='/collections/add-flashcard'
@@ -57,6 +57,4 @@ const App = () => {
     );
 };
 
-
 export default App;
-
