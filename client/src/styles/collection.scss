@@ -21,8 +21,13 @@
         color: $color-grey !important;
     }
 
-    &__question-cell {
+    &__question-cell,
+    &__options-cell {
         display: flex !important;
         justify-content: flex-end;
+    }
+
+    &__options-cell {
+        padding-right: 0 !important;
     }
 }

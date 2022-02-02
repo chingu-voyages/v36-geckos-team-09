@@ -1,3 +1,6 @@
+import { MdDelete } from 'react-icons/md';
+import { BiEdit } from 'react-icons/bi';
+
 export const NAVBAR_BUTTONS = [
     { id: 0, text: 'home', link: '/' },
     { id: 1, text: 'play', link: '/play' },
@@ -29,4 +32,9 @@ export const NEW_FLASHCARD_INPUTS = [
         name: 'correctAnswer',
         class: 'answer',
     },
+];
+
+export const FLASHCARD_OPTIONS = [
+    { id: 0, text: 'Edit Flashcard', icon: <BiEdit size='2rem' /> },
+    { id: 1, text: 'Delete Flashcard', icon: <MdDelete size='2rem' /> },
 ];

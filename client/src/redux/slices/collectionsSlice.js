@@ -29,13 +29,22 @@ export const collectionsSlice = createSlice({
                 flashcard,
             ];
         },
+        deleteFlashcard: (state, action) => {
+            const { collectionId, newFlashcards } = action.payload;
+
+            state.collections[`${collectionId}`].flashcards = newFlashcards;
+        },
         setSelectedCollectionId: (state, action) => {
             state.selectedCollectionId = action.payload;
         },
     },
 });
 
-export const { addNewCollection, addNewFlashcard, setSelectedCollectionId } =
-    collectionsSlice.actions;
+export const {
+    addNewCollection,
+    addNewFlashcard,
+    deleteFlashcard,
+    setSelectedCollectionId,
+} = collectionsSlice.actions;
 
 export default collectionsSlice.reducer;
