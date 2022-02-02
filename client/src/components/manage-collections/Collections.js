@@ -12,10 +12,18 @@ import {
 } from '@mui/material';
 import { BsFillCollectionFill } from 'react-icons/bs';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 
 const Collections = () => {
-    const collections = useSelector((state) => state.collections.collections);
+    const collections = Object.values(
+        useSelector((state) => state.collections.collections),
+    );
+
+    const dispatch = useDispatch();
+
+    const handleClick = (id) =>
+        dispatch(collectionsSlice.actions.setSelectedCollectionId(id));
 
     return (
         <List className='collections'>
@@ -23,6 +31,7 @@ const Collections = () => {
                 <Link
                     to={`/collections/${collection.name}`}
                     key={collection.id}
+                    onClick={() => handleClick(collection.id)}
                 >
                     <Button className='collections__btn'>
                         <ListItem className='collections__item'>
