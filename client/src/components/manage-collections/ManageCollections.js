@@ -28,7 +28,7 @@ const ManageCollections = () => {
 
     useEffect(() => {
         retrieveFlashcards();
-    }, [flashcards]);
+    }, []);
 
     /*   const onChangeSearchName = e => {
     const searchName = e.target.value;

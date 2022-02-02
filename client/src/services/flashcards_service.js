@@ -5,6 +5,8 @@ class FlashcardsDataService {
         return http.get(`?page=${page}`);
     }
 
+    
+
     get(id) {
         return http.get(`/id/${id}`);
     }
