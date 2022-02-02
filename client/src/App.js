@@ -42,11 +42,11 @@ const App = () => {
                                 element={<CollectionDetails />}
                             />
                             <Route
-                                path='/manage-collections/add-flashcard'
+                                path='/collections/add-flashcard'
                                 element={<AddFlashcard />}
                             />
                             <Route
-                                path='/manage-collections/edit-flashcard/:id'
+                                path='/collections/edit-flashcard/:id'
                                 element={<EditFlashcard />}
                             />
                         </Switch>
