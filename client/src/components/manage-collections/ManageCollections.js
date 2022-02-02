@@ -95,13 +95,14 @@ const ManageCollections = () => {
     });
 
     const submitForm = (data) => {
-        const newCollectionName = data.collectionName;
-        const newCollectionDate = format(new Date(), 'mediumDate');
+        const id = uuidv4();
+        const name = data.collectionName;
+        const date = format(new Date(), 'mediumDate');
 
         const newCollection = {
-            id: uuidv4(),
-            name: newCollectionName,
-            date: newCollectionDate,
+            id,
+            name,
+            date,
         };
 
         dispatch(collectionsSlice.actions.addNewCollection(newCollection));
