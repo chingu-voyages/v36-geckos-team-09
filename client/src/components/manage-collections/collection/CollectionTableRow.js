@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { ANSWER_PREFIX, FLASHCARD_OPTIONS } from '../../../static';
+import { ANSWER_PREFIX } from '../../../static';
 
 import {
     Box,
@@ -14,6 +14,8 @@ import {
     Tooltip,
 } from '@mui/material';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { MdDelete } from 'react-icons/md';
+import { BiEdit } from 'react-icons/bi';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { collectionsSlice } from '../../../redux/slices/collectionsSlice';
@@ -38,7 +40,7 @@ const CollectionTableRow = ({ row, index }) => {
     const handleDropdownClick = () => setIsRowOpen((prevState) => !prevState);
 
     const handleDeleteClick = () => {
-        const flashcards = collections[`${selectedCollectionId}`].flashcards;
+        const flashcards = collections[selectedCollectionId].flashcards;
 
         const newFlashcards = flashcards.filter(
             (flashcard) => flashcard.id !== rowId,
@@ -137,36 +139,43 @@ const CollectionTableRow = ({ row, index }) => {
                                                     </TableRow>
                                                     <TableRow>
                                                         <TableCell className='collection__options-cell'>
-                                                            {FLASHCARD_OPTIONS.map(
-                                                                (option) => (
-                                                                    <Tooltip
-                                                                        key={
-                                                                            option.id
-                                                                        }
-                                                                        title={
-                                                                            <Typography fontSize='1.1rem'>
-                                                                                {
-                                                                                    option.text
-                                                                                }
-                                                                            </Typography>
-                                                                        }
-                                                                        placement='top-end'
-                                                                        arrow
-                                                                    >
-                                                                        <IconButton
-                                                                            size='small'
-                                                                            color='secondary'
-                                                                            onClick={
-                                                                                handleDeleteClick
-                                                                            }
-                                                                        >
-                                                                            {
-                                                                                option.icon
-                                                                            }
-                                                                        </IconButton>
-                                                                    </Tooltip>
-                                                                ),
-                                                            )}
+                                                            <Tooltip
+                                                                title={
+                                                                    <Typography fontSize='1.1rem'>
+                                                                        Edit
+                                                                        Flashcard
+                                                                    </Typography>
+                                                                }
+                                                                placement='top-end'
+                                                                arrow
+                                                            >
+                                                                <IconButton
+                                                                    className='collection__option'
+                                                                    size='small'
+                                                                >
+                                                                    <BiEdit size='2rem' />
+                                                                </IconButton>
+                                                            </Tooltip>
+                                                            <Tooltip
+                                                                title={
+                                                                    <Typography fontSize='1.1rem'>
+                                                                        Delete
+                                                                        Flashcard
+                                                                    </Typography>
+                                                                }
+                                                                placement='top-end'
+                                                                arrow
+                                                            >
+                                                                <IconButton
+                                                                    className='collection__option'
+                                                                    size='small'
+                                                                    onClick={
+                                                                        handleDeleteClick
+                                                                    }
+                                                                >
+                                                                    <MdDelete size='2rem' />
+                                                                </IconButton>
+                                                            </Tooltip>
                                                         </TableCell>
                                                     </TableRow>
                                                 </React.Fragment>

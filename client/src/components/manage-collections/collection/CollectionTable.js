@@ -11,8 +11,7 @@ const CollectionTable = () => {
         (state) => state.collections.selectedCollectionId,
     );
 
-    const collectionToDisplay =
-        collections[`${selectedCollectionId}`].flashcards;
+    const collectionToDisplay = collections[selectedCollectionId].flashcards;
 
     return (
         <TableContainer className='collection-table' component={Paper}>

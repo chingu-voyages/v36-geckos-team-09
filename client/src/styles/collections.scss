@@ -9,15 +9,21 @@
     display: flex;
     flex-direction: column;
 
+    &__box {
+        &:hover {
+            background-color: $color-white-transparent !important;
+        }
+    }
+
+    &__link {
+        flex: 80%;
+    }
+
     &__btn {
         width: 100% !important;
         color: $color-black !important;
         text-transform: capitalize !important;
         padding-left: 0 !important;
-
-        &:hover {
-            background-color: $color-white-transparent !important;
-        }
     }
 
     &__icon {
@@ -40,5 +46,15 @@
     &__date {
         font-size: 1.2rem !important;
         color: $color-grey;
+    }
+
+    &__option {
+        color: $color-white !important;
+        transition: color 0.3s ease-in-out !important;
+
+        &:hover {
+            color: $color-secondary !important;
+            background-color: transparent !important;
+        }
     }
 }

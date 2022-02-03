@@ -30,4 +30,14 @@
     &__options-cell {
         padding-right: 0 !important;
     }
+
+    &__option {
+        color: $color-secondary !important;
+        transition: color 0.3s ease-in-out !important;
+
+        &:hover {
+            color: $color-white !important;
+            background-color: transparent !important;
+        }
+    }
 }
