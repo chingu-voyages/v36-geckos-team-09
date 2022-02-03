@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import OptionButton from '../option-button/OptionButton';
+
 import { ANSWER_PREFIX } from '../../../static';
 
 import {
@@ -11,7 +13,6 @@ import {
     TableBody,
     TableCell,
     TableRow,
-    Tooltip,
 } from '@mui/material';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { MdDelete } from 'react-icons/md';
@@ -139,43 +140,23 @@ const CollectionTableRow = ({ row, index }) => {
                                                     </TableRow>
                                                     <TableRow>
                                                         <TableCell className='collection__options-cell'>
-                                                            <Tooltip
-                                                                title={
-                                                                    <Typography fontSize='1.1rem'>
-                                                                        Edit
-                                                                        Flashcard
-                                                                    </Typography>
-                                                                }
-                                                                placement='top-end'
-                                                                arrow
-                                                            >
-                                                                <IconButton
-                                                                    className='collection__option'
-                                                                    size='small'
-                                                                >
+                                                            <OptionButton
+                                                                classToApply='collection'
+                                                                text='Edit Flashcard'
+                                                                icon={
                                                                     <BiEdit size='2rem' />
-                                                                </IconButton>
-                                                            </Tooltip>
-                                                            <Tooltip
-                                                                title={
-                                                                    <Typography fontSize='1.1rem'>
-                                                                        Delete
-                                                                        Flashcard
-                                                                    </Typography>
                                                                 }
-                                                                placement='top-end'
-                                                                arrow
-                                                            >
-                                                                <IconButton
-                                                                    className='collection__option'
-                                                                    size='small'
-                                                                    onClick={
-                                                                        handleDeleteClick
-                                                                    }
-                                                                >
+                                                            />
+                                                            <OptionButton
+                                                                classToApply='collection'
+                                                                handleClick={
+                                                                    handleDeleteClick
+                                                                }
+                                                                text='Delete Flashcard'
+                                                                icon={
                                                                     <MdDelete size='2rem' />
-                                                                </IconButton>
-                                                            </Tooltip>
+                                                                }
+                                                            />
                                                         </TableCell>
                                                     </TableRow>
                                                 </React.Fragment>

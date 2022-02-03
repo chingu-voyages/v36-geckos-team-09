@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import OptionButton from './option-button/OptionButton';
+
 import '../../styles/collections.scss';
 import {
     List,
@@ -10,8 +12,6 @@ import {
     Typography,
     Button,
     Box,
-    IconButton,
-    Tooltip,
 } from '@mui/material';
 import { BsFillCollectionFill } from 'react-icons/bs';
 import { MdDelete } from 'react-icons/md';
@@ -36,6 +36,10 @@ const Collections = () => {
         delete newCollections[id];
 
         dispatch(collectionsSlice.actions.deleteCollection(newCollections));
+    };
+
+    const haha = (id) => {
+        console.log(id);
     };
 
     return (
@@ -86,41 +90,17 @@ const Collections = () => {
                         flex='20%'
                         paddingRight={1}
                     >
-                        <Tooltip
-                            title={
-                                <Typography fontSize='1.1rem'>
-                                    Edit Flashcard
-                                </Typography>
-                            }
-                            placement='top-end'
-                            arrow
-                        >
-                            <IconButton
-                                className='collections__option'
-                                size='small'
-                                color='secondary'
-                            >
-                                <BiEdit size='2rem' />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip
-                            title={
-                                <Typography fontSize='1.1rem'>
-                                    Delete Flashcard
-                                </Typography>
-                            }
-                            placement='top-end'
-                            arrow
-                        >
-                            <IconButton
-                                className='collections__option'
-                                size='small'
-                                color='secondary'
-                                onClick={() => handleDeleteClick(collection.id)}
-                            >
-                                <MdDelete size='2rem' />
-                            </IconButton>
-                        </Tooltip>
+                        <OptionButton
+                            classToApply='collections'
+                            text='Edit Flashcard'
+                            icon={<BiEdit size='2rem' />}
+                        />
+                        <OptionButton
+                            classToApply='collections'
+                            handleClick={() => handleDeleteClick(collection.id)}
+                            text='Delete Flashcard'
+                            icon={<MdDelete size='2rem' />}
+                        />
                     </Box>
                 </Box>
             ))}
