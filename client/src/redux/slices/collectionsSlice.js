@@ -12,12 +12,11 @@ export const collectionsSlice = createSlice({
     initialState,
     reducers: {
         addNewCollection: (state, action) => {
-            const { id, name, date } = action.payload;
+            const { id, name } = action.payload;
 
             state.collections[id] = {
                 id,
                 name,
-                date,
                 flashcards: [],
             };
         },

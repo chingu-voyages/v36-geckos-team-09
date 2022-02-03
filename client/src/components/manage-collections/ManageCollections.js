@@ -11,15 +11,13 @@ import { Button, Box, Popover, Input, Typography } from '@mui/material';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 
-import { format } from 'fecha';
-
 import { v4 as uuidv4 } from 'uuid';
 
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { addNewCollectionSchema } from '../../utils';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 
 const ManageCollections = () => {
@@ -74,6 +72,8 @@ const ManageCollections = () => {
     find(searchName, "name")
   }; */
 
+    const collections = useSelector((state) => state.collections.collections);
+
     const dispatch = useDispatch();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -83,7 +83,10 @@ const ManageCollections = () => {
 
     const handleAddClick = (e) => setAnchorEl(e.currentTarget);
 
-    const handleClose = () => setAnchorEl(null);
+    const handleClose = () => {
+        reset();
+        setAnchorEl(null);
+    };
 
     const {
         register,
@@ -97,12 +100,10 @@ const ManageCollections = () => {
     const submitForm = (data) => {
         const id = uuidv4();
         const name = data.collectionName;
-        const date = format(new Date(), 'mediumDate');
 
         const newCollection = {
             id,
             name,
-            date,
         };
 
         dispatch(collectionsSlice.actions.addNewCollection(newCollection));
