@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import OptionButton from '../option-button/OptionButton';
+import OptionButtonDelete from '../option-buttons/OptionButtonDelete';
 
 import { ANSWER_PREFIX } from '../../../static';
 
@@ -15,8 +15,6 @@ import {
     TableRow,
 } from '@mui/material';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import { MdDelete } from 'react-icons/md';
-import { BiEdit } from 'react-icons/bi';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { collectionsSlice } from '../../../redux/slices/collectionsSlice';
@@ -140,22 +138,12 @@ const CollectionTableRow = ({ row, index }) => {
                                                     </TableRow>
                                                     <TableRow>
                                                         <TableCell className='collection__options-cell'>
-                                                            <OptionButton
-                                                                classToApply='collection'
-                                                                text='Edit Flashcard'
-                                                                icon={
-                                                                    <BiEdit size='2rem' />
-                                                                }
-                                                            />
-                                                            <OptionButton
+                                                            <OptionButtonDelete
                                                                 classToApply='collection'
                                                                 handleClick={
                                                                     handleDeleteClick
                                                                 }
-                                                                text='Delete Flashcard'
-                                                                icon={
-                                                                    <MdDelete size='2rem' />
-                                                                }
+                                                                text='Flashcard'
                                                             />
                                                         </TableCell>
                                                     </TableRow>

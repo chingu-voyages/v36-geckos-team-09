@@ -57,4 +57,17 @@
             background-color: transparent !important;
         }
     }
+
+    &__dropdown {
+        padding: 1rem !important;
+
+        &-option {
+            transition: transform 0.2s ease-in-out, color 0.2s ease-in-out !important;
+
+            &:hover {
+                color: $color-secondary;
+                transform: scale(1.3);
+            }
+        }
+    }
 }

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import OptionButton from './option-button/OptionButton';
+import OptionButtonDelete from './option-buttons/OptionButtonDelete';
 
 import '../../styles/collections.scss';
 import {
@@ -12,9 +12,9 @@ import {
     Typography,
     Button,
     Box,
+    IconButton,
 } from '@mui/material';
 import { BsFillCollectionFill } from 'react-icons/bs';
-import { MdDelete } from 'react-icons/md';
 import { BiEdit } from 'react-icons/bi';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -38,7 +38,7 @@ const Collections = () => {
         dispatch(collectionsSlice.actions.deleteCollection(newCollections));
     };
 
-    const haha = (id) => {
+    const handleEditClick = (id) => {
         console.log(id);
     };
 
@@ -90,16 +90,16 @@ const Collections = () => {
                         flex='20%'
                         paddingRight={1}
                     >
-                        <OptionButton
-                            classToApply='collections'
-                            text='Edit Flashcard'
-                            icon={<BiEdit size='2rem' />}
-                        />
-                        <OptionButton
+                        <IconButton
+                            className={`collections__option`}
+                            size='small'
+                        >
+                            <BiEdit size='2rem' />
+                        </IconButton>
+                        <OptionButtonDelete
                             classToApply='collections'
                             handleClick={() => handleDeleteClick(collection.id)}
-                            text='Delete Flashcard'
-                            icon={<MdDelete size='2rem' />}
+                            text='Collection'
                         />
                     </Box>
                 </Box>
