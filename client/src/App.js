@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom';
 
 import './styles/app.scss';
+import './App.css'
 
 import { Box, Container } from '@mui/material';
 
@@ -15,6 +16,7 @@ import ManageCollections from './components/manage-collections/ManageCollections
 import AddFlashcard from './components/manage-collections/AddFlashcard';
 import EditFlashcard from './components/manage-collections/EditFlashcard';
 import Collection from './components/manage-collections/collection/Collection';
+import Play from './components/play/Play';
 
 const App = () => {
     return (
@@ -31,7 +33,7 @@ const App = () => {
                         <Navbar />
                         <Switch>
                             <Route path='/' element={<Home />} />
-                            <Route path='/play' element={<h1>Play</h1>} />
+                            <Route path='/play' element={<Play/>} />
                             <Route path='/about' element={<About />} />
                             <Route
                                 path='/manage-collections'
