@@ -47,18 +47,36 @@ const OptionButton = ({ text, handleClick, classToApply }) => {
             >
                 <Box className='collections__dropdown'>
                     <Box>
-                        <IconButton
-                            className='collections__dropdown-option'
-                            onClick={handleClick}
+                        <Tooltip
+                            title={
+                                <Typography fontSize='1.1rem'>
+                                    Delete {text}
+                                </Typography>
+                            }
+                            placement='top-end'
+                            arrow
                         >
-                            <FaCheck />
-                        </IconButton>
-                        <IconButton
-                            className='collections__dropdown-option'
-                            onClick={handleClose}
+                            <IconButton
+                                className='collections__dropdown-option'
+                                onClick={handleClick}
+                            >
+                                <FaCheck />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip
+                            title={
+                                <Typography fontSize='1.1rem'>Close</Typography>
+                            }
+                            placement='top-end'
+                            arrow
                         >
-                            <AiFillCloseSquare />
-                        </IconButton>
+                            <IconButton
+                                className='collections__dropdown-option'
+                                onClick={handleClose}
+                            >
+                                <AiFillCloseSquare />
+                            </IconButton>
+                        </Tooltip>
                     </Box>
                 </Box>
             </Popover>

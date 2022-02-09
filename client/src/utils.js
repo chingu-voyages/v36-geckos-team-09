@@ -15,3 +15,7 @@ export const newFlashcardSchema = Joi.object({
 export const addNewCollectionSchema = Joi.object({
     collectionName: Joi.string().required(),
 });
+
+export const changeCollectionNameSchema = Joi.object({
+    newCollectionName: Joi.string().required(),
+});

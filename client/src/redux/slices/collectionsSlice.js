@@ -23,6 +23,9 @@ export const collectionsSlice = createSlice({
         deleteCollection: (state, action) => {
             state.collections = action.payload;
         },
+        changeCollectionName: (state, action) => {
+            state.collections = action.payload;
+        },
         addNewFlashcard: (state, action) => {
             const { collectionId, flashcard } = action.payload;
 
@@ -45,6 +48,7 @@ export const collectionsSlice = createSlice({
 export const {
     addNewCollection,
     deleteCollection,
+    changeCollectionName,
     addNewFlashcard,
     deleteFlashcard,
     setSelectedCollectionId,

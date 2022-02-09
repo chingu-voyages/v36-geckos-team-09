@@ -72,8 +72,6 @@ const ManageCollections = () => {
     find(searchName, "name")
   }; */
 
-    const collections = useSelector((state) => state.collections.collections);
-
     const dispatch = useDispatch();
 
     const [anchorEl, setAnchorEl] = useState(null);
