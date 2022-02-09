@@ -19,10 +19,12 @@
 2. `cd client` and run `npm start`
 3. `cd server` and run `npm server`
 4.  add a .env file inside the server folder and replace those values down below
+
+```
 FLASHCARDS_DB_URI= <<your mongoDB URI>>
 FLASHCARDS_NS= <<your mongoDB server name>>
 PORT= <<local port you want to connect to>>
-  
+```
 
 ## Dev Dependencies
   (if i missed something please check the package.json file)
