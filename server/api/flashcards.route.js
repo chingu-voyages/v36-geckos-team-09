@@ -11,6 +11,8 @@ router.route("/")
 
 router.route("/collection/:collection_name")
     .get(FlashcardController.apiGetFlashcardByCollection)
+    .delete(FlashcardController.apiDeleteCollection)
+    .put(FlashcardController.apiUpdateCollection)
 
     
 router.route("/id/:id")

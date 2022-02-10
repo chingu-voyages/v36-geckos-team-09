@@ -90,6 +90,33 @@ export default class FlashcardsDAO {
     }
   }
 
+  static async deleteCollection(collection_name){
+    try {
+      const deleteResponse = await flashcards.deleteMany({
+        collection_name: collection_name
+      })
+
+      return deleteResponse
+    } catch (e) {
+      console.error(`Unable to delete flashcard: ${e}`)
+      return { error: e }
+    }
+  }
+
+  static async updateCollection(old_collection_name, new_collection_name) {
+    try {
+      const updateResponse = await flashcards.updateMany(
+        { collection_name:old_collection_name},
+        { $set: { collection_name: new_collection_name} },
+      )
+
+      return updateResponse
+    } catch (e) {
+      console.error(`Unable to update flashcard: ${e}`)
+      return { error: e }
+    }
+  }
+
   static async addFlashcard(collection_name, prompt, answers, right_answer) {
     try {
       const flashcardDoc = { 
