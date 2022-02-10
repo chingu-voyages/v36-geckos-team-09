@@ -9,15 +9,21 @@
     display: flex;
     flex-direction: column;
 
+    &__box {
+        &:hover {
+            background-color: $color-white-transparent !important;
+        }
+    }
+
+    &__link {
+        flex: 80%;
+    }
+
     &__btn {
         width: 100% !important;
         color: $color-black !important;
         text-transform: capitalize !important;
         padding-left: 0 !important;
-
-        &:hover {
-            background-color: $color-white-transparent !important;
-        }
     }
 
     &__icon {
@@ -40,5 +46,56 @@
     &__date {
         font-size: 1.2rem !important;
         color: $color-grey;
+    }
+
+    &__option {
+        color: $color-white !important;
+        transition: color 0.3s ease-in-out !important;
+
+        &:hover {
+            color: $color-secondary !important;
+            background-color: transparent !important;
+        }
+    }
+
+    &__dropdown {
+        padding: 1rem !important;
+
+        &-option {
+            transition: transform 0.2s ease-in-out, color 0.2s ease-in-out !important;
+            background-color: transparent !important;
+
+            &:hover {
+                color: $color-secondary;
+                transform: scale(1.3);
+            }
+        }
+    }
+
+    &__form {
+        width: 100% !important;
+        padding: 2.5rem 1.5rem;
+        padding-bottom: 1rem;
+    }
+
+    &__input {
+        width: 100%;
+        font-size: 1.4rem !important;
+        color: $color-white !important;
+    }
+
+    &__edit-option {
+        color: $color-white !important;
+        background-color: transparent !important;
+        transition: transform 0.2s ease-in-out, color 0.2s ease-in-out !important;
+
+        &:hover {
+            color: $color-secondary !important;
+            transform: scale(1.3);
+        }
+
+        &:focus {
+            background-color: transparent !important;
+        }
     }
 }

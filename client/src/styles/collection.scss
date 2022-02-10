@@ -21,8 +21,34 @@
         color: $color-grey !important;
     }
 
-    &__question-cell {
+    &__question-cell,
+    &__options-cell {
         display: flex !important;
         justify-content: flex-end;
+    }
+
+    &__options-cell {
+        padding-right: 0 !important;
+    }
+
+    &__option {
+        color: $color-secondary !important;
+        transition: color 0.3s ease-in-out !important;
+
+        &:hover {
+            color: $color-white !important;
+            background-color: transparent !important;
+        }
+    }
+
+    &__edit-flashcard-input {
+        color: $color-white !important;
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem !important;
+        width: 100%;
+
+        &::placeholder {
+            color: $color-white !important;
+        }
     }
 }
