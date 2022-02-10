@@ -72,7 +72,7 @@ export default function Play() {
       setGuessedFlashcards(0)
     }
 
-    //retrieving collection
+    //retrieving collections
     useEffect(() => {
         let mounted = true;
         FlashcardsDataService.getAll().then((response) => {

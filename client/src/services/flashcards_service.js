@@ -13,6 +13,14 @@ class FlashcardsDataService {
         return http.get(`/collection/${collection_name}`);
     }
 
+    deleteCollection(collection_name) {
+        return http.delete(`/collection/${collection_name}`)
+    }
+
+    updateCollection(old_collection_name, new_collection_name){
+        return http.put(`/collection/${old_collection_name}`,new_collection_name)
+    }
+
     find(query, by = 'prompt', page = 0) {
         return http.get(`?${by}=${query}&page=${page}`);
     }

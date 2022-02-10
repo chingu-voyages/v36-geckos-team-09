@@ -60,6 +60,39 @@ export default class FlashcardsController {
     }
   }
 
+  static async apiDeleteCollection(req, res, next) {
+    try {
+      const collection_name = req.params.collection_name
+      console.log(collection_name)
+      const flashcardResponse = await FlashcardsDAO.deleteCollection(collection_name)
+      res.json({ status: "success" })
+    } catch (e) {
+      res.status(500).json({ error: e.message })
+    }
+  }
+
+  static async apiUpdateCollection(req, res, next) {
+    try {
+      const old_collection_name = req.params.collection_name
+      const new_collection_name = req.body.new_collection_name
+      
+
+      const flashcardResponse = await FlashcardsDAO.updateCollection(
+        old_collection_name,
+        new_collection_name
+      )
+
+      var { error } = flashcardResponse
+      if (error) {
+        res.status(400).json({ error })
+      }
+
+      res.json({ status: "success" })
+    } catch (e) {
+      res.status(500).json({ error: e.message })
+    }
+  }
+
   static async apiPostFlashcard(req, res, next) {
     try {
       const collection_name= req.body.collection_name
