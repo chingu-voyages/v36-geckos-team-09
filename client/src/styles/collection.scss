@@ -40,4 +40,15 @@
             background-color: transparent !important;
         }
     }
+
+    &__edit-flashcard-input {
+        color: $color-white !important;
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem !important;
+        width: 100%;
+
+        &::placeholder {
+            color: $color-white !important;
+        }
+    }
 }

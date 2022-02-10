@@ -23,7 +23,7 @@ export const collectionsSlice = createSlice({
         deleteCollection: (state, action) => {
             state.collections = action.payload;
         },
-        changeCollectionName: (state, action) => {
+        editCollectionName: (state, action) => {
             state.collections = action.payload;
         },
         addNewFlashcard: (state, action) => {
@@ -39,6 +39,15 @@ export const collectionsSlice = createSlice({
 
             state.collections[collectionId].flashcards = newFlashcards;
         },
+        editFlashcard: (state, action) => {
+            const { collectionId, index, newFlashcardValues } = action.payload;
+
+            state.collections[collectionId].flashcards = [
+                ...state.collections[collectionId].flashcards.slice(0, index),
+                { ...newFlashcardValues },
+                ...state.collections[collectionId].flashcards.slice(index + 1),
+            ];
+        },
         setSelectedCollectionId: (state, action) => {
             state.selectedCollectionId = action.payload;
         },
@@ -48,7 +57,7 @@ export const collectionsSlice = createSlice({
 export const {
     addNewCollection,
     deleteCollection,
-    changeCollectionName,
+    editCollectionName,
     addNewFlashcard,
     deleteFlashcard,
     setSelectedCollectionId,

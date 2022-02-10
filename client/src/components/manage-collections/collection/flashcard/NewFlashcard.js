@@ -77,7 +77,7 @@ const NewFlashcard = ({ handleClose }) => {
                                 <Typography className='new-flashcard__error'>
                                     {errors[`${input.name}`] &&
                                         'Incorrect input!'}
-                                </Typography>{' '}
+                                </Typography>
                             </Box>
                         );
                     }

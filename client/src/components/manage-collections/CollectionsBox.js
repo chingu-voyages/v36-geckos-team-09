@@ -76,7 +76,7 @@ const CollectionsBox = ({ collection }) => {
             name: newCollectionName,
         };
 
-        dispatch(collectionsSlice.actions.changeCollectionName(newCollections));
+        dispatch(collectionsSlice.actions.editCollectionName(newCollections));
 
         setIsEditable((prevState) => !prevState);
 

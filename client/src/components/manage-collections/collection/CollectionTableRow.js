@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import EditFlashcard from './flashcard/EditFlashcard';
+
 import OptionButtonDelete from '../option-buttons/OptionButtonDelete';
 
 import { ANSWER_PREFIX } from '../../../static';
@@ -13,14 +15,18 @@ import {
     TableBody,
     TableCell,
     TableRow,
+    Tooltip,
 } from '@mui/material';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import { BiEdit } from 'react-icons/bi';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { collectionsSlice } from '../../../redux/slices/collectionsSlice';
 
 const CollectionTableRow = ({ row, index }) => {
     const [isRowOpen, setIsRowOpen] = useState(false);
+
+    const [isEditable, setIsEditable] = useState(false);
 
     const collections = useSelector((state) => state.collections.collections);
 
@@ -53,67 +59,145 @@ const CollectionTableRow = ({ row, index }) => {
         dispatch(collectionsSlice.actions.deleteFlashcard(filtered));
     };
 
+    const handleEditAndCloseClick = () =>
+        setIsEditable((prevState) => !prevState);
+
     return (
         <>
-            <TableRow>
-                <TableCell component='th' scope='row'>
-                    <Typography
-                        className='collection__prefix'
-                        variant='h6'
-                        fontWeight={700}
-                        fontSize='1.3rem'
-                        mr='0.3rem'
-                        display='inline'
-                    >
-                        <Typography
-                            className='collection__prefix'
-                            variant='span'
-                            fontWeight={700}
-                            fontSize='1rem'
-                            mr='1rem'
-                            color='white'
+            {!isEditable && (
+                <>
+                    <TableRow>
+                        <TableCell component='th' scope='row'>
+                            <Typography
+                                className='collection__prefix'
+                                variant='h6'
+                                fontWeight={700}
+                                fontSize='1.3rem'
+                                mr='0.3rem'
+                                display='inline'
+                            >
+                                <Typography
+                                    className='collection__prefix'
+                                    variant='span'
+                                    fontWeight={700}
+                                    fontSize='1rem'
+                                    mr='1rem'
+                                    color='white'
+                                >
+                                    {rowIndex}.
+                                </Typography>
+                                Q:
+                            </Typography>
+                            <Typography
+                                variant='h6'
+                                fontSize='1.2rem'
+                                color='white'
+                                display='inline'
+                            >
+                                {row.question}
+                            </Typography>
+                        </TableCell>
+                        <TableCell className='collection__question-cell'>
+                            <IconButton
+                                aria-label='expand row'
+                                size='small'
+                                onClick={handleDropdownClick}
+                            >
+                                {isRowOpen ? (
+                                    <IoIosArrowUp size='1.5rem' />
+                                ) : (
+                                    <IoIosArrowDown size='1.5rem' />
+                                )}
+                            </IconButton>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell
+                            style={{ paddingBottom: 0, paddingTop: 0 }}
+                            colSpan={6}
                         >
-                            {rowIndex}.
-                        </Typography>
-                        Q:
-                    </Typography>
-                    <Typography
-                        variant='h6'
-                        fontSize='1.2rem'
-                        color='white'
-                        display='inline'
-                    >
-                        {row.question}
-                    </Typography>
-                </TableCell>
-                <TableCell className='collection__question-cell'>
-                    <IconButton
-                        aria-label='expand row'
-                        size='small'
-                        onClick={handleDropdownClick}
-                    >
-                        {isRowOpen ? (
-                            <IoIosArrowUp size='1.5rem' />
-                        ) : (
-                            <IoIosArrowDown size='1.5rem' />
-                        )}
-                    </IconButton>
-                </TableCell>
-            </TableRow>
-            <TableRow>
-                <TableCell
-                    style={{ paddingBottom: 0, paddingTop: 0 }}
-                    colSpan={6}
-                >
-                    <Collapse in={isRowOpen} timeout='auto' unmountOnExit>
-                        <Box margin={1}>
-                            <Table size='small' aria-label='purchases'>
-                                <TableBody>
-                                    {rowItems.map((item, index) => {
-                                        if (index === rowItems.length - 1) {
-                                            return (
-                                                <React.Fragment key={item}>
-                                                    <TableRow>
+                            <Collapse
+                                in={isRowOpen}
+                                timeout='auto'
+                                unmountOnExit
+                            >
+                                <Box margin={1}>
+                                    <Table size='small' aria-label='purchases'>
+                                        <TableBody>
+                                            {rowItems.map((item, index) => {
+                                                if (
+                                                    index ===
+                                                    rowItems.length - 1
+                                                ) {
+                                                    return (
+                                                        <React.Fragment
+                                                            key={item}
+                                                        >
+                                                            <TableRow>
+                                                                <TableCell
+                                                                    component='th'
+                                                                    scope='row'
+                                                                >
+                                                                    <Typography
+                                                                        className='collection__prefix'
+                                                                        variant='p'
+                                                                        fontWeight={
+                                                                            700
+                                                                        }
+                                                                        fontSize='1.2rem'
+                                                                    >
+                                                                        Correct
+                                                                        Answer:
+                                                                    </Typography>{' '}
+                                                                    <Typography
+                                                                        variant='p'
+                                                                        color='secondary'
+                                                                        fontWeight={
+                                                                            700
+                                                                        }
+                                                                        fontSize='1.2rem'
+                                                                    >
+                                                                        {item}
+                                                                    </Typography>
+                                                                </TableCell>
+                                                            </TableRow>
+                                                            <TableRow>
+                                                                <TableCell className='collection__options-cell'>
+                                                                    <Tooltip
+                                                                        title={
+                                                                            <Typography fontSize='1.1rem'>
+                                                                                Edit
+                                                                                Flashcard
+                                                                            </Typography>
+                                                                        }
+                                                                        placement='top-end'
+                                                                        arrow
+                                                                    >
+                                                                        <IconButton
+                                                                            className={`collection__option`}
+                                                                            size='small'
+                                                                            onClick={
+                                                                                handleEditAndCloseClick
+                                                                            }
+                                                                        >
+                                                                            <BiEdit size='2rem' />
+                                                                        </IconButton>
+                                                                    </Tooltip>
+                                                                    <OptionButtonDelete
+                                                                        classToApply='collection'
+                                                                        handleClick={
+                                                                            handleDeleteClick
+                                                                        }
+                                                                        text='Flashcard'
+                                                                    />
+                                                                </TableCell>
+                                                            </TableRow>
+                                                        </React.Fragment>
+                                                    );
+                                                }
+
+                                                return (
+                                                    <TableRow key={item}>
                                                         <TableCell
                                                             component='th'
                                                             scope='row'
@@ -123,66 +207,41 @@ const CollectionTableRow = ({ row, index }) => {
                                                                 variant='p'
                                                                 fontWeight={700}
                                                                 fontSize='1.2rem'
+                                                                mr='0.2rem'
                                                             >
-                                                                Correct Answer:
-                                                            </Typography>{' '}
+                                                                {
+                                                                    ANSWER_PREFIX[
+                                                                        index
+                                                                    ]
+                                                                }
+                                                                :
+                                                            </Typography>
                                                             <Typography
                                                                 variant='p'
-                                                                color='secondary'
-                                                                fontWeight={700}
-                                                                fontSize='1.2rem'
+                                                                fontSize='1.1rem'
+                                                                color='white'
                                                             >
                                                                 {item}
                                                             </Typography>
                                                         </TableCell>
                                                     </TableRow>
-                                                    <TableRow>
-                                                        <TableCell className='collection__options-cell'>
-                                                            <OptionButtonDelete
-                                                                classToApply='collection'
-                                                                handleClick={
-                                                                    handleDeleteClick
-                                                                }
-                                                                text='Flashcard'
-                                                            />
-                                                        </TableCell>
-                                                    </TableRow>
-                                                </React.Fragment>
-                                            );
-                                        }
+                                                );
+                                            })}
+                                        </TableBody>
+                                    </Table>
+                                </Box>
+                            </Collapse>
+                        </TableCell>
+                    </TableRow>
+                </>
+            )}
 
-                                        return (
-                                            <TableRow key={item}>
-                                                <TableCell
-                                                    component='th'
-                                                    scope='row'
-                                                >
-                                                    <Typography
-                                                        className='collection__prefix'
-                                                        variant='p'
-                                                        fontWeight={700}
-                                                        fontSize='1.2rem'
-                                                        mr='0.2rem'
-                                                    >
-                                                        {ANSWER_PREFIX[index]}:
-                                                    </Typography>
-                                                    <Typography
-                                                        variant='p'
-                                                        fontSize='1.1rem'
-                                                        color='white'
-                                                    >
-                                                        {item}
-                                                    </Typography>
-                                                </TableCell>
-                                            </TableRow>
-                                        );
-                                    })}
-                                </TableBody>
-                            </Table>
-                        </Box>
-                    </Collapse>
-                </TableCell>
-            </TableRow>
+            {isEditable && (
+                <EditFlashcard
+                    row={row}
+                    handleEditAndCloseClick={handleEditAndCloseClick}
+                />
+            )}
         </>
     );
 };
