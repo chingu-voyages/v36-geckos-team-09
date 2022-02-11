@@ -30,3 +30,8 @@ export const NEW_FLASHCARD_INPUTS = [
         class: 'answer',
     },
 ];
+
+// The function iterates through array of objects and throws out duplicates based on the passed key
+export const getUniqueListBy = (arr, key) => {
+    return [...new Map(arr.map((item) => [item[key], item])).values()];
+};

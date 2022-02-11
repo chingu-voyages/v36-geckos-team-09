@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+
+import FlashcardsDataService from '../../../services/flashcards_service';
 
 import EditFlashcard from './flashcard/EditFlashcard';
 
@@ -20,44 +22,24 @@ import {
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { BiEdit } from 'react-icons/bi';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { collectionsSlice } from '../../../redux/slices/collectionsSlice';
-
 const CollectionTableRow = ({ row, index }) => {
     const [isRowOpen, setIsRowOpen] = useState(false);
 
     const [isEditable, setIsEditable] = useState(false);
 
-    const collections = useSelector((state) => state.collections.collections);
-
-    const selectedCollectionId = useSelector(
-        (state) => state.collections.selectedCollectionId,
-    );
-
-    const dispatch = useDispatch();
-
     const rowIndex = index + 1;
 
-    const rowItems = Object.values(row).slice(2);
-
-    const rowId = row.id;
+    const {
+        _id: rowId,
+        prompt: rowQuestion,
+        answers: rowAnswers,
+        right_answer: rowCorrectAnswer,
+    } = row;
 
     const handleDropdownClick = () => setIsRowOpen((prevState) => !prevState);
 
-    const handleDeleteClick = () => {
-        const flashcards = collections[selectedCollectionId].flashcards;
-
-        const newFlashcards = flashcards.filter(
-            (flashcard) => flashcard.id !== rowId,
-        );
-
-        const filtered = {
-            collectionId: selectedCollectionId,
-            newFlashcards,
-        };
-
-        dispatch(collectionsSlice.actions.deleteFlashcard(filtered));
-    };
+    const handleDeleteClick = () =>
+        FlashcardsDataService.deleteFlashcard(rowId);
 
     const handleEditAndCloseClick = () =>
         setIsEditable((prevState) => !prevState);
@@ -94,7 +76,7 @@ const CollectionTableRow = ({ row, index }) => {
                                 color='white'
                                 display='inline'
                             >
-                                {row.question}
+                                {rowQuestion}
                             </Typography>
                         </TableCell>
                         <TableCell className='collection__question-cell'>
@@ -124,109 +106,89 @@ const CollectionTableRow = ({ row, index }) => {
                                 <Box margin={1}>
                                     <Table size='small' aria-label='purchases'>
                                         <TableBody>
-                                            {rowItems.map((item, index) => {
-                                                if (
-                                                    index ===
-                                                    rowItems.length - 1
-                                                ) {
-                                                    return (
-                                                        <React.Fragment
-                                                            key={item}
+                                            {rowAnswers.map((item, index) => (
+                                                <TableRow key={item}>
+                                                    <TableCell
+                                                        component='th'
+                                                        scope='row'
+                                                    >
+                                                        <Typography
+                                                            className='collection__prefix'
+                                                            variant='p'
+                                                            fontWeight={700}
+                                                            fontSize='1.2rem'
+                                                            mr='0.2rem'
                                                         >
-                                                            <TableRow>
-                                                                <TableCell
-                                                                    component='th'
-                                                                    scope='row'
-                                                                >
-                                                                    <Typography
-                                                                        className='collection__prefix'
-                                                                        variant='p'
-                                                                        fontWeight={
-                                                                            700
-                                                                        }
-                                                                        fontSize='1.2rem'
-                                                                    >
-                                                                        Correct
-                                                                        Answer:
-                                                                    </Typography>{' '}
-                                                                    <Typography
-                                                                        variant='p'
-                                                                        color='secondary'
-                                                                        fontWeight={
-                                                                            700
-                                                                        }
-                                                                        fontSize='1.2rem'
-                                                                    >
-                                                                        {item}
-                                                                    </Typography>
-                                                                </TableCell>
-                                                            </TableRow>
-                                                            <TableRow>
-                                                                <TableCell className='collection__options-cell'>
-                                                                    <Tooltip
-                                                                        title={
-                                                                            <Typography fontSize='1.1rem'>
-                                                                                Edit
-                                                                                Flashcard
-                                                                            </Typography>
-                                                                        }
-                                                                        placement='top-end'
-                                                                        arrow
-                                                                    >
-                                                                        <IconButton
-                                                                            className={`collection__option`}
-                                                                            size='small'
-                                                                            onClick={
-                                                                                handleEditAndCloseClick
-                                                                            }
-                                                                        >
-                                                                            <BiEdit size='2rem' />
-                                                                        </IconButton>
-                                                                    </Tooltip>
-                                                                    <OptionButtonDelete
-                                                                        classToApply='collection'
-                                                                        handleClick={
-                                                                            handleDeleteClick
-                                                                        }
-                                                                        text='Flashcard'
-                                                                    />
-                                                                </TableCell>
-                                                            </TableRow>
-                                                        </React.Fragment>
-                                                    );
-                                                }
-
-                                                return (
-                                                    <TableRow key={item}>
-                                                        <TableCell
-                                                            component='th'
-                                                            scope='row'
+                                                            {
+                                                                ANSWER_PREFIX[
+                                                                    index
+                                                                ]
+                                                            }
+                                                            :
+                                                        </Typography>
+                                                        <Typography
+                                                            variant='p'
+                                                            fontSize='1.1rem'
+                                                            color='white'
                                                         >
-                                                            <Typography
-                                                                className='collection__prefix'
-                                                                variant='p'
-                                                                fontWeight={700}
-                                                                fontSize='1.2rem'
-                                                                mr='0.2rem'
-                                                            >
-                                                                {
-                                                                    ANSWER_PREFIX[
-                                                                        index
-                                                                    ]
-                                                                }
-                                                                :
+                                                            {item}
+                                                        </Typography>
+                                                    </TableCell>
+                                                </TableRow>
+                                            ))}
+                                            <TableRow>
+                                                <TableCell
+                                                    component='th'
+                                                    scope='row'
+                                                >
+                                                    <Typography
+                                                        className='collection__prefix'
+                                                        variant='p'
+                                                        fontWeight={700}
+                                                        fontSize='1.2rem'
+                                                    >
+                                                        Correct Answer:
+                                                    </Typography>
+                                                    <Typography
+                                                        variant='p'
+                                                        color='secondary'
+                                                        fontWeight={700}
+                                                        fontSize='1.2rem'
+                                                    >
+                                                        {rowCorrectAnswer}
+                                                    </Typography>
+                                                </TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                                <TableCell className='collection__options-cell'>
+                                                    <Tooltip
+                                                        title={
+                                                            <Typography fontSize='1.1rem'>
+                                                                Edit Flashcard
                                                             </Typography>
-                                                            <Typography
-                                                                variant='p'
-                                                                fontSize='1.1rem'
-                                                                color='white'
-                                                            >
-                                                                {item}
-                                                            </Typography>
-                                                        </TableCell>
-                                                    </TableRow>
-                                                );
-                                            })}
+                                                        }
+                                                        placement='top-end'
+                                                        arrow
+                                                    >
+                                                        <IconButton
+                                                            className={`collection__option`}
+                                                            size='small'
+                                                            onClick={
+                                                                handleEditAndCloseClick
+                                                            }
+                                                        >
+                                                            <BiEdit size='2rem' />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                    <OptionButtonDelete
+                                                        classToApply='collection'
+                                                        handleClick={
+                                                            handleDeleteClick
+                                                        }
+                                                        text='Flashcard'
+                                                    />
+                                                </TableCell>
+                                            </TableRow>
                                         </TableBody>
                                     </Table>
                                 </Box>

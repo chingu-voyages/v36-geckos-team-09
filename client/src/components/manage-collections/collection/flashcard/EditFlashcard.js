@@ -1,5 +1,7 @@
 import { NEW_FLASHCARD_INPUTS } from '../../../../static';
 
+import FlashcardsDataService from '../../../../services/flashcards_service';
+
 import '../../../../styles/collection.scss';
 import {
     Box,
@@ -17,17 +19,19 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { editFlashcardSchema } from '../../../../utils';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { collectionsSlice } from '../../../../redux/slices/collectionsSlice';
+import { useSelector } from 'react-redux';
 
 const EditFlashcard = ({ row, handleEditAndCloseClick }) => {
-    const collections = useSelector((state) => state.collections.collections);
+    const {
+        _id,
+        prompt: rowQuestion,
+        answers: rowAnswers,
+        right_answer: rowCorrectAnswer,
+    } = row;
 
-    const selectedCollectionId = useSelector(
-        (state) => state.collections.selectedCollectionId,
+    const selectedCollectionName = useSelector(
+        (state) => state.collections.selectedCollectionName,
     );
-
-    const dispatch = useDispatch();
 
     const {
         register,
@@ -38,36 +42,18 @@ const EditFlashcard = ({ row, handleEditAndCloseClick }) => {
     });
 
     const submitForm = (data) => {
-        const flashcardId = row.id;
+        const { question, answerA, answerB, answerC, answerD, correctAnswer } =
+            data;
 
-        const newCollections = { ...collections };
-
-        const newFlashcardValues = {
-            ...row,
-            question: data.question,
-            answerA: data.answerA,
-            answerB: data.answerB,
-            answerC: data.answerC,
-            answerD: data.answerD,
-            correctAnswer: data.correctAnswer,
+        const editedFlashcard = {
+            _id,
+            collection_name: selectedCollectionName,
+            prompt: question,
+            answers: [answerA, answerB, answerC, answerD],
+            right_answer: correctAnswer,
         };
 
-        const selectedFlashcard = newCollections[
-            selectedCollectionId
-        ].flashcards.find((flashcard) => flashcard.id === flashcardId);
-
-        const index =
-            newCollections[selectedCollectionId].flashcards.indexOf(
-                selectedFlashcard,
-            );
-
-        const newFlashcard = {
-            newFlashcardValues,
-            index,
-            collectionId: selectedCollectionId,
-        };
-
-        dispatch(collectionsSlice.actions.editFlashcard(newFlashcard));
+        FlashcardsDataService.updateFlashcard(editedFlashcard);
 
         handleEditAndCloseClick();
     };
@@ -83,6 +69,25 @@ const EditFlashcard = ({ row, handleEditAndCloseClick }) => {
                 >
                     <Box maxWidth='500px'>
                         {NEW_FLASHCARD_INPUTS.map((input) => {
+                            if (input.id === 0) {
+                                return (
+                                    <Box key={input.id}>
+                                        <Input
+                                            className='collection__edit-flashcard-input'
+                                            type='text'
+                                            placeholder={input.placeholder}
+                                            defaultValue={rowQuestion}
+                                            name={input.name}
+                                            {...register(`${input.name}`)}
+                                        />
+                                        <Typography className='new-flashcard__error'>
+                                            {errors[`${input.name}`] &&
+                                                'This field is required!'}
+                                        </Typography>
+                                    </Box>
+                                );
+                            }
+
                             if (input.id === 5) {
                                 return (
                                     <Box key={input.id}>
@@ -90,7 +95,7 @@ const EditFlashcard = ({ row, handleEditAndCloseClick }) => {
                                             className='collection__edit-flashcard-input'
                                             type='text'
                                             placeholder={input.placeholder}
-                                            defaultValue={row[input.name]}
+                                            defaultValue={rowCorrectAnswer}
                                             name={input.name}
                                             {...register(`${input.name}`)}
                                         />
@@ -108,7 +113,7 @@ const EditFlashcard = ({ row, handleEditAndCloseClick }) => {
                                         className='collection__edit-flashcard-input'
                                         type='text'
                                         placeholder={input.placeholder}
-                                        defaultValue={row[input.name]}
+                                        defaultValue={rowAnswers[input.id - 1]}
                                         name={input.name}
                                         {...register(`${input.name}`)}
                                     />

@@ -2,26 +2,37 @@ import { useState } from 'react';
 
 import { NEW_FLASHCARD_INPUTS } from '../../../../static';
 
+import FlashcardsDataService from '../../../../services/flashcards_service';
+
 import '../../../../styles/newFlashcard.scss';
 import { Input, Button, Box, Typography } from '@mui/material';
-
-import { v4 as uuidv4 } from 'uuid';
 
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { newFlashcardSchema } from '../../../../utils';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { collectionsSlice } from '../../../../redux/slices/collectionsSlice';
+import { useSelector } from 'react-redux';
 
 const NewFlashcard = ({ handleClose }) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-    const selectedCollectionId = useSelector(
-        (state) => state.collections.selectedCollectionId,
+    const selectedCollectionName = useSelector(
+        (state) => state.collections.selectedCollectionName,
     );
 
-    const dispatch = useDispatch();
+    const addNewFlashcard = (data) => {
+        const { question, answerA, answerB, answerC, answerD, correctAnswer } =
+            data;
+
+        const flashcard = {
+            collection_name: selectedCollectionName,
+            prompt: question,
+            answers: [answerA, answerB, answerC, answerD],
+            right_answer: correctAnswer,
+        };
+
+        FlashcardsDataService.createFlashcard(flashcard);
+    };
 
     const {
         register,
@@ -34,23 +45,7 @@ const NewFlashcard = ({ handleClose }) => {
     const submitForm = (data) => {
         setIsButtonDisabled(true);
 
-        const { question, answerA, answerB, answerC, answerD, correctAnswer } =
-            data;
-
-        const newFlashcard = {
-            collectionId: selectedCollectionId,
-            flashcard: {
-                id: uuidv4(),
-                question,
-                answerA,
-                answerB,
-                answerC,
-                answerD,
-                correctAnswer,
-            },
-        };
-
-        dispatch(collectionsSlice.actions.addNewFlashcard(newFlashcard));
+        addNewFlashcard(data);
 
         handleClose();
     };

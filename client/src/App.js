@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 
 import './styles/app.scss';
-import './App.css'
+import './App.css';
 
 import { Box, Container } from '@mui/material';
 
@@ -13,8 +13,6 @@ import Home from './components/home/Home';
 import Navbar from './components/navbar/Navbar';
 import About from './components/about/About';
 import ManageCollections from './components/manage-collections/ManageCollections';
-import AddFlashcard from './components/manage-collections/AddFlashcard';
-import EditFlashcard from './components/manage-collections/EditFlashcard';
 import Collection from './components/manage-collections/collection/Collection';
 import Play from './components/play/Play';
 
@@ -33,7 +31,7 @@ const App = () => {
                         <Navbar />
                         <Switch>
                             <Route path='/' element={<Home />} />
-                            <Route path='/play' element={<Play/>} />
+                            <Route path='/play' element={<Play />} />
                             <Route path='/about' element={<About />} />
                             <Route
                                 path='/manage-collections'
@@ -42,14 +40,6 @@ const App = () => {
                             <Route
                                 path='/collections/:collectionName'
                                 element={<Collection />}
-                            />
-                            <Route
-                                path='/collections/add-flashcard'
-                                element={<AddFlashcard />}
-                            />
-                            <Route
-                                path='/collections/edit-flashcard/:id'
-                                element={<EditFlashcard />}
                             />
                         </Switch>
                     </Container>
