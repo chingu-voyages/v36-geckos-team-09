@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react';
-
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 import FlashcardsDataService from '../../services/flashcards_service';
 
@@ -17,61 +15,10 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { addNewCollectionSchema } from '../../utils';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 
 const ManageCollections = () => {
-    const [flashcards, setFlashcards] = useState([]);
-    /* const [searchPrompt, setSearchPrompt ] = useState(""); */
-
-    useEffect(() => {
-        retrieveFlashcards();
-    }, []);
-
-    /*   const onChangeSearchName = e => {
-    const searchName = e.target.value;
-    setSearchName(searchName);
-  };
- */
-
-    const retrieveFlashcards = () => {
-        FlashcardsDataService.getAll()
-            .then((response) => {
-                //console.log(response.data);
-                setFlashcards(response.data.flashcards);
-            })
-            .catch((e) => {
-                console.log(e);
-            });
-    };
-
-    /*   const refreshList = () => {
-    retrieveFlashcards();
-  }; */
-
-    const find = (query, by) => {
-        FlashcardsDataService.find(query, by)
-            .then((response) => {
-                console.log(response.data);
-                setFlashcards(response.data.flashcards);
-            })
-            .catch((e) => {
-                console.log(e);
-            });
-    };
-
-    const deleteFlashcard = (flashcardId, index) => {
-        FlashcardsDataService.deleteFlashcard(flashcardId)
-            .then((response) => {})
-            .catch((e) => {
-                console.log(e);
-            });
-    };
-
-    /*   const findByName = () => {
-    find(searchName, "name")
-  }; */
-
     const dispatch = useDispatch();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -81,7 +28,7 @@ const ManageCollections = () => {
 
     const handleAddClick = (e) => setAnchorEl(e.currentTarget);
 
-    const handleClose = () => {
+    const handleCloseClick = () => {
         reset();
         setAnchorEl(null);
     };
@@ -128,7 +75,7 @@ const ManageCollections = () => {
                 id={id}
                 open={isOpen}
                 anchorEl={anchorEl}
-                onClose={handleClose}
+                onClose={handleCloseClick}
                 anchorOrigin={{
                     vertical: 'bottom',
                     horizontal: 'left',
@@ -163,56 +110,6 @@ const ManageCollections = () => {
             </Popover>
 
             <Collections />
-
-            <div>
-                <Link to={'/collections/add-flashcard'}>Add Flashcard</Link>
-
-                <br></br>
-                <br></br>
-
-                {flashcards.map((flashcard, index) => {
-                    return (
-                        <div key={flashcard._id}>
-                            <div className='flashcard'>
-                                <div className='flashcard-body'>
-                                    <h2 className='flashcard-prompt'>
-                                        {flashcard.prompt}
-                                    </h2>
-                                    <p className='flashcard-text'>
-                                        <strong>1: </strong>
-                                        {flashcard.answers[0]}
-                                        <br />
-                                        <strong>2: </strong>
-                                        {flashcard.answers[1]}
-                                        <br />
-                                        <strong>3: </strong>
-                                        {flashcard.answers[2]}
-                                        <br />
-                                        <strong>4: </strong>
-                                        {flashcard.answers[3]}
-                                        <br />
-                                        <strong>Right Answer: </strong>
-                                        {flashcard.right_answer}
-                                        <br /> {/* for testing purposes */}
-                                    </p>
-                                </div>
-                                <Link
-                                    to={`/collections/edit-flashcard/${flashcard._id}`}
-                                >
-                                    Edit Flashcard
-                                </Link>
-                                <button
-                                    onClick={() =>
-                                        deleteFlashcard(flashcard._id, index)
-                                    }
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                        </div>
-                    );
-                })}
-            </div>
         </Box>
     );
 };

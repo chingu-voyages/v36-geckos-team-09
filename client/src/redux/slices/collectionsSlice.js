@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     collections: {},
     selectedCollectionId: null,
+    selectedCollectionName: null,
 };
 
 const name = 'collections';
@@ -51,6 +52,9 @@ export const collectionsSlice = createSlice({
         setSelectedCollectionId: (state, action) => {
             state.selectedCollectionId = action.payload;
         },
+        setSelectedCollectionName: (state, action) => {
+            state.selectedCollectionName = action.payload;
+        },
     },
 });
 
@@ -61,6 +65,7 @@ export const {
     addNewFlashcard,
     deleteFlashcard,
     setSelectedCollectionId,
+    setSelectedCollectionName,
 } = collectionsSlice.actions;
 
 export default collectionsSlice.reducer;

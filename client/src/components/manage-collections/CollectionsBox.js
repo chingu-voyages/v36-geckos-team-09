@@ -30,14 +30,18 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { changeCollectionNameSchema } from '../../utils';
 
 const CollectionsBox = ({ collection }) => {
+    const { _id: collectionId, collection_name: collectionName } = collection;
+
     const collections = useSelector((state) => state.collections.collections);
 
     const [isEditable, setIsEditable] = useState(false);
 
     const dispatch = useDispatch();
 
-    const handleCollectionBoxClick = (id) =>
+    const handleCollectionBoxClick = (id, name) => {
         dispatch(collectionsSlice.actions.setSelectedCollectionId(id));
+        dispatch(collectionsSlice.actions.setSelectedCollectionName(name));
+    };
 
     const handleDeleteClick = (id) => {
         const newCollections = { ...collections };
@@ -65,8 +69,6 @@ const CollectionsBox = ({ collection }) => {
     });
 
     const submitForm = (data) => {
-        const collectionId = collection.id;
-
         const newCollections = { ...collections };
 
         const newCollectionName = data.newCollectionName;
@@ -88,8 +90,10 @@ const CollectionsBox = ({ collection }) => {
             {!isEditable && (
                 <Link
                     className='collections__link'
-                    to={`/collections/${collection.name}`}
-                    onClick={() => handleCollectionBoxClick(collection.id)}
+                    to={`/collections/${collectionName.replace(/\s+/g, '')}`}
+                    onClick={() =>
+                        handleCollectionBoxClick(collectionId, collectionName)
+                    }
                 >
                     <Button className='collections__btn'>
                         <ListItem className='collections__item'>
@@ -105,15 +109,7 @@ const CollectionsBox = ({ collection }) => {
                                 disableTypography
                                 primary={
                                     <Typography className='collections__name'>
-                                        {collection.name}
-                                    </Typography>
-                                }
-                                secondary={
-                                    <Typography
-                                        className='collections__date'
-                                        fontWeight={500}
-                                    >
-                                        {collection.date}
+                                        {collectionName}
                                     </Typography>
                                 }
                             />
@@ -173,7 +169,7 @@ const CollectionsBox = ({ collection }) => {
 
                         <OptionButtonDelete
                             classToApply='collections'
-                            handleClick={() => handleDeleteClick(collection.id)}
+                            handleClick={() => handleDeleteClick(collectionId)}
                             text='Collection'
                         />
                     </>
