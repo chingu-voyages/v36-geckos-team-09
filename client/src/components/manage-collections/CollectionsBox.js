@@ -22,7 +22,7 @@ import { BiEdit } from 'react-icons/bi';
 import { FaCheck } from 'react-icons/fa';
 import { AiFillCloseSquare } from 'react-icons/ai';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 
 import { useForm } from 'react-hook-form';
@@ -32,22 +32,19 @@ import { changeCollectionNameSchema } from '../../utils';
 const CollectionsBox = ({ collection }) => {
     const { _id: collectionId, collection_name: collectionName } = collection;
 
-    const collections = useSelector((state) => state.collections.collections);
-
     const [isEditable, setIsEditable] = useState(false);
 
     const dispatch = useDispatch();
 
-    const handleCollectionBoxClick = (id, name) => {
+    const handleCollectionBoxClick = (name) =>
         dispatch(collectionsSlice.actions.setSelectedCollectionName(name));
-    };
 
     const handleDeleteClick = (id) => {
-        const newCollections = { ...collections };
+        /*  const newCollections = { ...collections };
 
         delete newCollections[id];
 
-        dispatch(collectionsSlice.actions.deleteCollection(newCollections));
+        dispatch(collectionsSlice.actions.deleteCollection(newCollections)); */
     };
 
     const handleEditClick = () => setIsEditable((prevState) => !prevState);
@@ -68,7 +65,7 @@ const CollectionsBox = ({ collection }) => {
     });
 
     const submitForm = (data) => {
-        const newCollections = { ...collections };
+        /* const newCollections = { ...collections };
 
         const newCollectionName = data.newCollectionName;
 
@@ -81,7 +78,7 @@ const CollectionsBox = ({ collection }) => {
 
         setIsEditable((prevState) => !prevState);
 
-        reset();
+        reset(); */
     };
 
     return (
@@ -89,12 +86,8 @@ const CollectionsBox = ({ collection }) => {
             {!isEditable && (
                 <Link
                     className='collections__link'
-                    to={`/collections/${
-                        collectionName /* .replace(/\s+/g, '') */
-                    }`}
-                    onClick={() =>
-                        handleCollectionBoxClick(collectionId, collectionName)
-                    }
+                    to={`/collections/${collectionName.replace(/\s+/g, '')}`}
+                    onClick={() => handleCollectionBoxClick(collectionName)}
                 >
                     <Button className='collections__btn'>
                         <ListItem className='collections__item'>
