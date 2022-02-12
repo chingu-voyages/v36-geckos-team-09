@@ -11,7 +11,8 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { newFlashcardSchema } from '../../../../utils';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { collectionsSlice } from '../../../../redux/slices/collectionsSlice';
 
 const NewFlashcard = ({ handleClose }) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -19,6 +20,8 @@ const NewFlashcard = ({ handleClose }) => {
     const selectedCollectionName = useSelector(
         (state) => state.collections.selectedCollectionName,
     );
+
+    const dispatch = useDispatch();
 
     const addNewFlashcard = (data) => {
         const { question, answerA, answerB, answerC, answerD, correctAnswer } =
@@ -46,6 +49,8 @@ const NewFlashcard = ({ handleClose }) => {
         setIsButtonDisabled(true);
 
         addNewFlashcard(data);
+
+        dispatch(collectionsSlice.actions.resetStateCollections());
 
         handleClose();
     };

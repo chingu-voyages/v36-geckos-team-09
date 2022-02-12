@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import FlashcardsDataService from '../../services/flashcards_service';
-
 import Collections from './Collections';
 
 import '../../styles/manageCollections.scss';
@@ -47,11 +45,11 @@ const ManageCollections = () => {
         const name = data.collectionName;
 
         const newCollection = {
-            id,
-            name,
+            _id: id,
+            collection_name: name,
         };
 
-        dispatch(collectionsSlice.actions.addNewCollection(newCollection));
+        dispatch(collectionsSlice.actions.addStateCollection(newCollection));
 
         setAnchorEl(null);
 
