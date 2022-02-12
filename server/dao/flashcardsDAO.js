@@ -98,7 +98,7 @@ export default class FlashcardsDAO {
 
       return deleteResponse
     } catch (e) {
-      console.error(`Unable to delete flashcard: ${e}`)
+      console.error(`Unable to delete collection: ${e}`)
       return { error: e }
     }
   }
@@ -112,7 +112,22 @@ export default class FlashcardsDAO {
 
       return updateResponse
     } catch (e) {
-      console.error(`Unable to update flashcard: ${e}`)
+      console.error(`Unable to update collection: ${e}`)
+      return { error: e }
+    }
+  }
+
+  static async createCollection(collection_name) {
+    try {
+      const flashcardDoc = { 
+        collection_name:collection_name,
+        prompt: 'Sample Flashcard',
+        answers: [],
+        right_answer:null }
+
+      return await flashcards.insertOne(flashcardDoc)
+    } catch (e) {
+      console.error(`Unable to post collection: ${e}`)
       return { error: e }
     }
   }

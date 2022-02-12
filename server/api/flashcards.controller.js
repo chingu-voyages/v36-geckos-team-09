@@ -73,7 +73,7 @@ export default class FlashcardsController {
 
   static async apiUpdateCollection(req, res, next) {
     try {
-      const old_collection_name = req.params.collection_name
+      const old_collection_name = req.body.old_collection_name
       const new_collection_name = req.body.new_collection_name
       
 
@@ -87,6 +87,18 @@ export default class FlashcardsController {
         res.status(400).json({ error })
       }
 
+      res.json({ status: "success" })
+    } catch (e) {
+      res.status(500).json({ error: e.message })
+    }
+  }
+
+
+  static async apiPostCollection(req, res, next) {
+    try {
+      const collection_name= req.body.collection_name
+
+      const FlashcardResponse = await FlashcardsDAO.createCollection(collection_name)
       res.json({ status: "success" })
     } catch (e) {
       res.status(500).json({ error: e.message })

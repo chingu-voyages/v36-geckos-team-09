@@ -9,10 +9,16 @@ router.route("/")
     .post(FlashcardController.apiPostFlashcard)
     .put(FlashcardController.apiUpdateFlashcard)
 
+router.route("/collection/")
+    .put(FlashcardController.apiUpdateCollection)
+    .post(FlashcardController.apiPostCollection)
+
 router.route("/collection/:collection_name")
     .get(FlashcardController.apiGetFlashcardByCollection)
     .delete(FlashcardController.apiDeleteCollection)
     .put(FlashcardController.apiUpdateCollection)
+
+
 
     
 router.route("/id/:id")
