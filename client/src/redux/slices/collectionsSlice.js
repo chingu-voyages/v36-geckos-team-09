@@ -4,6 +4,7 @@ const initialState = {
     collections: {},
     selectedCollectionId: null,
     selectedCollectionName: null,
+    stateCollections: [],
 };
 
 const name = 'collections';
@@ -55,6 +56,12 @@ export const collectionsSlice = createSlice({
         setSelectedCollectionName: (state, action) => {
             state.selectedCollectionName = action.payload;
         },
+        addStateCollection: (state, action) => {
+            state.stateCollections = [action.payload];
+        },
+        resetStateCollections: (state) => {
+            state.stateCollections = [];
+        },
     },
 });
 
@@ -66,6 +73,8 @@ export const {
     deleteFlashcard,
     setSelectedCollectionId,
     setSelectedCollectionName,
+    addStateCollection,
+    resetStateCollections,
 } = collectionsSlice.actions;
 
 export default collectionsSlice.reducer;

@@ -39,7 +39,6 @@ const CollectionsBox = ({ collection }) => {
     const dispatch = useDispatch();
 
     const handleCollectionBoxClick = (id, name) => {
-        dispatch(collectionsSlice.actions.setSelectedCollectionId(id));
         dispatch(collectionsSlice.actions.setSelectedCollectionName(name));
     };
 
@@ -90,7 +89,9 @@ const CollectionsBox = ({ collection }) => {
             {!isEditable && (
                 <Link
                     className='collections__link'
-                    to={`/collections/${collectionName.replace(/\s+/g, '')}`}
+                    to={`/collections/${
+                        collectionName /* .replace(/\s+/g, '') */
+                    }`}
                     onClick={() =>
                         handleCollectionBoxClick(collectionId, collectionName)
                     }
