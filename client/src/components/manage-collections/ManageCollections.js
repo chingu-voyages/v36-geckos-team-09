@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { addNewCollectionSchema } from '../../utils';
+import TestCollection from './tests/TestCollection'
 
 import { useDispatch } from 'react-redux';
 import { collectionsSlice } from '../../redux/slices/collectionsSlice';
@@ -108,6 +109,7 @@ const ManageCollections = () => {
             </Popover>
 
             <Collections />
+            <TestCollection />
         </Box>
     );
 };

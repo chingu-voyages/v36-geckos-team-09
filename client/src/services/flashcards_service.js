@@ -17,11 +17,15 @@ class FlashcardsDataService {
         return http.delete(`/collection/${collection_name}`);
     }
 
-    updateCollection(old_collection_name, new_collection_name) {
+    updateCollection(data) {
         return http.put(
-            `/collection/${old_collection_name}`,
-            new_collection_name,
+            `/collection/`,
+            data,
         );
+    }
+
+    createCollection(data){
+        return http.post(`/collection/`, data);
     }
 
     find(query, by = 'prompt', page = 0) {
