@@ -62,20 +62,18 @@ const CollectionsBox = ({ collection }) => {
     });
 
     const submitForm = (data) => {
-        /* const newCollections = { ...collections };
-
         const newCollectionName = data.newCollectionName;
 
-        newCollections[collectionId] = {
-            ...newCollections[collectionId],
-            name: newCollectionName,
+        const editedCollection = {
+            old_collection_name: collectionName,
+            new_collection_name: newCollectionName,
         };
 
-        dispatch(collectionsSlice.actions.editCollectionName(newCollections));
+        FlashcardsDataService.updateCollection(editedCollection);
 
         setIsEditable((prevState) => !prevState);
 
-        reset(); */
+        reset();
     };
 
     return (
