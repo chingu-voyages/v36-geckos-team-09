@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 import FlashcardsDataService from '../../services/flashcards_service';
 
+import { getCollectionNames } from '../../utils';
+
 import OptionButtonDelete from './option-buttons/OptionButtonDelete';
 
 import '../../styles/collections.scss';
@@ -29,12 +31,15 @@ import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { changeCollectionNameSchema } from '../../utils';
+import { changeCollectionNameSchema } from '../../joiSchemas';
 
 const CollectionsBox = ({ collection }) => {
     const { collection_name: collectionName } = collection;
 
     const [isEditable, setIsEditable] = useState(false);
+
+    const [duplicateCollectionNameError, setDuplicateCollectionNameError] =
+        useState(false);
 
     const dispatch = useDispatch();
 
@@ -61,13 +66,25 @@ const CollectionsBox = ({ collection }) => {
         resolver: joiResolver(changeCollectionNameSchema),
     });
 
-    const submitForm = (data) => {
+    const submitForm = async (data) => {
         const newCollectionName = data.newCollectionName;
 
         const editedCollection = {
             old_collection_name: collectionName,
             new_collection_name: newCollectionName,
         };
+
+        const existingCollectionNames = await getCollectionNames();
+
+        if (existingCollectionNames.indexOf(newCollectionName) !== -1) {
+            setDuplicateCollectionNameError(true);
+
+            setTimeout(() => {
+                setDuplicateCollectionNameError(false);
+            }, 1500);
+
+            return;
+        }
 
         FlashcardsDataService.updateCollection(editedCollection);
 
@@ -131,6 +148,19 @@ const CollectionsBox = ({ collection }) => {
                         fontSize='1.1rem'
                     >
                         {errors.newCollectionName?.message}
+                    </Typography>
+                    <Typography
+                        className={
+                            duplicateCollectionNameError
+                                ? 'manage-collections__error manage-collections__fade-in'
+                                : 'manage-collections__error'
+                        }
+                        mb={1}
+                        ml='1rem'
+                        fontSize='1.1rem'
+                    >
+                        {duplicateCollectionNameError &&
+                            'Collection name already exist!'}
                     </Typography>
                 </Box>
             )}

@@ -9,7 +9,7 @@ import { Input, Button, Box, Typography } from '@mui/material';
 
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { newFlashcardSchema } from '../../../../utils';
+import { newFlashcardSchema } from '../../../../joiSchemas';
 
 import { useSelector } from 'react-redux';
 

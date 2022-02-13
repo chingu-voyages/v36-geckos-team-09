@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import FlashcardsDataService from '../../services/flashcards_service';
 
+import { getCollectionNames } from '../../utils';
+
 import Collections from './Collections';
 
 import '../../styles/manageCollections.scss';
@@ -11,7 +13,7 @@ import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { addNewCollectionSchema } from '../../utils';
+import { addNewCollectionSchema } from '../../joiSchemas';
 
 import TestCollection from './tests/TestCollection';
 
@@ -47,18 +49,7 @@ const ManageCollections = () => {
             collection_name: collectionName,
         };
 
-        const res = await FlashcardsDataService.getAll();
-
-        const collections = res.data.flashcards;
-
-        const existingCollectionNames = collections.reduce(
-            (collectionNames, collection) => {
-                if (!collectionNames.includes(collection.collection_name))
-                    collectionNames.push(collection.collection_name);
-                return collectionNames;
-            },
-            [],
-        );
+        const existingCollectionNames = await getCollectionNames();
 
         if (existingCollectionNames.indexOf(collectionName) !== -1) {
             setDuplicateCollectionNameError(true);
@@ -142,7 +133,7 @@ const ManageCollections = () => {
                     fontSize='1.1rem'
                 >
                     {duplicateCollectionNameError &&
-                        'Collection already exist!'}
+                        'Collection name already exist!'}
                 </Typography>
             </Popover>
 
