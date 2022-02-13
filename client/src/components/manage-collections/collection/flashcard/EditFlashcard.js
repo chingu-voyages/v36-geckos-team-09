@@ -17,7 +17,7 @@ import { AiFillCloseSquare } from 'react-icons/ai';
 
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { editFlashcardSchema } from '../../../../utils';
+import { editFlashcardSchema } from '../../../../joiSchemas';
 
 import { useSelector } from 'react-redux';
 
