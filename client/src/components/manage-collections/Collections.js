@@ -9,14 +9,8 @@ import FlashcardsDataService from '../../services/flashcards_service';
 import '../../styles/collections.scss';
 import { List } from '@mui/material';
 
-import { useSelector } from 'react-redux';
-
 const Collections = () => {
     const [collectionsToDisplay, setCollectionsToDisplay] = useState([]);
-
-    const stateCollections = useSelector(
-        (state) => state.collections.stateCollections,
-    );
 
     useEffect(() => {
         let isMounted = true;
@@ -31,11 +25,7 @@ const Collections = () => {
                 'collection_name',
             );
 
-            if (isMounted)
-                setCollectionsToDisplay([
-                    ...dataWithoutDuplicates,
-                    ...stateCollections,
-                ]);
+            if (isMounted) setCollectionsToDisplay([...dataWithoutDuplicates]);
         };
 
         getCollections();

@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
+import FlashcardsDataService from '../../services/flashcards_service';
+
 import OptionButtonDelete from './option-buttons/OptionButtonDelete';
 
 import '../../styles/collections.scss';
@@ -30,22 +32,17 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { changeCollectionNameSchema } from '../../utils';
 
 const CollectionsBox = ({ collection }) => {
-    const { _id: collectionId, collection_name: collectionName } = collection;
+    const { collection_name: collectionName } = collection;
 
     const [isEditable, setIsEditable] = useState(false);
 
     const dispatch = useDispatch();
 
-    const handleCollectionBoxClick = (name) =>
+    const handleCollectionsBoxClick = (name) =>
         dispatch(collectionsSlice.actions.setSelectedCollectionName(name));
 
-    const handleDeleteClick = (id) => {
-        /*  const newCollections = { ...collections };
-
-        delete newCollections[id];
-
-        dispatch(collectionsSlice.actions.deleteCollection(newCollections)); */
-    };
+    const handleDeleteClick = (collectionName) =>
+        FlashcardsDataService.deleteCollection(collectionName);
 
     const handleEditClick = () => setIsEditable((prevState) => !prevState);
 
@@ -65,20 +62,18 @@ const CollectionsBox = ({ collection }) => {
     });
 
     const submitForm = (data) => {
-        /* const newCollections = { ...collections };
-
         const newCollectionName = data.newCollectionName;
 
-        newCollections[collectionId] = {
-            ...newCollections[collectionId],
-            name: newCollectionName,
+        const editedCollection = {
+            old_collection_name: collectionName,
+            new_collection_name: newCollectionName,
         };
 
-        dispatch(collectionsSlice.actions.editCollectionName(newCollections));
+        FlashcardsDataService.updateCollection(editedCollection);
 
         setIsEditable((prevState) => !prevState);
 
-        reset(); */
+        reset();
     };
 
     return (
@@ -87,7 +82,7 @@ const CollectionsBox = ({ collection }) => {
                 <Link
                     className='collections__link'
                     to={`/collections/${collectionName.replace(/\s+/g, '')}`}
-                    onClick={() => handleCollectionBoxClick(collectionName)}
+                    onClick={() => handleCollectionsBoxClick(collectionName)}
                 >
                     <Button className='collections__btn'>
                         <ListItem className='collections__item'>
@@ -163,7 +158,9 @@ const CollectionsBox = ({ collection }) => {
 
                         <OptionButtonDelete
                             classToApply='collections'
-                            handleClick={() => handleDeleteClick(collectionId)}
+                            handleClick={() =>
+                                handleDeleteClick(collectionName)
+                            }
                             text='Collection'
                         />
                     </>

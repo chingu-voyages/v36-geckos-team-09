@@ -18,13 +18,10 @@ class FlashcardsDataService {
     }
 
     updateCollection(data) {
-        return http.put(
-            `/collection/`,
-            data,
-        );
+        return http.put(`/collection/`, data);
     }
 
-    createCollection(data){
+    createCollection(data) {
         return http.post(`/collection/`, data);
     }
 
