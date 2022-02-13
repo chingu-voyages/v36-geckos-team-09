@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { getUniqueListBy } from '../../static';
+import { getUniqueListBy } from '../../utils';
 
 import CollectionsBox from './CollectionsBox';
 

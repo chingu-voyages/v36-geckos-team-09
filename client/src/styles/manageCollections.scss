@@ -13,6 +13,7 @@
 
     &__form {
         padding: 1rem;
+        padding-bottom: 0.3rem;
         width: 300px !important;
         display: flex;
     }
@@ -27,5 +28,22 @@
         flex: 10%;
         padding: 0 !important;
         min-width: unset !important;
+    }
+
+    &__error {
+        color: $color-red;
+    }
+
+    &__fade-in {
+        animation: fadeIn 0.3s ease-in-out;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }

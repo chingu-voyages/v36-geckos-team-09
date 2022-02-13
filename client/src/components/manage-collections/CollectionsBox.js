@@ -124,8 +124,13 @@ const CollectionsBox = ({ collection }) => {
                             {...register('newCollectionName')}
                         />
                     </form>
-                    <Typography mb={1} ml={2} className='new-flashcard__error'>
-                        {errors.newCollectionName && 'This field is required!'}
+                    <Typography
+                        className='new-flashcard__error'
+                        mb={1}
+                        ml={2}
+                        fontSize='1.1rem'
+                    >
+                        {errors.newCollectionName?.message}
                     </Typography>
                 </Box>
             )}

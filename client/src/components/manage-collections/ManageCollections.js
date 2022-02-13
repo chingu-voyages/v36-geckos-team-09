@@ -16,6 +16,9 @@ import { addNewCollectionSchema } from '../../utils';
 import TestCollection from './tests/TestCollection';
 
 const ManageCollections = () => {
+    const [duplicateCollectionNameError, setDuplicateCollectionNameError] =
+        useState(false);
+
     const [anchorEl, setAnchorEl] = useState(null);
 
     const isOpen = Boolean(anchorEl);
@@ -37,12 +40,35 @@ const ManageCollections = () => {
         resolver: joiResolver(addNewCollectionSchema),
     });
 
-    const submitForm = (data) => {
+    const submitForm = async (data) => {
         const collectionName = data.collectionName;
 
         const newCollection = {
             collection_name: collectionName,
         };
+
+        const res = await FlashcardsDataService.getAll();
+
+        const collections = res.data.flashcards;
+
+        const existingCollectionNames = collections.reduce(
+            (collectionNames, collection) => {
+                if (!collectionNames.includes(collection.collection_name))
+                    collectionNames.push(collection.collection_name);
+                return collectionNames;
+            },
+            [],
+        );
+
+        if (existingCollectionNames.indexOf(collectionName) !== -1) {
+            setDuplicateCollectionNameError(true);
+
+            setTimeout(() => {
+                setDuplicateCollectionNameError(false);
+            }, 1500);
+
+            return;
+        }
 
         FlashcardsDataService.createCollection(newCollection);
 
@@ -97,8 +123,26 @@ const ManageCollections = () => {
                         <BsFillArrowRightSquareFill size='2rem' />
                     </Button>
                 </form>
-                <Typography mb={1} ml={1} className='new-flashcard__error'>
-                    {errors.collectionName && 'This field is required!'}
+                <Typography
+                    className='new-flashcard__error'
+                    mb={1}
+                    ml='1rem'
+                    fontSize='1.1rem'
+                >
+                    {errors.collectionName?.message}
+                </Typography>
+                <Typography
+                    className={
+                        duplicateCollectionNameError
+                            ? 'manage-collections__error manage-collections__fade-in'
+                            : 'manage-collections__error'
+                    }
+                    mb={1}
+                    ml='1rem'
+                    fontSize='1.1rem'
+                >
+                    {duplicateCollectionNameError &&
+                        'Collection already exist!'}
                 </Typography>
             </Popover>
 
