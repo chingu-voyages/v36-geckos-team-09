@@ -2,6 +2,8 @@ import { useState } from 'react';
 
 import { Link } from 'react-router-dom';
 
+import FlashcardsDataService from '../../services/flashcards_service';
+
 import OptionButtonDelete from './option-buttons/OptionButtonDelete';
 
 import '../../styles/collections.scss';
@@ -30,7 +32,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { changeCollectionNameSchema } from '../../utils';
 
 const CollectionsBox = ({ collection }) => {
-    const { _id: collectionId, collection_name: collectionName } = collection;
+    const { collection_name: collectionName } = collection;
 
     const [isEditable, setIsEditable] = useState(false);
 
@@ -39,13 +41,8 @@ const CollectionsBox = ({ collection }) => {
     const handleCollectionBoxClick = (name) =>
         dispatch(collectionsSlice.actions.setSelectedCollectionName(name));
 
-    const handleDeleteClick = (id) => {
-        /*  const newCollections = { ...collections };
-
-        delete newCollections[id];
-
-        dispatch(collectionsSlice.actions.deleteCollection(newCollections)); */
-    };
+    const handleDeleteClick = (collectionName) =>
+        FlashcardsDataService.deleteCollection(collectionName);
 
     const handleEditClick = () => setIsEditable((prevState) => !prevState);
 
@@ -163,7 +160,9 @@ const CollectionsBox = ({ collection }) => {
 
                         <OptionButtonDelete
                             classToApply='collections'
-                            handleClick={() => handleDeleteClick(collectionId)}
+                            handleClick={() =>
+                                handleDeleteClick(collectionName)
+                            }
                             text='Collection'
                         />
                     </>
