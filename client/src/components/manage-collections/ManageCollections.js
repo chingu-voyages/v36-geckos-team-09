@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import FlashcardsDataService from '../../services/flashcards_service';
+
 import Collections from './Collections';
 
 import '../../styles/manageCollections.scss';
@@ -7,19 +9,13 @@ import { Button, Box, Popover, Input, Typography } from '@mui/material';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 
-import { v4 as uuidv4 } from 'uuid';
-
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { addNewCollectionSchema } from '../../utils';
-import TestCollection from './tests/TestCollection'
 
-import { useDispatch } from 'react-redux';
-import { collectionsSlice } from '../../redux/slices/collectionsSlice';
+import TestCollection from './tests/TestCollection';
 
 const ManageCollections = () => {
-    const dispatch = useDispatch();
-
     const [anchorEl, setAnchorEl] = useState(null);
 
     const isOpen = Boolean(anchorEl);
@@ -42,15 +38,13 @@ const ManageCollections = () => {
     });
 
     const submitForm = (data) => {
-        const id = uuidv4();
-        const name = data.collectionName;
+        const collectionName = data.collectionName;
 
         const newCollection = {
-            _id: id,
-            collection_name: name,
+            collection_name: collectionName,
         };
 
-        dispatch(collectionsSlice.actions.addStateCollection(newCollection));
+        FlashcardsDataService.createCollection(newCollection);
 
         setAnchorEl(null);
 
