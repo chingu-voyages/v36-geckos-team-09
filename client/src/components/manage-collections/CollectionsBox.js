@@ -38,7 +38,7 @@ const CollectionsBox = ({ collection }) => {
 
     const dispatch = useDispatch();
 
-    const handleCollectionBoxClick = (name) =>
+    const handleCollectionsBoxClick = (name) =>
         dispatch(collectionsSlice.actions.setSelectedCollectionName(name));
 
     const handleDeleteClick = (collectionName) =>
@@ -82,7 +82,7 @@ const CollectionsBox = ({ collection }) => {
                 <Link
                     className='collections__link'
                     to={`/collections/${collectionName.replace(/\s+/g, '')}`}
-                    onClick={() => handleCollectionBoxClick(collectionName)}
+                    onClick={() => handleCollectionsBoxClick(collectionName)}
                 >
                     <Button className='collections__btn'>
                         <ListItem className='collections__item'>

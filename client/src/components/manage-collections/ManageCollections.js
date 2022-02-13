@@ -103,7 +103,7 @@ const ManageCollections = () => {
             </Popover>
 
             <Collections />
-            <TestCollection />
+            {/* <TestCollection /> */}
         </Box>
     );
 };
