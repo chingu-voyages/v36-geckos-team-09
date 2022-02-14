@@ -2,18 +2,11 @@ import { NEW_FLASHCARD_INPUTS } from '../../../../static';
 
 import FlashcardsDataService from '../../../../services/flashcards_service';
 
+import OptionButtonSave from '../../option-buttons/OptionButtonSave';
+import OptionButtonClose from '../../option-buttons/OptionButtonClose';
+
 import '../../../../styles/collection.scss';
-import {
-    Box,
-    Typography,
-    Input,
-    TableRow,
-    TableCell,
-    IconButton,
-    Tooltip,
-} from '@mui/material';
-import { FaCheck } from 'react-icons/fa';
-import { AiFillCloseSquare } from 'react-icons/ai';
+import { Box, Typography, Input, TableRow, TableCell } from '@mui/material';
 
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
@@ -127,37 +120,17 @@ const EditFlashcard = ({ row, handleEditAndCloseClick }) => {
                     </Box>
 
                     <Box display='flex' justifyContent='end' mt={1}>
-                        <Tooltip
-                            title={
-                                <Typography fontSize='1.1rem'>
-                                    Save Changes
-                                </Typography>
-                            }
-                            placement='top-end'
-                            arrow
-                        >
-                            <IconButton
-                                className='collection__option'
-                                onClick={handleSubmit(submitForm)}
-                            >
-                                <FaCheck />
-                            </IconButton>
-                        </Tooltip>
+                        <OptionButtonSave
+                            classToApply='collection__option'
+                            handleClick={handleSubmit(submitForm)}
+                            text='Save Changes'
+                        />
 
-                        <Tooltip
-                            title={
-                                <Typography fontSize='1.1rem'>Close</Typography>
-                            }
-                            placement='top-end'
-                            arrow
-                        >
-                            <IconButton
-                                className='collection__option'
-                                onClick={handleEditAndCloseClick}
-                            >
-                                <AiFillCloseSquare />
-                            </IconButton>
-                        </Tooltip>
+                        <OptionButtonClose
+                            classToApply='collection__option'
+                            handleClick={handleEditAndCloseClick}
+                            text='Close'
+                        />
                     </Box>
                 </form>
             </TableCell>

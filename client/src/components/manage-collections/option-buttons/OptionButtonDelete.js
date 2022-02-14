@@ -7,7 +7,7 @@ import { FaCheck } from 'react-icons/fa';
 import { AiFillCloseSquare } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
 
-const OptionButton = ({ text, handleClick, classToApply }) => {
+const OptionButton = ({ classToApply, handleClick, text }) => {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const isOpen = Boolean(anchorEl);

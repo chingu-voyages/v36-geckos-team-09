@@ -161,19 +161,19 @@ const CollectionTableRow = ({ row, index }) => {
                                             <TableRow>
                                                 <TableCell className='collection__options-cell'>
                                                     <OptionButtonEdit
-                                                        text='Edit Flashcard'
+                                                        classToApply='collection'
                                                         handleClick={
                                                             handleEditAndCloseClick
                                                         }
-                                                        classToApply='collection'
+                                                        text='Edit Flashcard'
                                                     />
 
                                                     <OptionButtonDelete
-                                                        text='Flashcard'
+                                                        classToApply='collection'
                                                         handleClick={
                                                             handleDeleteClick
                                                         }
-                                                        classToApply='collection'
+                                                        text='Flashcard'
                                                     />
                                                 </TableCell>
                                             </TableRow>
