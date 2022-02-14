@@ -18,6 +18,7 @@ export const getCollectionNames = async () => {
             (collectionNames, collection) => {
                 if (!collectionNames.includes(collection.collection_name))
                     collectionNames.push(collection.collection_name);
+
                 return collectionNames;
             },
             [],
