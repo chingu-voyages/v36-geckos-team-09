@@ -121,6 +121,7 @@ const TestCollection = () => {
                 onChange={(e) => setCreateCollectionName(e.target.value)}
             ></input>
             <button onClick={createHandler}>create collection</button>
+            
         </>
     );
 };

@@ -123,7 +123,8 @@ export default class FlashcardsDAO {
         collection_name:collection_name,
         prompt: 'Sample Flashcard',
         answers: [],
-        right_answer:null }
+        right_answer:null,
+        isSampleCard:true }
 
       return await flashcards.insertOne(flashcardDoc)
     } catch (e) {
