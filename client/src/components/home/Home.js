@@ -15,7 +15,7 @@ const Home = () => {
         >
             <GiCardPickup size='8rem' />
             <Typography variant='h2' mt={2}>
-                Flashcards !
+                Kadeu Flashcards !
             </Typography>
             <Typography variant='h4' mt={2}>
                 Welcome to flashcards app created by Chingu Geckos team 09

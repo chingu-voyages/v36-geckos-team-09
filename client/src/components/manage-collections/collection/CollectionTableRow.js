@@ -4,6 +4,7 @@ import FlashcardsDataService from '../../../services/flashcards_service';
 
 import EditFlashcard from './flashcard/EditFlashcard';
 
+import OptionButtonEdit from '../option-buttons/OptionButtonEdit';
 import OptionButtonDelete from '../option-buttons/OptionButtonDelete';
 
 import { ANSWER_PREFIX } from '../../../static';
@@ -17,10 +18,8 @@ import {
     TableBody,
     TableCell,
     TableRow,
-    Tooltip,
 } from '@mui/material';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
-import { BiEdit } from 'react-icons/bi';
 
 const CollectionTableRow = ({ row, index }) => {
     const [isRowOpen, setIsRowOpen] = useState(false);
@@ -161,25 +160,14 @@ const CollectionTableRow = ({ row, index }) => {
                                             </TableRow>
                                             <TableRow>
                                                 <TableCell className='collection__options-cell'>
-                                                    <Tooltip
-                                                        title={
-                                                            <Typography fontSize='1.1rem'>
-                                                                Edit Flashcard
-                                                            </Typography>
+                                                    <OptionButtonEdit
+                                                        classToApply='collection'
+                                                        handleClick={
+                                                            handleEditAndCloseClick
                                                         }
-                                                        placement='top-end'
-                                                        arrow
-                                                    >
-                                                        <IconButton
-                                                            className={`collection__option`}
-                                                            size='small'
-                                                            onClick={
-                                                                handleEditAndCloseClick
-                                                            }
-                                                        >
-                                                            <BiEdit size='2rem' />
-                                                        </IconButton>
-                                                    </Tooltip>
+                                                        text='Edit Flashcard'
+                                                    />
+
                                                     <OptionButtonDelete
                                                         classToApply='collection'
                                                         handleClick={

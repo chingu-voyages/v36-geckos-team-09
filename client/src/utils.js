@@ -7,18 +7,25 @@ export const getUniqueListBy = (arr, key) => {
 
 // The function retrives all existing collection names
 export const getCollectionNames = async () => {
-    const res = await FlashcardsDataService.getAll();
+    let existingCollectionNames = null;
 
-    const collections = res.data.flashcards;
+    try {
+        const res = await FlashcardsDataService.getAll();
 
-    const existingCollectionNames = collections.reduce(
-        (collectionNames, collection) => {
-            if (!collectionNames.includes(collection.collection_name))
-                collectionNames.push(collection.collection_name);
-            return collectionNames;
-        },
-        [],
-    );
+        const collections = res.data.flashcards;
+
+        existingCollectionNames = collections.reduce(
+            (collectionNames, collection) => {
+                if (!collectionNames.includes(collection.collection_name))
+                    collectionNames.push(collection.collection_name);
+
+                return collectionNames;
+            },
+            [],
+        );
+    } catch (e) {
+        console.log(e);
+    }
 
     return existingCollectionNames;
 };

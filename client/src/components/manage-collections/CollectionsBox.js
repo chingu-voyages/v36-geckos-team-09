@@ -6,7 +6,10 @@ import FlashcardsDataService from '../../services/flashcards_service';
 
 import { getCollectionNames } from '../../utils';
 
+import OptionButtonEdit from './option-buttons/OptionButtonEdit';
 import OptionButtonDelete from './option-buttons/OptionButtonDelete';
+import OptionButtonSave from './option-buttons/OptionButtonSave';
+import OptionButtonClose from './option-buttons/OptionButtonClose';
 
 import '../../styles/collections.scss';
 import {
@@ -17,14 +20,9 @@ import {
     Typography,
     Button,
     Box,
-    IconButton,
     Input,
-    Tooltip,
 } from '@mui/material';
 import { BsFillCollectionFill } from 'react-icons/bs';
-import { BiEdit } from 'react-icons/bi';
-import { FaCheck } from 'react-icons/fa';
-import { AiFillCloseSquare } from 'react-icons/ai';
 
 import { useDispatch } from 'react-redux';
 import { collectionsSlice } from '../../redux/slices/collectionsSlice';
@@ -173,23 +171,11 @@ const CollectionsBox = ({ collection }) => {
             >
                 {!isEditable && (
                     <>
-                        <Tooltip
-                            title={
-                                <Typography fontSize='1.1rem'>
-                                    Edit Collection Name
-                                </Typography>
-                            }
-                            placement='top-end'
-                            arrow
-                        >
-                            <IconButton
-                                className={`collections__option`}
-                                onClick={handleEditClick}
-                                size='small'
-                            >
-                                <BiEdit size='2rem' />
-                            </IconButton>
-                        </Tooltip>
+                        <OptionButtonEdit
+                            classToApply='collections'
+                            handleClick={handleEditClick}
+                            text='Edit Collection Name'
+                        />
 
                         <OptionButtonDelete
                             classToApply='collections'
@@ -203,37 +189,17 @@ const CollectionsBox = ({ collection }) => {
 
                 {isEditable && (
                     <>
-                        <Tooltip
-                            title={
-                                <Typography fontSize='1.1rem'>
-                                    Save Changes
-                                </Typography>
-                            }
-                            placement='top-end'
-                            arrow
-                        >
-                            <IconButton
-                                className='collections__edit-option'
-                                onClick={handleSubmit(submitForm)}
-                            >
-                                <FaCheck />
-                            </IconButton>
-                        </Tooltip>
+                        <OptionButtonSave
+                            classToApply='collections__edit-option'
+                            handleClick={handleSubmit(submitForm)}
+                            text='Save Changes'
+                        />
 
-                        <Tooltip
-                            title={
-                                <Typography fontSize='1.1rem'>Close</Typography>
-                            }
-                            placement='top-end'
-                            arrow
-                        >
-                            <IconButton
-                                className='collections__edit-option'
-                                onClick={handleCloseClick}
-                            >
-                                <AiFillCloseSquare />
-                            </IconButton>
-                        </Tooltip>
+                        <OptionButtonClose
+                            classToApply='collections__edit-option'
+                            handleClick={handleCloseClick}
+                            text='Close'
+                        />
                     </>
                 )}
             </Box>
