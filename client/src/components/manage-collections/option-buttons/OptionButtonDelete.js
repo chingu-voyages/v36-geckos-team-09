@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import '../../../styles/collections.scss';
+import '../../../styles/collection.scss';
 import { Typography, IconButton, Tooltip, Popover, Box } from '@mui/material';
 import { FaCheck } from 'react-icons/fa';
 import { AiFillCloseSquare } from 'react-icons/ai';

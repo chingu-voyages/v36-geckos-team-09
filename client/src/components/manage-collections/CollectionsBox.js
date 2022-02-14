@@ -6,6 +6,7 @@ import FlashcardsDataService from '../../services/flashcards_service';
 
 import { getCollectionNames } from '../../utils';
 
+import OptionButtonEdit from './option-buttons/OptionButtonEdit';
 import OptionButtonDelete from './option-buttons/OptionButtonDelete';
 
 import '../../styles/collections.scss';
@@ -22,7 +23,6 @@ import {
     Tooltip,
 } from '@mui/material';
 import { BsFillCollectionFill } from 'react-icons/bs';
-import { BiEdit } from 'react-icons/bi';
 import { FaCheck } from 'react-icons/fa';
 import { AiFillCloseSquare } from 'react-icons/ai';
 
@@ -173,30 +173,18 @@ const CollectionsBox = ({ collection }) => {
             >
                 {!isEditable && (
                     <>
-                        <Tooltip
-                            title={
-                                <Typography fontSize='1.1rem'>
-                                    Edit Collection Name
-                                </Typography>
-                            }
-                            placement='top-end'
-                            arrow
-                        >
-                            <IconButton
-                                className={`collections__option`}
-                                onClick={handleEditClick}
-                                size='small'
-                            >
-                                <BiEdit size='2rem' />
-                            </IconButton>
-                        </Tooltip>
+                        <OptionButtonEdit
+                            text='Edit Collection Name'
+                            handleClick={handleEditClick}
+                            classToApply={'collections'}
+                        />
 
                         <OptionButtonDelete
-                            classToApply='collections'
+                            text='Collection'
                             handleClick={() =>
                                 handleDeleteClick(collectionName)
                             }
-                            text='Collection'
+                            classToApply='collections'
                         />
                     </>
                 )}
