@@ -96,7 +96,9 @@ const CollectionsBox = ({ collection }) => {
             {!isEditable && (
                 <Link
                     className='collections__link'
-                    to={`/collections/${collectionName.replace(/\s+/g, '')}`}
+                    to={`/collections/${
+                        collectionName /* .replace(/\s+/g, '') */
+                    }`}
                     onClick={() => handleCollectionsBoxClick(collectionName)}
                 >
                     <Button className='collections__btn'>

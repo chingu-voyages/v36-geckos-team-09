@@ -8,12 +8,12 @@ import { Table, TableBody, TableContainer, Paper } from '@mui/material';
 
 import { useSelector } from 'react-redux';
 
-const CollectionTable = () => {
+const CollectionTable = ({ selectedCollectionName }) => {
     const [collectionToDisplay, setCollectionToDisplay] = useState([]);
 
-    const selectedCollectionName = useSelector(
+    /* const selectedCollectionName = useSelector(
         (state) => state.collections.selectedCollectionName,
-    );
+    ); */
 
     useEffect(() => {
         let isMounted = true;
