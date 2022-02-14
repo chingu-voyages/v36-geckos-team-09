@@ -16,16 +16,21 @@ const Collections = () => {
         let isMounted = true;
 
         const getCollections = async () => {
-            const res = await FlashcardsDataService.getAll();
+            try {
+                const res = await FlashcardsDataService.getAll();
 
-            const data = res.data.flashcards;
+                const data = res.data.flashcards;
 
-            const dataWithoutDuplicates = getUniqueListBy(
-                data,
-                'collection_name',
-            );
+                const dataWithoutDuplicates = getUniqueListBy(
+                    data,
+                    'collection_name',
+                );
 
-            if (isMounted) setCollectionsToDisplay([...dataWithoutDuplicates]);
+                if (isMounted)
+                    setCollectionsToDisplay([...dataWithoutDuplicates]);
+            } catch (e) {
+                console.log(e);
+            }
         };
 
         getCollections();

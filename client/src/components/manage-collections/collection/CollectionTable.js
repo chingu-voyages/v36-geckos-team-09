@@ -19,14 +19,19 @@ const CollectionTable = () => {
         let isMounted = true;
 
         const getCollectionFlashcards = async (collectionName) => {
-            const res = await FlashcardsDataService.getCollection(
-                collectionName,
-            );
+            try {
+                const res = await FlashcardsDataService.getCollection(
+                    collectionName,
+                );
 
-            const data = res.data.flashcards.filter( e => e.hasOwnProperty('isSampleCard') ? false : true);
+                const data = res.data.flashcards.filter((flashcard) =>
+                    flashcard.hasOwnProperty('isSampleCard') ? false : true,
+                );
 
-
-            if (isMounted) setCollectionToDisplay(data);
+                if (isMounted) setCollectionToDisplay(data);
+            } catch (e) {
+                console.log(e);
+            }
         };
 
         getCollectionFlashcards(selectedCollectionName);
