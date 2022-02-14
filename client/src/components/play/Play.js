@@ -29,7 +29,7 @@ export default function Play() {
         FlashcardsDataService.getCollection(collection)
         .then((response) => {
 
-            const resFlashcards = response.data.flashcards
+            const resFlashcards = response.data.flashcards.filter( e => e.hasOwnProperty('isSampleCard') ? false : true);
         
             setFlashcards(resFlashcards);
             //setting 
