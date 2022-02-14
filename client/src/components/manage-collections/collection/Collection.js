@@ -80,7 +80,7 @@ const Collection = () => {
                 <NewFlashcard handleClose={handleClose} />
             </Popover>
 
-            <CollectionTable />
+            <CollectionTable selectedCollectionName={collectionName} />
         </Box>
     );
 };
