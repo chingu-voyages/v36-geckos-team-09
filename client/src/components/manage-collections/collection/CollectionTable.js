@@ -23,13 +23,7 @@ const CollectionTable = () => {
                 collectionName,
             );
 
-            const data = res.data.flashcards.filter( e =>{
-                if(e.hasOwnProperty('isSampleCard')){
-                    return false;
-                }else{
-                    return true
-                }
-            });
+            const data = res.data.flashcards.filter( e => e.hasOwnProperty('isSampleCard') ? false : true);
 
 
             if (isMounted) setCollectionToDisplay(data);
