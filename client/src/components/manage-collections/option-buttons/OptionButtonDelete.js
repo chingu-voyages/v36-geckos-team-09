@@ -1,10 +1,11 @@
 import { useState } from 'react';
 
+import OptionButtonSave from './OptionButtonSave';
+import OptionButtonClose from './OptionButtonClose';
+
 import '../../../styles/collections.scss';
 import '../../../styles/collection.scss';
 import { Typography, IconButton, Tooltip, Popover, Box } from '@mui/material';
-import { FaCheck } from 'react-icons/fa';
-import { AiFillCloseSquare } from 'react-icons/ai';
 import { MdDelete } from 'react-icons/md';
 
 const OptionButton = ({ classToApply, handleClick, text }) => {
@@ -48,36 +49,17 @@ const OptionButton = ({ classToApply, handleClick, text }) => {
             >
                 <Box className='collections__dropdown'>
                     <Box>
-                        <Tooltip
-                            title={
-                                <Typography fontSize='1.1rem'>
-                                    Delete {text}
-                                </Typography>
-                            }
-                            placement='top-end'
-                            arrow
-                        >
-                            <IconButton
-                                className='collections__dropdown-option'
-                                onClick={handleClick}
-                            >
-                                <FaCheck />
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip
-                            title={
-                                <Typography fontSize='1.1rem'>Close</Typography>
-                            }
-                            placement='top-end'
-                            arrow
-                        >
-                            <IconButton
-                                className='collections__dropdown-option'
-                                onClick={handleClose}
-                            >
-                                <AiFillCloseSquare />
-                            </IconButton>
-                        </Tooltip>
+                        <OptionButtonSave
+                            classToApply='collections__dropdown-option'
+                            handleClick={handleClick}
+                            text={`Delete ${text}`}
+                        />
+
+                        <OptionButtonClose
+                            classToApply='collections__dropdown-option'
+                            handleClick={handleClose}
+                            text='Close'
+                        />
                     </Box>
                 </Box>
             </Popover>
