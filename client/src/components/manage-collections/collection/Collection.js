@@ -77,7 +77,10 @@ const Collection = () => {
                     horizontal: 'left',
                 }}
             >
-                <NewFlashcard handleClose={handleClose} />
+                <NewFlashcard
+                    collectionName={collectionName}
+                    handleClose={handleClose}
+                />
             </Popover>
 
             <CollectionTable selectedCollectionName={collectionName} />
