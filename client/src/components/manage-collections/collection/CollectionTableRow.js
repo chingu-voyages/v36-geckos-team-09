@@ -189,6 +189,7 @@ const CollectionTableRow = ({ row, index }) => {
             {isEditable && (
                 <EditFlashcard
                     row={row}
+                    rowIndex={rowIndex}
                     handleEditAndCloseClick={handleEditAndCloseClick}
                 />
             )}
