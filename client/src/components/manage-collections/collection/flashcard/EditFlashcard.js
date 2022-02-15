@@ -21,7 +21,10 @@ import {
     FormControlLabel,
     Radio,
     Typography,
+    IconButton,
+    Collapse,
 } from '@mui/material';
+import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
@@ -29,7 +32,7 @@ import { editFlashcardSchema } from '../../../../joiSchemas';
 
 import { useSelector } from 'react-redux';
 
-const EditFlashcard = ({ row, handleEditAndCloseClick }) => {
+const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
     const {
         _id,
         collection_name: selectedCollectionName,
@@ -38,11 +41,15 @@ const EditFlashcard = ({ row, handleEditAndCloseClick }) => {
         right_answer: rowCorrectAnswer,
     } = row;
 
-    const [selectedRadio, setSelectedRadio] = useState(rowCorrectAnswer);
-
     /*   const selectedCollectionName = useSelector(
         (state) => state.collections.selectedCollectionName,
     ); */
+
+    const [selectedRadio, setSelectedRadio] = useState(rowCorrectAnswer);
+
+    const [isRowOpen, setIsRowOpen] = useState(true);
+
+    const handleDropdownClick = () => setIsRowOpen((prevState) => !prevState);
 
     const handleChange = (e) => setSelectedRadio(e.target.value);
 
@@ -71,88 +78,145 @@ const EditFlashcard = ({ row, handleEditAndCloseClick }) => {
     };
 
     return (
-        <TableRow>
-            <TableCell>
-                <form
-                    className='new-flashcard'
-                    noValidate
-                    autoComplete='off'
-                    onSubmit={handleSubmit(submitForm)}
+        <>
+            <TableRow>
+                <TableCell component='th' scope='row'>
+                    <Typography
+                        className='collection__prefix'
+                        variant='h6'
+                        fontWeight={700}
+                        fontSize='1.3rem'
+                        mr='0.3rem'
+                        display='inline'
+                    >
+                        <Typography
+                            className='collection__prefix'
+                            variant='span'
+                            fontWeight={700}
+                            fontSize='1rem'
+                            mr='1rem'
+                            color='white'
+                        >
+                            {rowIndex}.
+                        </Typography>
+                        Q:
+                    </Typography>
+                    <Typography
+                        variant='h6'
+                        fontSize='1.2rem'
+                        color='white'
+                        display='inline'
+                    >
+                        {rowQuestion}
+                    </Typography>
+                </TableCell>
+                <TableCell className='collection__question-cell'>
+                    <IconButton
+                        aria-label='expand row'
+                        size='small'
+                        onClick={handleDropdownClick}
+                    >
+                        {isRowOpen ? (
+                            <IoIosArrowUp size='1.5rem' />
+                        ) : (
+                            <IoIosArrowDown size='1.5rem' />
+                        )}
+                    </IconButton>
+                </TableCell>
+            </TableRow>
+
+            <TableRow>
+                <TableCell
+                    style={{ paddingBottom: 0, paddingTop: 0 }}
+                    colSpan={6}
                 >
-                    <Box maxWidth='500px'>
-                        {NEW_FLASHCARD_INPUTS.map((input) => {
-                            if (input.id === 0) {
-                                return (
-                                    <EditFlashcardInput
-                                        key={input.id}
-                                        input={input}
-                                        defaultValue={rowQuestion}
-                                        register={register}
-                                        errors={errors}
-                                    />
-                                );
-                            }
-
-                            return (
-                                <EditFlashcardInput
-                                    key={input.id}
-                                    input={input}
-                                    defaultValue={rowAnswers[input.id - 1]}
-                                    register={register}
-                                    errors={errors}
-                                />
-                            );
-                        })}
-                    </Box>
-
-                    <FormControl>
-                        <FormLabel
-                            className='new-flashcard__form-label'
-                            id='demo-row-radio-buttons-group-label'
+                    <Collapse in={isRowOpen} timeout='auto' unmountOnExit>
+                        <form
+                            className='new-flashcard'
+                            noValidate
+                            autoComplete='off'
+                            onSubmit={handleSubmit(submitForm)}
                         >
-                            Correct Answer
-                        </FormLabel>
-                        <RadioGroup
-                            row
-                            aria-labelledby='demo-row-radio-buttons-group-label'
-                            name='row-radio-buttons-group'
-                            value={selectedRadio}
-                            onChange={handleChange}
-                        >
-                            {NEW_FLASHCARD_RADIOS.map((radio) => (
-                                <FormControlLabel
-                                    key={radio.id}
-                                    value={radio.value}
-                                    control={<Radio color='secondary' />}
-                                    label={
-                                        <Typography
-                                            fontWeight='500'
-                                            fontSize='1.2rem'
-                                        >
-                                            {radio.value}
-                                        </Typography>
+                            <Box maxWidth='500px'>
+                                {NEW_FLASHCARD_INPUTS.map((input) => {
+                                    if (input.id === 0) {
+                                        return (
+                                            <EditFlashcardInput
+                                                key={input.id}
+                                                input={input}
+                                                defaultValue={rowQuestion}
+                                                register={register}
+                                                errors={errors}
+                                            />
+                                        );
                                     }
+
+                                    return (
+                                        <EditFlashcardInput
+                                            key={input.id}
+                                            input={input}
+                                            defaultValue={
+                                                rowAnswers[input.id - 1]
+                                            }
+                                            register={register}
+                                            errors={errors}
+                                        />
+                                    );
+                                })}
+                            </Box>
+
+                            <FormControl>
+                                <FormLabel
+                                    className='new-flashcard__form-label new-flashcard__form-label-edit'
+                                    id='demo-row-radio-buttons-group-label'
+                                >
+                                    Correct Answer
+                                </FormLabel>
+                                <RadioGroup
+                                    row
+                                    aria-labelledby='demo-row-radio-buttons-group-label'
+                                    name='row-radio-buttons-group'
+                                    value={selectedRadio}
+                                    onChange={handleChange}
+                                >
+                                    {NEW_FLASHCARD_RADIOS.map((radio) => (
+                                        <FormControlLabel
+                                            key={radio.id}
+                                            value={radio.value}
+                                            control={
+                                                <Radio color='secondary' />
+                                            }
+                                            label={
+                                                <Typography
+                                                    fontWeight='500'
+                                                    fontSize='1.2rem'
+                                                >
+                                                    {radio.value}
+                                                </Typography>
+                                            }
+                                        />
+                                    ))}
+                                </RadioGroup>
+                            </FormControl>
+
+                            <Box display='flex' justifyContent='end' mt={1}>
+                                <OptionButtonSave
+                                    classToApply='collection__option'
+                                    handleClick={handleSubmit(submitForm)}
+                                    text='Save Changes'
                                 />
-                            ))}
-                        </RadioGroup>
-                    </FormControl>
 
-                    <Box display='flex' justifyContent='end' mt={1}>
-                        <OptionButtonSave
-                            classToApply='collection__option'
-                            handleClick={handleSubmit(submitForm)}
-                            text='Save Changes'
-                        />
-
-                        <OptionButtonClose
-                            classToApply='collection__option'
-                            handleClick={handleEditAndCloseClick}
-                            text='Close'
-                        />
-                    </Box>
-                </form>
-            </TableCell>
-        </TableRow>
+                                <OptionButtonClose
+                                    classToApply='collection__option'
+                                    handleClick={handleEditAndCloseClick}
+                                    text='Close'
+                                />
+                            </Box>
+                        </form>
+                    </Collapse>
+                </TableCell>
+            </TableRow>
+        </>
     );
 };
 
