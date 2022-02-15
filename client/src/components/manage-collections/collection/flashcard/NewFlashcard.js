@@ -1,34 +1,42 @@
 import { useState } from 'react';
 
 import { NEW_FLASHCARD_INPUTS } from '../../../../static';
+import { NEW_FLASHCARD_RADIOS } from '../../../../static';
 
 import FlashcardsDataService from '../../../../services/flashcards_service';
 
 import '../../../../styles/newFlashcard.scss';
-import { Input, Button, Box, Typography } from '@mui/material';
+import {
+    Input,
+    Button,
+    Box,
+    Typography,
+    Radio,
+    RadioGroup,
+    FormControlLabel,
+    FormControl,
+    FormLabel,
+} from '@mui/material';
 
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { newFlashcardSchema } from '../../../../joiSchemas';
 
-import { useSelector } from 'react-redux';
-
-const NewFlashcard = ({ handleClose }) => {
+const NewFlashcard = ({ collectionName, handleClose }) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
-    const selectedCollectionName = useSelector(
-        (state) => state.collections.selectedCollectionName,
-    );
+    const [selectedRadio, setSelectedRadio] = useState('A');
 
-    const addNewFlashcard = (data) => {
-        const { question, answerA, answerB, answerC, answerD, correctAnswer } =
-            data;
+    const handleChange = (e) => setSelectedRadio(e.target.value);
+
+    const addNewFlashcard = (data, selectedRadio, collectionName) => {
+        const { question, answerA, answerB, answerC, answerD } = data;
 
         const flashcard = {
-            collection_name: selectedCollectionName,
+            collection_name: collectionName,
             prompt: question,
             answers: [answerA, answerB, answerC, answerD],
-            right_answer: correctAnswer,
+            right_answer: selectedRadio,
         };
 
         FlashcardsDataService.createFlashcard(flashcard);
@@ -45,7 +53,7 @@ const NewFlashcard = ({ handleClose }) => {
     const submitForm = (data) => {
         setIsButtonDisabled(true);
 
-        addNewFlashcard(data);
+        addNewFlashcard(data, selectedRadio, collectionName);
 
         handleClose();
     };
@@ -57,43 +65,51 @@ const NewFlashcard = ({ handleClose }) => {
             autoComplete='off'
             onSubmit={handleSubmit(submitForm)}
         >
-            <Box width='500px'>
-                {NEW_FLASHCARD_INPUTS.map((input) => {
-                    if (input.id === 5) {
-                        return (
-                            <Box key={input.id}>
-                                <Input
-                                    className={`new-flashcard__${input.class}`}
-                                    type='text'
-                                    placeholder={input.placeholder}
-                                    name={input.name}
-                                    {...register(`${input.name}`)}
-                                />
-                                <Typography className='new-flashcard__error'>
-                                    {errors[`${input.name}`] &&
-                                        'Incorrect input!'}
-                                </Typography>
-                            </Box>
-                        );
-                    }
-
-                    return (
-                        <Box key={input.id}>
-                            <Input
-                                className={`new-flashcard__${input.class}`}
-                                type='text'
-                                placeholder={input.placeholder}
-                                name={input.name}
-                                {...register(`${input.name}`)}
-                            />
-                            <Typography className='new-flashcard__error'>
-                                {errors[`${input.name}`] &&
-                                    'This field is required!'}
-                            </Typography>{' '}
-                        </Box>
-                    );
-                })}
+            <Box width='500px' mb={1}>
+                {NEW_FLASHCARD_INPUTS.map((input) => (
+                    <Box key={input.id}>
+                        <Input
+                            className={'new-flashcard__input'}
+                            type='text'
+                            placeholder={input.placeholder}
+                            name={input.name}
+                            {...register(`${input.name}`)}
+                        />
+                        <Typography className='new-flashcard__error'>
+                            {errors[`${input.name}`]?.message}
+                        </Typography>{' '}
+                    </Box>
+                ))}
             </Box>
+
+            <FormControl>
+                <FormLabel
+                    className='new-flashcard__form-label'
+                    id='demo-row-radio-buttons-group-label'
+                >
+                    Correct Answer
+                </FormLabel>
+                <RadioGroup
+                    row
+                    aria-labelledby='demo-row-radio-buttons-group-label'
+                    name='row-radio-buttons-group'
+                    value={selectedRadio}
+                    onChange={handleChange}
+                >
+                    {NEW_FLASHCARD_RADIOS.map((radio) => (
+                        <FormControlLabel
+                            key={radio.id}
+                            value={radio.value}
+                            control={<Radio color='secondary' />}
+                            label={
+                                <Typography fontWeight='500' fontSize='1.2rem'>
+                                    {radio.value}
+                                </Typography>
+                            }
+                        />
+                    ))}
+                </RadioGroup>
+            </FormControl>
 
             <Box display='flex' justifyContent='end' mt={1}>
                 <Button

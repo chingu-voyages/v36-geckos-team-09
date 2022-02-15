@@ -5,20 +5,9 @@
     width: 100% !important;
     max-width: 600px !important;
 
-    &__question {
+    &__input {
         width: 100%;
         margin-bottom: 0.5rem;
-        font-size: 1.4rem !important;
-
-        ::placeholder {
-            font-size: 1.4rem;
-            color: $color-secondary !important;
-        }
-    }
-
-    &__answer {
-        margin-bottom: 0.5rem;
-        width: 100%;
         font-size: 1.4rem !important;
 
         ::placeholder {
@@ -33,5 +22,10 @@
 
     &__error {
         color: $color-red;
+    }
+
+    &__form-label {
+        font-size: 1.4rem !important;
+        color: $color-secondary !important;
     }
 }
