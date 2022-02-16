@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import FlashcardsDataService from '../../services/flashcards_service';
 
-import { getCollectionNames } from '../../utils';
+import { getCollectionNames, getStateCollectionNames } from '../../utils';
 
 import OptionButtonEdit from './option-buttons/OptionButtonEdit';
 import OptionButtonDelete from './option-buttons/OptionButtonDelete';
@@ -82,7 +82,13 @@ const CollectionsBox = ({ collection }) => {
 
         const existingCollectionNames = await getCollectionNames();
 
-        if (existingCollectionNames.indexOf(newCollectionName) !== -1) {
+        const existingStateCollectionNames =
+            getStateCollectionNames(collections);
+
+        if (
+            existingCollectionNames.indexOf(newCollectionName) !== -1 ||
+            existingStateCollectionNames.indexOf(newCollectionName) !== -1
+        ) {
             setDuplicateCollectionNameError(true);
 
             setTimeout(() => {
@@ -91,6 +97,18 @@ const CollectionsBox = ({ collection }) => {
 
             return;
         }
+
+        const newCollections = [...collections];
+
+        const editedCollections = newCollections.map((collection) => {
+            if (collection.collection_name === collectionName) {
+                return { ...collection, collection_name: newCollectionName };
+            }
+
+            return collection;
+        });
+
+        dispatch(collectionsSlice.actions.setCollections(editedCollections));
 
         FlashcardsDataService.updateCollection(editedCollection);
 
