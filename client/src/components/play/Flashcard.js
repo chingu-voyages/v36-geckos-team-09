@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 
+const MAP_RIGHT_ANSWERS = {
+  'A':0,
+  'B':1, 
+  'C':2, 
+  'D':3
+}
+
 export default function Flashcard({ flashcard }) {
   const [flip, setFlip] = useState(false)
   const [height, setHeight] = useState('initial')
@@ -33,7 +40,7 @@ export default function Flashcard({ flashcard }) {
           })}
         </div>
       </div>
-      <div className="back" ref={backEl}>{flashcard.answers[flashcard.right_answer-1]}</div>
+      <div className="back" ref={backEl}>{flashcard.answers[MAP_RIGHT_ANSWERS[flashcard.right_answer]]}</div>
     </div>
   )
 }

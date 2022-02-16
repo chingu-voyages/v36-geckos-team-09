@@ -77,8 +77,10 @@ export default function Play() {
         let mounted = true;
         FlashcardsDataService.getAll().then((response) => {
             if(mounted){
-            const res = response.data.flashcards.map(e => { return e.collection_name})
-            const collections_res = res.filter((item, index) => res.indexOf(item) === index);
+            const res = response.data.flashcards
+            .filter( element => element.hasOwnProperty('isSampleCard') ? false : true)
+            .map(element => element.collection_name)
+            const collections_res = res.filter((item, index) => res.indexOf(item) === index); //removing duplicates
             setCollections(collections_res)
             setCollection(collections_res[0])
             }
