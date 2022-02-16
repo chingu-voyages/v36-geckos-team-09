@@ -22,10 +22,19 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { newFlashcardSchema } from '../../../../joiSchemas';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { collectionsSlice } from '../../../../redux/slices/collectionsSlice';
+
 const NewFlashcard = ({ collectionName, handleClose }) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
     const [selectedRadio, setSelectedRadio] = useState('A');
+
+    const collectionToDisplay = useSelector(
+        (collection) => collection.collections.collectionToDisplay,
+    );
+
+    const dispatch = useDispatch();
 
     const handleChange = (e) => setSelectedRadio(e.target.value);
 
@@ -38,6 +47,14 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
             answers: [answerA, answerB, answerC, answerD],
             right_answer: selectedRadio,
         };
+
+        const newCollectionToDisplayState = [...collectionToDisplay, flashcard];
+
+        dispatch(
+            collectionsSlice.actions.setCollectionToDisplay(
+                newCollectionToDisplayState,
+            ),
+        );
 
         FlashcardsDataService.createFlashcard(flashcard);
     };

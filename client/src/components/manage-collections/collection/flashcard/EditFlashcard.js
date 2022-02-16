@@ -30,6 +30,9 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { editFlashcardSchema } from '../../../../joiSchemas';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { collectionsSlice } from '../../../../redux/slices/collectionsSlice';
+
 const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
     const {
         _id,
@@ -39,9 +42,15 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
         right_answer: rowCorrectAnswer,
     } = row;
 
+    const collectionToDisplay = useSelector(
+        (state) => state.collections.collectionToDisplay,
+    );
+
     const [selectedRadio, setSelectedRadio] = useState(rowCorrectAnswer);
 
     const [isRowOpen, setIsRowOpen] = useState(true);
+
+    const dispatch = useDispatch();
 
     const handleDropdownClick = () => setIsRowOpen((prevState) => !prevState);
 
@@ -65,6 +74,29 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
             answers: [answerA, answerB, answerC, answerD],
             right_answer: selectedRadio,
         };
+
+        const newCollectionToDisplay = [...collectionToDisplay];
+
+        const editedCollectionToDisplay = newCollectionToDisplay.map(
+            (flashcard) => {
+                if (flashcard._id === _id) {
+                    return {
+                        ...flashcard,
+                        prompt: question,
+                        answers: [answerA, answerB, answerC, answerD],
+                        right_answer: selectedRadio,
+                    };
+                }
+
+                return flashcard;
+            },
+        );
+
+        dispatch(
+            collectionsSlice.actions.setCollectionToDisplay(
+                editedCollectionToDisplay,
+            ),
+        );
 
         FlashcardsDataService.updateFlashcard(editedFlashcard);
 

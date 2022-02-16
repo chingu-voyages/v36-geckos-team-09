@@ -65,7 +65,7 @@ const CollectionTable = ({ selectedCollectionName }) => {
                     <TableBody>
                         {collectionToDisplay.map((row, index) => (
                             <CollectionTableRow
-                                key={row._id}
+                                key={row.prompt}
                                 row={row}
                                 index={index}
                             />
