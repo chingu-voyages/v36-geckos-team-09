@@ -30,8 +30,6 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { editFlashcardSchema } from '../../../../joiSchemas';
 
-import { useSelector } from 'react-redux';
-
 const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
     const {
         _id,
@@ -40,10 +38,6 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
         answers: rowAnswers,
         right_answer: rowCorrectAnswer,
     } = row;
-
-    /*   const selectedCollectionName = useSelector(
-        (state) => state.collections.selectedCollectionName,
-    ); */
 
     const [selectedRadio, setSelectedRadio] = useState(rowCorrectAnswer);
 

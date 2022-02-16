@@ -15,10 +15,13 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { addNewCollectionSchema } from '../../joiSchemas';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { collectionsSlice } from '../../redux/slices/collectionsSlice';
+
 import TestCollection from './tests/TestCollection';
 
 const ManageCollections = () => {
-    const [collectionsToDisplay, setCollectionsToDisplay] = useState([]);
+    const collections = useSelector((state) => state.collections.collections);
 
     const [duplicateCollectionNameError, setDuplicateCollectionNameError] =
         useState(false);
@@ -27,6 +30,8 @@ const ManageCollections = () => {
 
     const isOpen = Boolean(anchorEl);
     const id = isOpen ? 'simple-popover' : undefined;
+
+    const dispatch = useDispatch();
 
     const handleAddClick = (e) => setAnchorEl(e.currentTarget);
 
@@ -51,6 +56,8 @@ const ManageCollections = () => {
             collection_name: collectionName,
         };
 
+        const newCollectionState = [...collections, newCollection];
+
         const existingCollectionNames = await getCollectionNames();
 
         if (existingCollectionNames.indexOf(collectionName) !== -1) {
@@ -63,7 +70,7 @@ const ManageCollections = () => {
             return;
         }
 
-        setCollectionsToDisplay((prevState) => [...prevState, newCollection]);
+        dispatch(collectionsSlice.actions.setCollections(newCollectionState));
 
         FlashcardsDataService.createCollection(newCollection);
 
@@ -141,10 +148,7 @@ const ManageCollections = () => {
                 </Typography>
             </Popover>
 
-            <Collections
-                collectionsToDisplay={collectionsToDisplay}
-                setCollectionsToDisplay={setCollectionsToDisplay}
-            />
+            <Collections />
             {/* <TestCollection /> */}
         </Box>
     );

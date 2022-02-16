@@ -11,8 +11,15 @@ import { List, Box } from '@mui/material';
 
 import { BallTriangle } from 'react-loader-spinner';
 
-const Collections = ({ collectionsToDisplay, setCollectionsToDisplay }) => {
+import { useDispatch, useSelector } from 'react-redux';
+import { collectionsSlice } from '../../redux/slices/collectionsSlice';
+
+const Collections = () => {
+    const collections = useSelector((state) => state.collections.collections);
+
     const [loading, setLoading] = useState(false);
+
+    const dispatch = useDispatch();
 
     const getCollections = async (isMounted) => {
         setLoading(true);
@@ -27,7 +34,12 @@ const Collections = ({ collectionsToDisplay, setCollectionsToDisplay }) => {
                 'collection_name',
             );
 
-            if (isMounted) setCollectionsToDisplay([...dataWithoutDuplicates]);
+            if (isMounted)
+                dispatch(
+                    collectionsSlice.actions.setCollections(
+                        dataWithoutDuplicates,
+                    ),
+                );
 
             setLoading(false);
         } catch (e) {
@@ -55,7 +67,7 @@ const Collections = ({ collectionsToDisplay, setCollectionsToDisplay }) => {
                     />
                 </Box>
             ) : (
-                collectionsToDisplay.map((collection) => (
+                collections.map((collection) => (
                     <CollectionsBox
                         key={collection.collection_name}
                         collection={collection}

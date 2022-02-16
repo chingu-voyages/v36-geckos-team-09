@@ -41,9 +41,6 @@ const CollectionsBox = ({ collection }) => {
 
     const dispatch = useDispatch();
 
-    const handleCollectionsBoxClick = (name) =>
-        dispatch(collectionsSlice.actions.setSelectedCollectionName(name));
-
     const handleDeleteClick = (collectionName) =>
         FlashcardsDataService.deleteCollection(collectionName);
 
@@ -99,7 +96,6 @@ const CollectionsBox = ({ collection }) => {
                     to={`/collections/${
                         collectionName /* .replace(/\s+/g, '') */
                     }`}
-                    onClick={() => handleCollectionsBoxClick(collectionName)}
                 >
                     <Button className='collections__btn'>
                         <ListItem className='collections__item'>

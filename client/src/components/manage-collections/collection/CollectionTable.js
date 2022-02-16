@@ -6,14 +6,8 @@ import CollectionTableRow from './CollectionTableRow';
 
 import { Table, TableBody, TableContainer, Paper } from '@mui/material';
 
-import { useSelector } from 'react-redux';
-
 const CollectionTable = ({ selectedCollectionName }) => {
     const [collectionToDisplay, setCollectionToDisplay] = useState([]);
-
-    /* const selectedCollectionName = useSelector(
-        (state) => state.collections.selectedCollectionName,
-    ); */
 
     useEffect(() => {
         let isMounted = true;
