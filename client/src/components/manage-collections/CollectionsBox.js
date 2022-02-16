@@ -24,7 +24,7 @@ import {
 } from '@mui/material';
 import { BsFillCollectionFill } from 'react-icons/bs';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 
 import { useForm } from 'react-hook-form';
@@ -34,6 +34,8 @@ import { changeCollectionNameSchema } from '../../joiSchemas';
 const CollectionsBox = ({ collection }) => {
     const { collection_name: collectionName } = collection;
 
+    const collections = useSelector((state) => state.collections.collections);
+
     const [isEditable, setIsEditable] = useState(false);
 
     const [duplicateCollectionNameError, setDuplicateCollectionNameError] =
@@ -41,8 +43,17 @@ const CollectionsBox = ({ collection }) => {
 
     const dispatch = useDispatch();
 
-    const handleDeleteClick = (collectionName) =>
+    const handleDeleteClick = (collectionName) => {
+        const newCollections = [...collections];
+
+        const filteredCollections = newCollections.filter(
+            (collection) => collection.collection_name !== collectionName,
+        );
+
+        dispatch(collectionsSlice.actions.setCollections(filteredCollections));
+
         FlashcardsDataService.deleteCollection(collectionName);
+    };
 
     const handleEditClick = () => setIsEditable((prevState) => !prevState);
 
