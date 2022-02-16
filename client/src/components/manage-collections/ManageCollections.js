@@ -18,6 +18,8 @@ import { addNewCollectionSchema } from '../../joiSchemas';
 import TestCollection from './tests/TestCollection';
 
 const ManageCollections = () => {
+    const [collectionsToDisplay, setCollectionsToDisplay] = useState([]);
+
     const [duplicateCollectionNameError, setDuplicateCollectionNameError] =
         useState(false);
 
@@ -60,6 +62,8 @@ const ManageCollections = () => {
 
             return;
         }
+
+        setCollectionsToDisplay((prevState) => [...prevState, newCollection]);
 
         FlashcardsDataService.createCollection(newCollection);
 
@@ -137,7 +141,10 @@ const ManageCollections = () => {
                 </Typography>
             </Popover>
 
-            <Collections />
+            <Collections
+                collectionsToDisplay={collectionsToDisplay}
+                setCollectionsToDisplay={setCollectionsToDisplay}
+            />
             {/* <TestCollection /> */}
         </Box>
     );
