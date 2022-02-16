@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { collections: [] };
+const initialState = { collections: [], collectionToDisplay: [] };
 
 const name = 'collections';
 
@@ -10,6 +10,9 @@ export const collectionsSlice = createSlice({
     reducers: {
         setCollections: (state, action) => {
             state.collections = action.payload;
+        },
+        setCollectionToDisplay: (state, action) => {
+            state.collectionToDisplay = action.payload;
         },
     },
 });
