@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { selectedCollectionName: null };
+const initialState = { collections: [], collectionToDisplay: [] };
 
 const name = 'collections';
 
@@ -8,12 +8,15 @@ export const collectionsSlice = createSlice({
     name,
     initialState,
     reducers: {
-        setSelectedCollectionName: (state, action) => {
-            state.selectedCollectionName = action.payload;
+        setCollections: (state, action) => {
+            state.collections = action.payload;
+        },
+        setCollectionToDisplay: (state, action) => {
+            state.collectionToDisplay = action.payload;
         },
     },
 });
 
-export const { setSelectedCollectionName } = collectionsSlice.actions;
+export const { setCollections } = collectionsSlice.actions;
 
 export default collectionsSlice.reducer;

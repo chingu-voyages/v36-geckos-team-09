@@ -21,12 +21,13 @@ import {
 } from '@mui/material';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { collectionsSlice } from '../../../redux/slices/collectionsSlice';
+
 const CollectionTableRow = ({ row, index }) => {
     const [isRowOpen, setIsRowOpen] = useState(false);
 
     const [isEditable, setIsEditable] = useState(false);
-
-    const rowIndex = index + 1;
 
     const {
         _id: rowId,
@@ -35,10 +36,31 @@ const CollectionTableRow = ({ row, index }) => {
         right_answer: rowCorrectAnswer,
     } = row;
 
+    const rowIndex = index + 1;
+
+    const collectionToDisplay = useSelector(
+        (state) => state.collections.collectionToDisplay,
+    );
+
+    const dispatch = useDispatch();
+
     const handleDropdownClick = () => setIsRowOpen((prevState) => !prevState);
 
-    const handleDeleteClick = () =>
+    const handleDeleteClick = () => {
+        const newCollectionToDisplay = [...collectionToDisplay];
+
+        const filteredCollectionToDisplay = newCollectionToDisplay.filter(
+            (flashcard) => flashcard._id !== rowId,
+        );
+
+        dispatch(
+            collectionsSlice.actions.setCollectionToDisplay(
+                filteredCollectionToDisplay,
+            ),
+        );
+
         FlashcardsDataService.deleteFlashcard(rowId);
+    };
 
     const handleEditAndCloseClick = () =>
         setIsEditable((prevState) => !prevState);

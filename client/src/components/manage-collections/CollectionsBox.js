@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import FlashcardsDataService from '../../services/flashcards_service';
 
-import { getCollectionNames } from '../../utils';
+import { getCollectionNames, getStateCollectionNames } from '../../utils';
 
 import OptionButtonEdit from './option-buttons/OptionButtonEdit';
 import OptionButtonDelete from './option-buttons/OptionButtonDelete';
@@ -24,7 +24,7 @@ import {
 } from '@mui/material';
 import { BsFillCollectionFill } from 'react-icons/bs';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 
 import { useForm } from 'react-hook-form';
@@ -34,6 +34,8 @@ import { changeCollectionNameSchema } from '../../joiSchemas';
 const CollectionsBox = ({ collection }) => {
     const { collection_name: collectionName } = collection;
 
+    const collections = useSelector((state) => state.collections.collections);
+
     const [isEditable, setIsEditable] = useState(false);
 
     const [duplicateCollectionNameError, setDuplicateCollectionNameError] =
@@ -41,11 +43,17 @@ const CollectionsBox = ({ collection }) => {
 
     const dispatch = useDispatch();
 
-    const handleCollectionsBoxClick = (name) =>
-        dispatch(collectionsSlice.actions.setSelectedCollectionName(name));
+    const handleDeleteClick = (collectionName) => {
+        const newCollections = [...collections];
 
-    const handleDeleteClick = (collectionName) =>
+        const filteredCollections = newCollections.filter(
+            (collection) => collection.collection_name !== collectionName,
+        );
+
+        dispatch(collectionsSlice.actions.setCollections(filteredCollections));
+
         FlashcardsDataService.deleteCollection(collectionName);
+    };
 
     const handleEditClick = () => setIsEditable((prevState) => !prevState);
 
@@ -74,7 +82,13 @@ const CollectionsBox = ({ collection }) => {
 
         const existingCollectionNames = await getCollectionNames();
 
-        if (existingCollectionNames.indexOf(newCollectionName) !== -1) {
+        const existingStateCollectionNames =
+            getStateCollectionNames(collections);
+
+        if (
+            existingCollectionNames.indexOf(newCollectionName) !== -1 ||
+            existingStateCollectionNames.indexOf(newCollectionName) !== -1
+        ) {
             setDuplicateCollectionNameError(true);
 
             setTimeout(() => {
@@ -83,6 +97,18 @@ const CollectionsBox = ({ collection }) => {
 
             return;
         }
+
+        const newCollections = [...collections];
+
+        const editedCollections = newCollections.map((collection) => {
+            if (collection.collection_name === collectionName) {
+                return { ...collection, collection_name: newCollectionName };
+            }
+
+            return collection;
+        });
+
+        dispatch(collectionsSlice.actions.setCollections(editedCollections));
 
         FlashcardsDataService.updateCollection(editedCollection);
 
@@ -99,7 +125,6 @@ const CollectionsBox = ({ collection }) => {
                     to={`/collections/${
                         collectionName /* .replace(/\s+/g, '') */
                     }`}
-                    onClick={() => handleCollectionsBoxClick(collectionName)}
                 >
                     <Button className='collections__btn'>
                         <ListItem className='collections__item'>
