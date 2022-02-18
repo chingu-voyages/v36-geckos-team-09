@@ -1,3 +1,5 @@
+@import './abstracts/_config';
+
 /* Defaults */
 
 :root {
@@ -27,3 +29,13 @@ a {
 .MuiTableCell-root {
     border-bottom: none !important;
 }
+
+/* .MuiPaper-root.MuiPaper-elevation {
+    background-color: transparent;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+} */
+
+/* .MuiSvgIcon-root.MuiSvgIcon-fontSizeMedium {
+    color: $color-white;
+} */

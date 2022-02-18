@@ -1,0 +1,18 @@
+@import './abstracts/_config';
+
+.play-box {
+    &__card {
+        background-color: transparent !important;
+        color: $color-white !important;
+    }
+
+    &__btn {
+        color: $color-secondary !important;
+        background-color: transparent !important;
+        transition: transform 0.2s ease-in-out !important;
+
+        &:hover {
+            transform: scale(1.1) !important;
+        }
+    }
+}
