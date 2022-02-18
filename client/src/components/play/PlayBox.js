@@ -5,15 +5,21 @@ import '../../styles/playBox.scss';
 import { Box, Typography, Button } from '@mui/material';
 import { BsFillArrowLeftSquareFill } from 'react-icons/bs';
 
-const PlayBox = ({
-    selectedCollection,
-    setIsPlaying,
-    setSelectedCollection,
-    setIsButtonDisabled,
-}) => {
+import { useDispatch, useSelector } from 'react-redux';
+import { playSlice } from '../../redux/slices/playSlice';
+
+const PlayBox = ({ setIsPlaying, setIsButtonDisabled }) => {
+    const selectedCollection = useSelector(
+        (state) => state.selectedCollection.selectedCollection,
+    );
+
+    const dispatch = useDispatch();
+
     const handleBackClick = () => {
         setIsPlaying(false);
-        setSelectedCollection('');
+
+        dispatch(playSlice.actions.resetSelectedCollection());
+
         setIsButtonDisabled(true);
     };
 

@@ -19,6 +19,9 @@ import {
     Button,
 } from '@mui/material';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { playSlice } from '../../redux/slices/playSlice';
+
 export default function Play() {
     /*    const [collection, setCollection] = useState('');
     const [collections, setCollections] = useState([]);
@@ -126,16 +129,20 @@ export default function Play() {
 
     ////////////////////////////////////////////////////////////////////////////////
 
-    const [selectedCollection, setSelectedCollection] = useState('');
-
     const [collections, setCollections] = useState([]);
 
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
     const [isPlaying, setIsPlaying] = useState(false);
 
+    const selectedCollection = useSelector(
+        (state) => state.selectedCollection.selectedCollection,
+    );
+
+    const dispatch = useDispatch();
+
     const handleChange = (e) => {
-        setSelectedCollection(e.target.value);
+        dispatch(playSlice.actions.setSelectedCollection(e.target.value));
 
         setIsButtonDisabled(false);
     };
@@ -213,9 +220,7 @@ export default function Play() {
                 </Box>
             ) : (
                 <PlayBox
-                    selectedCollection={selectedCollection}
                     setIsPlaying={setIsPlaying}
-                    setSelectedCollection={setSelectedCollection}
                     setIsButtonDisabled={setIsButtonDisabled}
                 />
             )}
