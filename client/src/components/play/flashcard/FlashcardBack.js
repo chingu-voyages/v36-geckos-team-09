@@ -5,10 +5,12 @@ import { Card, CardContent, Typography, Box } from '@mui/material';
 
 import { useSelector } from 'react-redux';
 
-const FlashcardBack = ({ cardHeight, handleFlipClick }) => {
+const FlashcardBack = ({ cardDimensions, handleFlipClick }) => {
     const collectionToDisplay = useSelector(
         (state) => state.play.collectionToDisplay,
     );
+
+    const flashcardIndex = useSelector((state) => state.play.flashcardIndex);
 
     return (
         <Card className='play-box__card '>
@@ -27,7 +29,8 @@ const FlashcardBack = ({ cardHeight, handleFlipClick }) => {
                     flexDirection='column'
                     m={3}
                     maxWidth='600px'
-                    minHeight={cardHeight}
+                    minHeight={cardDimensions.cardHeight}
+                    width={cardDimensions.cardWidth}
                 >
                     <Typography
                         variant='span'
@@ -44,7 +47,7 @@ const FlashcardBack = ({ cardHeight, handleFlipClick }) => {
                         fontSize='5rem'
                         color='secondary'
                     >
-                        "{collectionToDisplay[0]?.right_answer}"
+                        "{collectionToDisplay[flashcardIndex]?.right_answer}"
                     </Typography>
                 </Box>
             </CardContent>

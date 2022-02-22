@@ -3,16 +3,15 @@ import { useEffect, useState } from 'react';
 import FlashcardsDataService from '../../../services/flashcards_service';
 
 import CollectionTableRow from './CollectionTableRow';
+import LoadingBox from '../../loading/LoadingBox';
 
-import { Table, TableBody, TableContainer, Paper, Box } from '@mui/material';
-
-import { BallTriangle } from 'react-loader-spinner';
+import { Table, TableBody, TableContainer, Paper } from '@mui/material';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { collectionsSlice } from '../../../redux/slices/collectionsSlice';
 
 const CollectionTable = ({ selectedCollectionName }) => {
-    const [loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const collectionToDisplay = useSelector(
         (state) => state.collections.collectionToDisplay,
@@ -21,7 +20,7 @@ const CollectionTable = ({ selectedCollectionName }) => {
     const dispatch = useDispatch();
 
     const getCollectionFlashcards = async (collectionName, isMounted) => {
-        setLoading(true);
+        setIsLoading(true);
 
         try {
             const res = await FlashcardsDataService.getCollection(
@@ -35,7 +34,7 @@ const CollectionTable = ({ selectedCollectionName }) => {
             if (isMounted)
                 dispatch(collectionsSlice.actions.setCollectionToDisplay(data));
 
-            setLoading(false);
+            setIsLoading(false);
         } catch (e) {
             console.log(e);
         }
@@ -51,15 +50,8 @@ const CollectionTable = ({ selectedCollectionName }) => {
 
     return (
         <TableContainer className='collection-table' component={Paper}>
-            {loading ? (
-                <Box padding={5} mt={5} display='flex' justifyContent='center'>
-                    <BallTriangle
-                        heigth='100'
-                        width='100'
-                        color='#9c27b0'
-                        ariaLabel='loading'
-                    />
-                </Box>
+            {isLoading ? (
+                <LoadingBox />
             ) : (
                 <Table aria-label='collapsible table'>
                     <TableBody>

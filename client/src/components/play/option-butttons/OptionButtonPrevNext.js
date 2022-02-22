@@ -1,24 +1,52 @@
 import '../../../styles/playBox.scss';
 import { Typography, IconButton } from '@mui/material';
-
 import { IoIosArrowForward, IoIosArrowBack } from 'react-icons/io';
 
-const OptionButtonPrevNext = ({ direction }) => {
-    return (
-        <IconButton className='play-box__btn' size='small'>
-            {direction === 'prev' && (
-                <>
-                    <IoIosArrowBack size='2.5rem' />
-                    <Typography fontSize='1.8rem'>PREV</Typography>
-                </>
-            )}
+import { useSelector, useDispatch } from 'react-redux';
+import { playSlice } from '../../../redux/slices/playSlice';
 
-            {direction === 'next' && (
-                <>
-                    <Typography fontSize='1.8rem'>NEXT</Typography>
-                    <IoIosArrowForward size='2.5rem' />
-                </>
-            )}
+const OptionButtonPrevNext = ({ direction }) => {
+    const flashcardIndex = useSelector((state) => state.play.flashcardIndex);
+
+    const collectionToDisplay = useSelector(
+        (state) => state.play.collectionToDisplay,
+    );
+
+    const dispatch = useDispatch();
+
+    const handleClick = (dir) => {
+        if (dir === 'prev')
+            dispatch(playSlice.actions.decrementFlashcardIndex());
+
+        if (dir === 'next')
+            dispatch(playSlice.actions.incrementFlashcardIndex());
+    };
+
+    return direction === 'prev' ? (
+        <IconButton
+            className={
+                flashcardIndex === 0
+                    ? 'play-box__btn play-box__btn-hide'
+                    : 'play-box__btn'
+            }
+            onClick={() => handleClick(direction)}
+            size='small'
+        >
+            <IoIosArrowBack size='2.5rem' />
+            <Typography fontSize='1.8rem'>PREV</Typography>
+        </IconButton>
+    ) : (
+        <IconButton
+            className={
+                collectionToDisplay.length - 1 === flashcardIndex
+                    ? 'play-box__btn play-box__btn-hide'
+                    : 'play-box__btn'
+            }
+            onClick={() => handleClick(direction)}
+            size='small'
+        >
+            <Typography fontSize='1.8rem'>NEXT</Typography>
+            <IoIosArrowForward size='2.5rem' />
         </IconButton>
     );
 };

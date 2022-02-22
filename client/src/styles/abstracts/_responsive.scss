@@ -15,6 +15,13 @@
     }
 }
 
+@media (max-width: 450px) {
+    .collection__title,
+    .collection__title-span {
+        font-size: 2rem !important;
+    }
+}
+
 @media (max-width: 300px) {
     .collection {
         &__title,

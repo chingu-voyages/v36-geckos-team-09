@@ -1,5 +1,10 @@
-import Flashcard2 from './flashcard/Flashcard2';
+import { useState, useEffect } from 'react';
+
+import FlashcardsDataService from '../../services/flashcards_service';
+
+import Flashcard from './flashcard/Flashcard';
 import OptionButtonPrevNext from './option-butttons/OptionButtonPrevNext';
+import LoadingBox from '../loading/LoadingBox';
 
 import '../../styles/playBox.scss';
 import { Box, Typography, Button } from '@mui/material';
@@ -9,6 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { playSlice } from '../../redux/slices/playSlice';
 
 const PlayBox = ({ setIsPlaying, setIsButtonDisabled }) => {
+    const [isLoading, setIsLoading] = useState(false);
+
     const selectedCollection = useSelector(
         (state) => state.play.selectedCollection,
     );
@@ -20,8 +27,34 @@ const PlayBox = ({ setIsPlaying, setIsButtonDisabled }) => {
 
         dispatch(playSlice.actions.resetSelectedCollection());
 
+        dispatch(playSlice.actions.resetFlashcardIndex());
+
         setIsButtonDisabled(true);
     };
+
+    useEffect(() => {
+        const getCollectionFlashcards = async (collectionName) => {
+            setIsLoading(true);
+
+            try {
+                const res = await FlashcardsDataService.getCollection(
+                    collectionName,
+                );
+
+                const data = res.data.flashcards.filter((flashcard) =>
+                    flashcard.hasOwnProperty('isSampleCard') ? false : true,
+                );
+
+                dispatch(playSlice.actions.setCollectionToDisplay(data));
+
+                setIsLoading(false);
+            } catch (e) {
+                console.log(e);
+            }
+        };
+
+        getCollectionFlashcards(selectedCollection);
+    }, []);
 
     return (
         <Box className='play-box'>
@@ -59,28 +92,34 @@ const PlayBox = ({ setIsPlaying, setIsButtonDisabled }) => {
                 </Typography>
             </Box>
 
-            <Flashcard2 />
+            {isLoading ? (
+                <LoadingBox />
+            ) : (
+                <>
+                    <Flashcard />
 
-            <Box
-                display='flex'
-                justifyContent='center'
-                alignItems='center'
-                mt={2}
-            >
-                <OptionButtonPrevNext direction='prev' />
+                    <Box
+                        display='flex'
+                        justifyContent='center'
+                        alignItems='center'
+                        mt={2}
+                    >
+                        <OptionButtonPrevNext direction='prev' />
 
-                <Typography
-                    fontSize='3rem'
-                    fontWeight={300}
-                    color='white'
-                    mr={1}
-                    ml={1}
-                >
-                    |
-                </Typography>
+                        <Typography
+                            fontSize='3rem'
+                            fontWeight={300}
+                            color='white'
+                            mr={1}
+                            ml={1}
+                        >
+                            |
+                        </Typography>
 
-                <OptionButtonPrevNext direction='next' />
-            </Box>
+                        <OptionButtonPrevNext direction='next' />
+                    </Box>
+                </>
+            )}
         </Box>
     );
 };

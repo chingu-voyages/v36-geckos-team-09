@@ -11,6 +11,10 @@
         background-color: transparent !important;
         transition: transform 0.2s ease-in-out !important;
 
+        &-hide {
+            display: none !important;
+        }
+
         &:hover {
             transform: scale(1.1) !important;
         }

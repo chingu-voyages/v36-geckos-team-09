@@ -27,6 +27,9 @@ export const playSlice = createSlice({
         decrementFlashcardIndex: (state) => {
             state.flashcardIndex -= 1;
         },
+        resetFlashcardIndex: (state) => {
+            state.flashcardIndex = 0;
+        },
     },
 });
 
@@ -36,6 +39,7 @@ export const {
     setCollectionToDisplay,
     incrementFlashcardIndex,
     decrementFlashcardIndex,
+    resetFlashcardIndex,
 } = playSlice.actions;
 
 export default playSlice.reducer;

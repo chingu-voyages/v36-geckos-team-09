@@ -12,6 +12,10 @@ const FlashcardFront = ({ cardRef, handleFlipClick }) => {
         (state) => state.play.collectionToDisplay,
     );
 
+    const flashcardIndex = useSelector((state) => state.play.flashcardIndex);
+
+    const flashcardOrdNum = flashcardIndex + 1;
+
     return (
         <Card className='play-box__card'>
             <CardContent>
@@ -38,14 +42,14 @@ const FlashcardFront = ({ cardRef, handleFlipClick }) => {
                             mr={1}
                             color='secondary'
                         >
-                            1.
+                            {flashcardOrdNum}.
                         </Typography>
-                        {collectionToDisplay[0]?.prompt}
+                        {collectionToDisplay[flashcardIndex]?.prompt}
                     </Typography>
 
                     <Box mt={5}>
                         <Grid container spacing={2}>
-                            {collectionToDisplay[0]?.answers.map(
+                            {collectionToDisplay[flashcardIndex]?.answers.map(
                                 (answer, index) => (
                                     <Grid item xs={12} sm={6} key={answer}>
                                         <Typography fontSize='1.3rem'>

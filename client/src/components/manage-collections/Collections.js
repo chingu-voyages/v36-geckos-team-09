@@ -3,13 +3,12 @@ import { useEffect, useState } from 'react';
 import { getUniqueListBy } from '../../utils';
 
 import CollectionsBox from './CollectionsBox';
+import LoadingBox from '../loading/LoadingBox';
 
 import FlashcardsDataService from '../../services/flashcards_service';
 
 import '../../styles/collections.scss';
-import { List, Box } from '@mui/material';
-
-import { BallTriangle } from 'react-loader-spinner';
+import { List } from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { collectionsSlice } from '../../redux/slices/collectionsSlice';
@@ -17,12 +16,12 @@ import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 const Collections = () => {
     const collections = useSelector((state) => state.collections.collections);
 
-    const [loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const dispatch = useDispatch();
 
     const getCollections = async (isMounted) => {
-        setLoading(true);
+        setIsLoading(true);
 
         try {
             const res = await FlashcardsDataService.getAll();
@@ -41,7 +40,7 @@ const Collections = () => {
                     ),
                 );
 
-            setLoading(false);
+            setIsLoading(false);
         } catch (e) {
             console.log(e);
         }
@@ -57,15 +56,8 @@ const Collections = () => {
 
     return (
         <List className='collections'>
-            {loading ? (
-                <Box padding={5} mt={5} display='flex' justifyContent='center'>
-                    <BallTriangle
-                        heigth='100'
-                        width='100'
-                        color='#9c27b0'
-                        ariaLabel='loading'
-                    />
-                </Box>
+            {isLoading ? (
+                <LoadingBox />
             ) : (
                 collections.map((collection) => (
                     <CollectionsBox
