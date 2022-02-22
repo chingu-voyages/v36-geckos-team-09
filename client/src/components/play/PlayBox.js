@@ -10,7 +10,7 @@ import { playSlice } from '../../redux/slices/playSlice';
 
 const PlayBox = ({ setIsPlaying, setIsButtonDisabled }) => {
     const selectedCollection = useSelector(
-        (state) => state.selectedCollection.selectedCollection,
+        (state) => state.play.selectedCollection,
     );
 
     const dispatch = useDispatch();

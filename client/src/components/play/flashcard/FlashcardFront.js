@@ -1,9 +1,17 @@
 import OptionButtonFlip from '../option-butttons/OptionButtonFlip';
 
+import { ANSWER_PREFIX } from '../../../static';
+
 import '../../../styles/playBox.scss';
 import { Card, CardContent, Typography, Box, Grid } from '@mui/material';
 
+import { useSelector } from 'react-redux';
+
 const FlashcardFront = ({ cardRef, handleFlipClick }) => {
+    const collectionToDisplay = useSelector(
+        (state) => state.play.collectionToDisplay,
+    );
+
     return (
         <Card className='play-box__card'>
             <CardContent>
@@ -32,81 +40,29 @@ const FlashcardFront = ({ cardRef, handleFlipClick }) => {
                         >
                             1.
                         </Typography>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Eveniet, harum!orem ipsum dolor sit amet,
-                        consectetur adipisicing elit. Eveniet, harum!
+                        {collectionToDisplay[0]?.prompt}
                     </Typography>
 
                     <Box mt={5}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
-                                <Typography fontSize='1.3rem'>
-                                    <Typography
-                                        variant='span'
-                                        fontWeight={500}
-                                        fontSize='1.8rem'
-                                        mr={1}
-                                        color='secondary'
-                                    >
-                                        A.
-                                    </Typography>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Eveniet, harum!orem ipsum
-                                    dolor sit amet, consectetur adipisicing
-                                    elit. Eveniet, harum!
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <Typography fontSize='1.3rem'>
-                                    <Typography
-                                        variant='span'
-                                        fontWeight={500}
-                                        fontSize='1.8rem'
-                                        mr={1}
-                                        color='secondary'
-                                    >
-                                        B.
-                                    </Typography>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Eveniet, harum!orem ipsum
-                                    dolor sit amet, consectetur adipisicing
-                                    elit. Eveniet, harum!
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <Typography fontSize='1.3rem'>
-                                    <Typography
-                                        variant='span'
-                                        fontWeight={500}
-                                        fontSize='1.8rem'
-                                        mr={1}
-                                        color='secondary'
-                                    >
-                                        C.
-                                    </Typography>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Eveniet, harum!orem ipsum
-                                    dolor sit amet, consectetur adipisicing
-                                    elit. Eveniet, harum!
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <Typography fontSize='1.3rem'>
-                                    <Typography
-                                        variant='span'
-                                        fontWeight={500}
-                                        fontSize='1.8rem'
-                                        mr={1}
-                                        color='secondary'
-                                    >
-                                        D.
-                                    </Typography>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Eveniet, harum!orem ipsum
-                                    dolor sit amet, consectetur adipisicing
-                                    elit. Eveniet, harum!
-                                </Typography>
-                            </Grid>
+                            {collectionToDisplay[0]?.answers.map(
+                                (answer, index) => (
+                                    <Grid item xs={12} sm={6} key={answer}>
+                                        <Typography fontSize='1.3rem'>
+                                            <Typography
+                                                variant='span'
+                                                fontWeight={500}
+                                                fontSize='1.8rem'
+                                                mr={1}
+                                                color='secondary'
+                                            >
+                                                {ANSWER_PREFIX[index]}.
+                                            </Typography>
+                                            {answer}
+                                        </Typography>
+                                    </Grid>
+                                ),
+                            )}
                         </Grid>
                     </Box>
                 </Box>

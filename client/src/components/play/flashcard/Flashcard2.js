@@ -1,9 +1,14 @@
 import { useState, useRef, useEffect } from 'react';
 
+import FlashcardsDataService from '../../../services/flashcards_service';
+
 import FlashcardFront from './FlashcardFront';
 import FlashcardBack from './FlashcardBack';
 
 import ReactCardFlip from 'react-card-flip';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { playSlice } from '../../../redux/slices/playSlice';
 
 const Flashcard2 = () => {
     const [isCardFlipped, setIsCardFlipped] = useState(false);
@@ -12,36 +17,37 @@ const Flashcard2 = () => {
 
     const cardRef = useRef();
 
+    const selectedCollection = useSelector(
+        (state) => state.play.selectedCollection,
+    );
+
+    const dispatch = useDispatch();
+
     const handleFlipClick = () => setIsCardFlipped((prevState) => !prevState);
 
     useEffect(() => {
         setCardHeight(cardRef.current.clientHeight);
     }, []);
 
-    /*  useEffect(() => {
-
+    useEffect(() => {
         const getCollectionFlashcards = async (collectionName) => {
-    
             try {
                 const res = await FlashcardsDataService.getCollection(
                     collectionName,
                 );
-    
+
                 const data = res.data.flashcards.filter((flashcard) =>
                     flashcard.hasOwnProperty('isSampleCard') ? false : true,
                 );
-    
-            
-                    dispatch(collectionsSlice.actions.setCollectionToDisplay(data));
-    
+
+                dispatch(playSlice.actions.setCollectionToDisplay(data));
             } catch (e) {
                 console.log(e);
             }
         };
 
-        getCollectionFlashcards()
-
-    }, []) */
+        getCollectionFlashcards(selectedCollection);
+    }, []);
 
     return (
         <ReactCardFlip isFlipped={isCardFlipped} flipDirection='horizontal'>

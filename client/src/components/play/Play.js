@@ -136,7 +136,7 @@ export default function Play() {
     const [isPlaying, setIsPlaying] = useState(false);
 
     const selectedCollection = useSelector(
-        (state) => state.selectedCollection.selectedCollection,
+        (state) => state.play.selectedCollection,
     );
 
     const dispatch = useDispatch();

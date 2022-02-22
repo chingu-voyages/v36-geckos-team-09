@@ -5,6 +5,6 @@ import playReducer from './slices/playSlice';
 export const store = configureStore({
     reducer: {
         collections: collectionsReducer,
-        selectedCollection: playReducer,
+        play: playReducer,
     },
 });

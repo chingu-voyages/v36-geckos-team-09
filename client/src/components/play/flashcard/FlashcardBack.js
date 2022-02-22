@@ -3,7 +3,13 @@ import OptionButtonFlip from '../option-butttons/OptionButtonFlip';
 import '../../../styles/playBox.scss';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 
+import { useSelector } from 'react-redux';
+
 const FlashcardBack = ({ cardHeight, handleFlipClick }) => {
+    const collectionToDisplay = useSelector(
+        (state) => state.play.collectionToDisplay,
+    );
+
     return (
         <Card className='play-box__card '>
             <CardContent>
@@ -21,25 +27,24 @@ const FlashcardBack = ({ cardHeight, handleFlipClick }) => {
                     flexDirection='column'
                     m={3}
                     maxWidth='600px'
-                    height={cardHeight}
+                    minHeight={cardHeight}
                 >
                     <Typography
                         variant='span'
-                        fontWeight={700}
+                        fontWeight={500}
                         fontSize='3rem'
                         mb={2}
-                        color='secondary'
+                        color='white'
                     >
-                        A.
+                        Correct Answer
                     </Typography>
                     <Typography
+                        variant='span'
                         fontWeight={500}
-                        textAlign='center'
-                        fontSize='1.5rem'
+                        fontSize='5rem'
+                        color='secondary'
                     >
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Eveniet, harum!orem ipsum dolor sit amet,
-                        consectetur adipisicing elit. Eveniet, harum!
+                        "{collectionToDisplay[0]?.right_answer}"
                     </Typography>
                 </Box>
             </CardContent>
