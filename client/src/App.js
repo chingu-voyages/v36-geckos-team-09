@@ -5,7 +5,6 @@ import {
 } from 'react-router-dom';
 
 import './styles/app.scss';
-import './App.css';
 
 import { Box, Container } from '@mui/material';
 

@@ -1,6 +1,6 @@
 @import './_config';
 
-@media (max-width: 500px) {
+@media (max-width: 510px) {
     .navbar {
         &__btn-grp {
             flex-direction: column;
@@ -12,6 +12,13 @@
             margin-bottom: 1rem !important;
         }
         margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .collection__title,
+    .collection__title-span {
+        font-size: 2rem !important;
     }
 }
 

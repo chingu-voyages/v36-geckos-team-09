@@ -18,8 +18,6 @@ import { addNewCollectionSchema } from '../../joiSchemas';
 import { useDispatch, useSelector } from 'react-redux';
 import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 
-import TestCollection from './tests/TestCollection';
-
 const ManageCollections = () => {
     const collections = useSelector((state) => state.collections.collections);
 
@@ -149,7 +147,6 @@ const ManageCollections = () => {
             </Popover>
 
             <Collections />
-            {/* <TestCollection /> */}
         </Box>
     );
 };

@@ -3,37 +3,37 @@ import Joi from 'joi';
 const string = Joi.string();
 
 export const newFlashcardSchema = Joi.object({
-    question: string.required().messages({
+    question: string.trim().required().messages({
         'string.empty': 'This field is required!',
     }),
-    answerA: string.required().messages({
+    answerA: string.trim().required().messages({
         'string.empty': 'This field is required!',
     }),
-    answerB: string.required().messages({
+    answerB: string.trim().required().messages({
         'string.empty': 'This field is required!',
     }),
-    answerC: string.required().messages({
+    answerC: string.trim().required().messages({
         'string.empty': 'This field is required!',
     }),
-    answerD: string.required().messages({
+    answerD: string.trim().required().messages({
         'string.empty': 'This field is required!',
     }),
 });
 
 export const editFlashcardSchema = Joi.object({
-    question: string.required().messages({
+    question: string.trim().required().messages({
         'string.empty': 'This field is required!',
     }),
-    answerA: string.required().messages({
+    answerA: string.trim().required().messages({
         'string.empty': 'This field is required!',
     }),
-    answerB: string.required().messages({
+    answerB: string.trim().required().messages({
         'string.empty': 'This field is required!',
     }),
-    answerC: string.required().messages({
+    answerC: string.trim().required().messages({
         'string.empty': 'This field is required!',
     }),
-    answerD: string.required().messages({
+    answerD: string.trim().required().messages({
         'string.empty': 'This field is required!',
     }),
 });
