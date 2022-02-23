@@ -17,6 +17,7 @@ export const collectionsSlice = createSlice({
     },
 });
 
-export const { setCollections } = collectionsSlice.actions;
+export const { setCollections, setCollectionToDisplay } =
+    collectionsSlice.actions;
 
 export default collectionsSlice.reducer;

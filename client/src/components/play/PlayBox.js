@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 
 import FlashcardsDataService from '../../services/flashcards_service';
 
+import { shuffleData } from '../../utils';
+
 import Flashcard from './flashcard/Flashcard';
 import OptionButtonPrevNext from './option-butttons/OptionButtonPrevNext';
 import LoadingBox from '../loading/LoadingBox';
@@ -45,7 +47,11 @@ const PlayBox = ({ setIsPlaying, setIsButtonDisabled }) => {
                     flashcard.hasOwnProperty('isSampleCard') ? false : true,
                 );
 
-                dispatch(playSlice.actions.setCollectionToDisplay(data));
+                const shuffledData = shuffleData(data);
+
+                dispatch(
+                    playSlice.actions.setCollectionToDisplay(shuffledData),
+                );
 
                 setIsLoading(false);
             } catch (e) {
