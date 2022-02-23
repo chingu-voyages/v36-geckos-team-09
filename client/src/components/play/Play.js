@@ -13,6 +13,8 @@ import {
     Select,
     MenuItem,
     Button,
+    FormControlLabel,
+    Checkbox,
 } from '@mui/material';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,6 +25,8 @@ export default function Play() {
 
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
+    const [isQuizModeChecked, setIsQuizModeChecked] = useState(false);
+
     const [isPlaying, setIsPlaying] = useState(false);
 
     const selectedCollection = useSelector(
@@ -31,11 +35,13 @@ export default function Play() {
 
     const dispatch = useDispatch();
 
-    const handleChange = (e) => {
+    const handleSelectChange = (e) => {
         dispatch(playSlice.actions.setSelectedCollection(e.target.value));
 
         setIsButtonDisabled(false);
     };
+
+    const handleCheckboxChange = (e) => setIsQuizModeChecked(e.target.checked);
 
     const handlePlayClick = () => setIsPlaying(true);
 
@@ -68,54 +74,80 @@ export default function Play() {
                     alignItems='center'
                 >
                     <Typography variant='h5' color='white'>
-                        Select Collection
+                        Select Collection & Choose Mode
                     </Typography>
 
-                    <Box display='flex' width='100%'>
-                        <FormControl
-                            className='play__select-collection'
-                            color='secondary'
+                    <Box display='flex' flexDirection='column' width='100%'>
+                        <Box
+                            display='flex'
+                            justifyContent='center'
+                            alignItems='center'
+                            mt={2}
                         >
-                            <InputLabel id='demo-simple-select-label'>
-                                <Typography fontSize='1.4rem' color='white'>
-                                    Collections
-                                </Typography>
-                            </InputLabel>
-                            <Select
-                                value={selectedCollection}
-                                onChange={handleChange}
-                                label={<Typography>Collections</Typography>}
-                                labelId='demo-simple-select-label'
-                                id='demo-simple-select'
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={isQuizModeChecked}
+                                        onChange={handleCheckboxChange}
+                                        size='large'
+                                        color='secondary'
+                                    />
+                                }
+                                label={
+                                    <Typography color='white' fontSize='1.2rem'>
+                                        Quiz Mode?
+                                    </Typography>
+                                }
+                            />
+                        </Box>
+                        <Box display='flex' alignItems='center'>
+                            <FormControl
+                                className='play__select-collection'
+                                color='secondary'
                             >
-                                {collections.map((collection) => (
-                                    <MenuItem
-                                        value={collection}
-                                        key={collection}
-                                    >
-                                        <Typography fontSize='1.5rem'>
-                                            {collection}
-                                        </Typography>
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
+                                <InputLabel id='demo-simple-select-label'>
+                                    <Typography fontSize='1.4rem' color='white'>
+                                        Collections
+                                    </Typography>
+                                </InputLabel>
+                                <Select
+                                    value={selectedCollection}
+                                    onChange={handleSelectChange}
+                                    label={<Typography>Collections</Typography>}
+                                    labelId='demo-simple-select-label'
+                                    id='demo-simple-select'
+                                >
+                                    {collections.map((collection) => (
+                                        <MenuItem
+                                            value={collection}
+                                            key={collection}
+                                        >
+                                            <Typography fontSize='1.5rem'>
+                                                {collection}
+                                            </Typography>
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
 
-                        <Button
-                            className='play__play-btn'
-                            onClick={handlePlayClick}
-                            variant='contained'
-                            color='secondary'
-                            disabled={isButtonDisabled}
-                        >
-                            Play
-                        </Button>
+                            <Button
+                                className='play__play-btn'
+                                onClick={handlePlayClick}
+                                variant='contained'
+                                color='secondary'
+                                disabled={isButtonDisabled}
+                            >
+                                Play
+                            </Button>
+                        </Box>
                     </Box>
                 </Box>
             ) : (
                 <PlayBox
                     setIsPlaying={setIsPlaying}
                     setIsButtonDisabled={setIsButtonDisabled}
+                    setIsQuizModeChecked={setIsQuizModeChecked}
+                    isQuizModeChecked={isQuizModeChecked}
                 />
             )}
         </>
