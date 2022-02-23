@@ -5,6 +5,7 @@ import FlashcardsDataService from '../../services/flashcards_service';
 import { shuffleData } from '../../utils';
 
 import Flashcard from './flashcard/Flashcard';
+import QuizFlashcard from './flashcard/quiz-flashcard/QuizFlashcard';
 import OptionButtonPrevNext from './option-butttons/OptionButtonPrevNext';
 import LoadingBox from '../loading/LoadingBox';
 
@@ -15,7 +16,12 @@ import { BsFillArrowLeftSquareFill } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { playSlice } from '../../redux/slices/playSlice';
 
-const PlayBox = ({ setIsPlaying, setIsButtonDisabled }) => {
+const PlayBox = ({
+    setIsPlaying,
+    setIsButtonDisabled,
+    isQuizModeChecked,
+    setIsQuizModeChecked,
+}) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const selectedCollection = useSelector(
@@ -32,6 +38,12 @@ const PlayBox = ({ setIsPlaying, setIsButtonDisabled }) => {
         dispatch(playSlice.actions.resetFlashcardIndex());
 
         setIsButtonDisabled(true);
+
+        setIsQuizModeChecked(false);
+    };
+
+    const showQuizModeOrSelfTest = (isQuizModeChecked) => {
+        return isQuizModeChecked ? <QuizFlashcard /> : <Flashcard />;
     };
 
     useEffect(() => {
@@ -102,7 +114,7 @@ const PlayBox = ({ setIsPlaying, setIsButtonDisabled }) => {
                 <LoadingBox />
             ) : (
                 <>
-                    <Flashcard />
+                    {showQuizModeOrSelfTest(isQuizModeChecked)}
 
                     <Box
                         display='flex'

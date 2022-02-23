@@ -2,13 +2,13 @@
 
 .play {
     &__select-collection {
-        margin: 2rem 0 !important;
         width: 100%;
     }
 
     &__play-btn {
         font-size: 1.2rem !important;
-        margin: 2.5rem 0 2.5rem 1rem !important;
+        margin-left: 1rem !important;
+        padding: 1rem 0 !important;
 
         &:disabled {
             background-color: $color-secondary-transparent !important;
