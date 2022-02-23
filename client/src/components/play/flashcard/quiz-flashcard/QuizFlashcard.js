@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { ANSWER_PREFIX } from '../../../../static';
 
 import '../../../../styles/quizFlashcard.scss';
@@ -14,6 +16,11 @@ import {
 import { useSelector } from 'react-redux';
 
 const QuizFlashcard = () => {
+    const [answerResult, setAnswerResult] = useState({
+        showAnswer: false,
+        answerMessage: 'Correct Answer !',
+    });
+
     const collectionToDisplay = useSelector(
         (state) => state.play.collectionToDisplay,
     );
@@ -23,7 +30,30 @@ const QuizFlashcard = () => {
     const flashcardOrdNum = flashcardIndex + 1;
 
     const handleAnswerChoiceClick = (answerPrefix) => {
-        console.log(typeof answerPrefix);
+        const correctAnswer = collectionToDisplay[flashcardIndex].right_answer;
+
+        const selectedAnswer = answerPrefix;
+
+        if (selectedAnswer === correctAnswer) {
+            setAnswerResult((prevState) => ({
+                ...prevState,
+                showAnswer: true,
+                answerMessage: 'Correct Answer !',
+            }));
+        } else {
+            setAnswerResult((prevState) => ({
+                ...prevState,
+                showAnswer: true,
+                answerMessage: 'Wrong Answer !',
+            }));
+        }
+
+        setTimeout(() => {
+            setAnswerResult((prevState) => ({
+                ...prevState,
+                showAnswer: false,
+            }));
+        }, 1500);
     };
 
     return (
@@ -91,6 +121,17 @@ const QuizFlashcard = () => {
                                 </Button>
                             ))}
                         </ButtonGroup>
+
+                        {answerResult.showAnswer && (
+                            <Typography
+                                className='quiz-flashcard__fade-in'
+                                textAlign='center'
+                                fontSize='1.5rem'
+                                mt={2}
+                            >
+                                {answerResult.answerMessage}
+                            </Typography>
+                        )}
                     </Box>
                 </Box>
             </CardContent>

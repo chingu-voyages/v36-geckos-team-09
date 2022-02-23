@@ -42,9 +42,8 @@ const PlayBox = ({
         setIsQuizModeChecked(false);
     };
 
-    const showQuizModeOrSelfTest = (isQuizModeChecked) => {
-        return isQuizModeChecked ? <QuizFlashcard /> : <Flashcard />;
-    };
+    const showQuizModeOrSelfTest = (isQuizModeChecked) =>
+        isQuizModeChecked ? <QuizFlashcard /> : <Flashcard />;
 
     useEffect(() => {
         const getCollectionFlashcards = async (collectionName) => {
