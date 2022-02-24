@@ -24,7 +24,7 @@ PORT= <<local port you want to connect to>>
 ```
 
 3. `cd client` and run `npm start`
-4. `cd server` and run `npm server`
+4. `cd server` and run `npm run server`
 
 ## Dev Dependencies
 
