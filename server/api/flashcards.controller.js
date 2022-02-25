@@ -111,12 +111,14 @@ export default class FlashcardsController {
       const prompt = req.body.prompt
       const answers =  req.body.answers 
       const right_answer = req.body.right_answer
+      const difficulty = req.body.difficulty
 
       const FlashcardResponse = await FlashcardsDAO.addFlashcard(
         collection_name,
         prompt,
         answers,
         right_answer,
+        difficulty,
       )
       res.json({ status: "success" })
     } catch (e) {
@@ -142,6 +144,7 @@ export default class FlashcardsController {
       const prompt = req.body.prompt
       const answers = req.body.answers
       const right_answer= req.body.right_answer
+      const difficulty = req.body.difficulty
 
       const flashcardResponse = await FlashcardsDAO.updateFlashcard(
         flashcardId,
@@ -149,6 +152,7 @@ export default class FlashcardsController {
         prompt,
         answers,
         right_answer,
+        difficulty
       )
 
       var { error } = flashcardResponse
