@@ -133,13 +133,14 @@ export default class FlashcardsDAO {
     }
   }
 
-  static async addFlashcard(collection_name, prompt, answers, right_answer) {
+  static async addFlashcard(collection_name, prompt, answers, right_answer, difficulty) {
     try {
       const flashcardDoc = { 
         collection_name,
         prompt: prompt,
         answers: answers,
-        right_answer:right_answer }
+        right_answer:right_answer,
+        difficulty: difficulty }
 
       return await flashcards.insertOne(flashcardDoc)
     } catch (e) {
@@ -163,11 +164,11 @@ export default class FlashcardsDAO {
   }
 
   
-  static async updateFlashcard(flashcardId, collection_name, prompt, answers, right_answer) {
+  static async updateFlashcard(flashcardId, collection_name, prompt, answers, right_answer, difficulty) {
     try {
       const updateResponse = await flashcards.updateOne(
         { _id: ObjectId(flashcardId)},
-        { $set: { collection_name: collection_name, prompt: prompt, answers: answers, right_answer: right_answer } },
+        { $set: { collection_name: collection_name, prompt: prompt, answers: answers, right_answer: right_answer, difficulty:difficulty } },
       )
 
       return updateResponse

@@ -19,8 +19,6 @@ router.route("/collection/:collection_name")
     .put(FlashcardController.apiUpdateCollection)
 
 
-
-    
 router.route("/id/:id")
     .get(FlashcardController.apiGetFlashcardById) 
     .put(FlashcardController.apiUpdateFlashcard) 
