@@ -1,9 +1,13 @@
 import { useState } from 'react';
 
+import DifficultyLevelButtonGroup from '../../../difficulty-level-buttons/DifficultyLevelButtonGroup';
+
 import { NEW_FLASHCARD_INPUTS } from '../../../../static';
 import { NEW_FLASHCARD_RADIOS } from '../../../../static';
 
 import FlashcardsDataService from '../../../../services/flashcards_service';
+
+import useDifficultyLevelClick from '../../../../custom-hooks/useDifficultyLevelClick';
 
 import OptionButtonSave from '../../option-buttons/OptionButtonSave';
 import OptionButtonClose from '../../option-buttons/OptionButtonClose';
@@ -45,6 +49,9 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
     const collectionToDisplay = useSelector(
         (state) => state.collections.collectionToDisplay,
     );
+
+    const { isDifficultyClicked, handleDifficultyClick } =
+        useDifficultyLevelClick();
 
     const [selectedRadio, setSelectedRadio] = useState(rowCorrectAnswer);
 
@@ -224,6 +231,28 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
                                     ))}
                                 </RadioGroup>
                             </FormControl>
+
+                            <Box
+                                display='flex'
+                                flexDirection='column'
+                                alignItems='start'
+                            >
+                                <Typography
+                                    fontSize='1.4rem'
+                                    fontWeight={500}
+                                    color='secondary'
+                                    mb={1}
+                                >
+                                    Choose Flashcard Difficulty
+                                </Typography>
+
+                                <DifficultyLevelButtonGroup
+                                    isDifficultyClicked={isDifficultyClicked}
+                                    handleDifficultyClick={
+                                        handleDifficultyClick
+                                    }
+                                />
+                            </Box>
 
                             <Box display='flex' justifyContent='end' mt={1}>
                                 <OptionButtonSave

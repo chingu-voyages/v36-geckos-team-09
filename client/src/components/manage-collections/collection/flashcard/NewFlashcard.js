@@ -1,8 +1,11 @@
 import { useState } from 'react';
 
+import DifficultyLevelButtonGroup from '../../../difficulty-level-buttons/DifficultyLevelButtonGroup';
+
 import { NEW_FLASHCARD_INPUTS } from '../../../../static';
 import { NEW_FLASHCARD_RADIOS } from '../../../../static';
-import { DIFFICULTY_CHIPS } from '../../../../static';
+
+import useDifficultyLevelClick from '../../../../custom-hooks/useDifficultyLevelClick';
 
 import FlashcardsDataService from '../../../../services/flashcards_service';
 
@@ -17,8 +20,6 @@ import {
     FormControlLabel,
     FormControl,
     FormLabel,
-    Stack,
-    Chip,
 } from '@mui/material';
 
 import { useForm } from 'react-hook-form';
@@ -33,12 +34,8 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
 
     const [selectedRadio, setSelectedRadio] = useState('A');
 
-    const [isDifficultyClicked, setIsDifficultyClicked] = useState({
-        easy: true,
-        medium: false,
-        hard: false,
-        selectedDifficulty: null,
-    });
+    const { isDifficultyClicked, handleDifficultyClick } =
+        useDifficultyLevelClick();
 
     const collectionToDisplay = useSelector(
         (collection) => collection.collections.collectionToDisplay,
@@ -47,38 +44,6 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
     const dispatch = useDispatch();
 
     const handleChange = (e) => setSelectedRadio(e.target.value);
-
-    const handleDifficultyClick = (flashcardDifficulty) => {
-        if (flashcardDifficulty === 'easy') {
-            setIsDifficultyClicked((prevState) => ({
-                ...prevState,
-                easy: true,
-                medium: false,
-                hard: false,
-                selectedDifficulty: flashcardDifficulty,
-            }));
-        }
-
-        if (flashcardDifficulty === 'medium') {
-            setIsDifficultyClicked((prevState) => ({
-                ...prevState,
-                easy: false,
-                medium: true,
-                hard: false,
-                selectedDifficulty: flashcardDifficulty,
-            }));
-        }
-
-        if (flashcardDifficulty === 'hard') {
-            setIsDifficultyClicked((prevState) => ({
-                ...prevState,
-                easy: false,
-                medium: false,
-                hard: true,
-                selectedDifficulty: flashcardDifficulty,
-            }));
-        }
-    };
 
     const addNewFlashcard = (data, selectedRadio, collectionName) => {
         const { question, answerA, answerB, answerC, answerD } = data;
@@ -175,30 +140,10 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
                     Choose Flashcard Difficulty
                 </Typography>
 
-                <Stack spacing={1} alignItems='center'>
-                    <Stack direction='row' spacing={1}>
-                        {DIFFICULTY_CHIPS.map((chip) => (
-                            <Chip
-                                key={chip.id}
-                                label={
-                                    <Typography
-                                        className='new-flashcard__difficulty-chip'
-                                        fontSize='1.2rem'
-                                    >
-                                        {chip.text}
-                                    </Typography>
-                                }
-                                color={chip.color}
-                                variant={
-                                    isDifficultyClicked[chip.text]
-                                        ? 'contained'
-                                        : 'outlined'
-                                }
-                                onClick={() => handleDifficultyClick(chip.text)}
-                            />
-                        ))}
-                    </Stack>
-                </Stack>
+                <DifficultyLevelButtonGroup
+                    isDifficultyClicked={isDifficultyClicked}
+                    handleDifficultyClick={handleDifficultyClick}
+                />
             </Box>
 
             <Box display='flex' justifyContent='end' mt={1}>
