@@ -1,7 +1,11 @@
 import { useState } from 'react';
 
+import DifficultyLevelButtonGroup from '../../../difficulty-level-buttons/DifficultyLevelButtonGroup';
+
 import { NEW_FLASHCARD_INPUTS } from '../../../../static';
 import { NEW_FLASHCARD_RADIOS } from '../../../../static';
+
+import useDifficultyLevelClick from '../../../../custom-hooks/useDifficultyLevelClick';
 
 import FlashcardsDataService from '../../../../services/flashcards_service';
 
@@ -30,6 +34,9 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
 
     const [selectedRadio, setSelectedRadio] = useState('A');
 
+    const { isDifficultyClicked, handleDifficultyClick } =
+        useDifficultyLevelClick();
+
     const collectionToDisplay = useSelector(
         (collection) => collection.collections.collectionToDisplay,
     );
@@ -50,13 +57,13 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
 
         const newCollectionToDisplayState = [...collectionToDisplay, flashcard];
 
-        dispatch(
+        /*    dispatch(
             collectionsSlice.actions.setCollectionToDisplay(
                 newCollectionToDisplayState,
             ),
         );
 
-        FlashcardsDataService.createFlashcard(flashcard);
+        FlashcardsDataService.createFlashcard(flashcard); */
     };
 
     const {
@@ -68,11 +75,11 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
     });
 
     const submitForm = (data) => {
-        setIsButtonDisabled(true);
+        /*  setIsButtonDisabled(true); */
 
         addNewFlashcard(data, selectedRadio, collectionName);
 
-        handleClose();
+        /* handleClose(); */
     };
 
     return (
@@ -127,6 +134,17 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
                     ))}
                 </RadioGroup>
             </FormControl>
+
+            <Box display='flex' flexDirection='column' alignItems='start'>
+                <Typography fontSize='1.4rem' color='secondary' mb={1}>
+                    Choose Flashcard Difficulty
+                </Typography>
+
+                <DifficultyLevelButtonGroup
+                    isDifficultyClicked={isDifficultyClicked}
+                    handleDifficultyClick={handleDifficultyClick}
+                />
+            </Box>
 
             <Box display='flex' justifyContent='end' mt={1}>
                 <Button

@@ -29,3 +29,9 @@ export const NEW_FLASHCARD_RADIOS = [
     { id: 2, value: 'C' },
     { id: 3, value: 'D' },
 ];
+
+export const DIFFICULTY_CHIPS = [
+    { id: 0, text: 'easy', color: 'primary' },
+    { id: 1, text: 'medium', color: 'warning' },
+    { id: 2, text: 'hard', color: 'error' },
+];

@@ -18,6 +18,7 @@ import {
     TableBody,
     TableCell,
     TableRow,
+    Chip,
 } from '@mui/material';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
@@ -64,6 +65,8 @@ const CollectionTableRow = ({ row, index }) => {
 
     const handleEditAndCloseClick = () =>
         setIsEditable((prevState) => !prevState);
+
+    const test = 'easy';
 
     return (
         <>
@@ -178,6 +181,42 @@ const CollectionTableRow = ({ row, index }) => {
                                                     >
                                                         {rowCorrectAnswer}
                                                     </Typography>
+                                                </TableCell>
+                                            </TableRow>
+                                            <TableRow>
+                                                <TableCell
+                                                    component='th'
+                                                    scope='row'
+                                                >
+                                                    <Typography
+                                                        className='collection__prefix'
+                                                        variant='p'
+                                                        fontWeight={700}
+                                                        fontSize='1.2rem'
+                                                        mr={1}
+                                                    >
+                                                        Flashcard Difficulty
+                                                        Level:
+                                                    </Typography>
+                                                    <Chip
+                                                        label={
+                                                            <Typography
+                                                                className='new-flashcard__difficulty-chip'
+                                                                fontSize='1.2rem'
+                                                            >
+                                                                easy
+                                                            </Typography>
+                                                        }
+                                                        color={
+                                                            test === 'easy'
+                                                                ? 'primary'
+                                                                : test ===
+                                                                  'medium'
+                                                                ? 'warning'
+                                                                : 'error'
+                                                        }
+                                                        variant='contained'
+                                                    />
                                                 </TableCell>
                                             </TableRow>
                                             <TableRow>
