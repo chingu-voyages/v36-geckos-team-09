@@ -70,7 +70,7 @@ const ManageCollections = () => {
 
         dispatch(collectionsSlice.actions.setCollections(newCollectionState));
 
-        FlashcardsDataService.createCollection(newCollection);
+        await FlashcardsDataService.createCollection(newCollection);
 
         setAnchorEl(null);
 

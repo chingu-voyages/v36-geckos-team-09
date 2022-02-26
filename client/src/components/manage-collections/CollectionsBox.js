@@ -43,7 +43,7 @@ const CollectionsBox = ({ collection }) => {
 
     const dispatch = useDispatch();
 
-    const handleDeleteClick = (collectionName) => {
+    const handleDeleteClick = async (collectionName) => {
         const newCollections = [...collections];
 
         const filteredCollections = newCollections.filter(
@@ -52,7 +52,7 @@ const CollectionsBox = ({ collection }) => {
 
         dispatch(collectionsSlice.actions.setCollections(filteredCollections));
 
-        FlashcardsDataService.deleteCollection(collectionName);
+        await FlashcardsDataService.deleteCollection(collectionName);
     };
 
     const handleEditClick = () => setIsEditable((prevState) => !prevState);
@@ -110,7 +110,7 @@ const CollectionsBox = ({ collection }) => {
 
         dispatch(collectionsSlice.actions.setCollections(editedCollections));
 
-        FlashcardsDataService.updateCollection(editedCollection);
+        await FlashcardsDataService.updateCollection(editedCollection);
 
         setIsEditable((prevState) => !prevState);
 

@@ -44,6 +44,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
         prompt: rowQuestion,
         answers: rowAnswers,
         right_answer: rowCorrectAnswer,
+        difficulty: rowDifficulty,
     } = row;
 
     const collectionToDisplay = useSelector(
@@ -51,7 +52,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
     );
 
     const { isDifficultyClicked, handleDifficultyClick } =
-        useDifficultyLevelClick();
+        useDifficultyLevelClick(rowDifficulty);
 
     const [selectedRadio, setSelectedRadio] = useState(rowCorrectAnswer);
 
@@ -71,7 +72,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
         resolver: joiResolver(editFlashcardSchema),
     });
 
-    const submitForm = (data) => {
+    const submitForm = async (data) => {
         const { question, answerA, answerB, answerC, answerD } = data;
 
         const editedFlashcard = {
@@ -80,6 +81,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
             prompt: question,
             answers: [answerA, answerB, answerC, answerD],
             right_answer: selectedRadio,
+            difficulty: isDifficultyClicked.selectedDifficulty,
         };
 
         const newCollectionToDisplay = [...collectionToDisplay];
@@ -92,6 +94,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
                         prompt: question,
                         answers: [answerA, answerB, answerC, answerD],
                         right_answer: selectedRadio,
+                        difficulty: isDifficultyClicked.selectedDifficulty,
                     };
                 }
 
@@ -105,7 +108,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
             ),
         );
 
-        FlashcardsDataService.updateFlashcard(editedFlashcard);
+        await FlashcardsDataService.updateFlashcard(editedFlashcard);
 
         handleEditAndCloseClick();
     };
