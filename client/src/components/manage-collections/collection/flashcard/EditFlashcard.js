@@ -72,7 +72,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
         resolver: joiResolver(editFlashcardSchema),
     });
 
-    const submitForm = (data) => {
+    const submitForm = async (data) => {
         const { question, answerA, answerB, answerC, answerD } = data;
 
         const editedFlashcard = {
@@ -108,7 +108,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
             ),
         );
 
-        FlashcardsDataService.updateFlashcard(editedFlashcard);
+        await FlashcardsDataService.updateFlashcard(editedFlashcard);
 
         handleEditAndCloseClick();
     };

@@ -45,7 +45,7 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
 
     const handleChange = (e) => setSelectedRadio(e.target.value);
 
-    const addNewFlashcard = (data, selectedRadio, collectionName) => {
+    const addNewFlashcard = async (data, selectedRadio, collectionName) => {
         const { question, answerA, answerB, answerC, answerD } = data;
 
         const flashcard = {
@@ -64,7 +64,7 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
             ),
         );
 
-        FlashcardsDataService.createFlashcard(flashcard);
+        await FlashcardsDataService.createFlashcard(flashcard);
     };
 
     const {

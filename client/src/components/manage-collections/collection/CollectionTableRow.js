@@ -48,7 +48,7 @@ const CollectionTableRow = ({ row, index }) => {
 
     const handleDropdownClick = () => setIsRowOpen((prevState) => !prevState);
 
-    const handleDeleteClick = () => {
+    const handleDeleteClick = async () => {
         const newCollectionToDisplay = [...collectionToDisplay];
 
         const filteredCollectionToDisplay = newCollectionToDisplay.filter(
@@ -61,7 +61,7 @@ const CollectionTableRow = ({ row, index }) => {
             ),
         );
 
-        FlashcardsDataService.deleteFlashcard(rowId);
+        await FlashcardsDataService.deleteFlashcard(rowId);
     };
 
     const handleEditAndCloseClick = () =>
