@@ -35,6 +35,7 @@ const CollectionTableRow = ({ row, index }) => {
         prompt: rowQuestion,
         answers: rowAnswers,
         right_answer: rowCorrectAnswer,
+        difficulty: rowDifficulty,
     } = row;
 
     const rowIndex = index + 1;
@@ -65,8 +66,6 @@ const CollectionTableRow = ({ row, index }) => {
 
     const handleEditAndCloseClick = () =>
         setIsEditable((prevState) => !prevState);
-
-    const test = 'easy';
 
     return (
         <>
@@ -204,13 +203,14 @@ const CollectionTableRow = ({ row, index }) => {
                                                                 className='new-flashcard__difficulty-chip'
                                                                 fontSize='1.2rem'
                                                             >
-                                                                easy
+                                                                {rowDifficulty}
                                                             </Typography>
                                                         }
                                                         color={
-                                                            test === 'easy'
+                                                            rowDifficulty ===
+                                                            'easy'
                                                                 ? 'primary'
-                                                                : test ===
+                                                                : rowDifficulty ===
                                                                   'medium'
                                                                 ? 'warning'
                                                                 : 'error'

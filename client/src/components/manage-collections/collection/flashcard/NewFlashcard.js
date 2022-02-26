@@ -53,17 +53,18 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
             prompt: question,
             answers: [answerA, answerB, answerC, answerD],
             right_answer: selectedRadio,
+            difficulty: isDifficultyClicked.selectedDifficulty,
         };
 
         const newCollectionToDisplayState = [...collectionToDisplay, flashcard];
 
-        /*    dispatch(
+        dispatch(
             collectionsSlice.actions.setCollectionToDisplay(
                 newCollectionToDisplayState,
             ),
         );
 
-        FlashcardsDataService.createFlashcard(flashcard); */
+        FlashcardsDataService.createFlashcard(flashcard);
     };
 
     const {
@@ -75,11 +76,11 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
     });
 
     const submitForm = (data) => {
-        /*  setIsButtonDisabled(true); */
+        setIsButtonDisabled(true);
 
         addNewFlashcard(data, selectedRadio, collectionName);
 
-        /* handleClose(); */
+        handleClose();
     };
 
     return (

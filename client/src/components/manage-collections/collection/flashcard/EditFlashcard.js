@@ -44,6 +44,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
         prompt: rowQuestion,
         answers: rowAnswers,
         right_answer: rowCorrectAnswer,
+        difficulty: rowDifficulty,
     } = row;
 
     const collectionToDisplay = useSelector(
@@ -51,7 +52,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
     );
 
     const { isDifficultyClicked, handleDifficultyClick } =
-        useDifficultyLevelClick();
+        useDifficultyLevelClick(rowDifficulty);
 
     const [selectedRadio, setSelectedRadio] = useState(rowCorrectAnswer);
 
@@ -80,6 +81,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
             prompt: question,
             answers: [answerA, answerB, answerC, answerD],
             right_answer: selectedRadio,
+            difficulty: isDifficultyClicked.selectedDifficulty,
         };
 
         const newCollectionToDisplay = [...collectionToDisplay];
@@ -92,6 +94,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
                         prompt: question,
                         answers: [answerA, answerB, answerC, answerD],
                         right_answer: selectedRadio,
+                        difficulty: isDifficultyClicked.selectedDifficulty,
                     };
                 }
 
