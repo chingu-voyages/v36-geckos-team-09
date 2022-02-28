@@ -34,7 +34,7 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { editFlashcardSchema } from '../../../../joiSchemas';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { collectionsSlice } from '../../../../redux/slices/collectionsSlice';
 
 const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
@@ -47,16 +47,12 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
         difficulty: rowDifficulty,
     } = row;
 
-    const collectionToDisplay = useSelector(
-        (state) => state.collections.collectionToDisplay,
-    );
-
-    const { isDifficultyClicked, handleDifficultyClick } =
-        useDifficultyLevelClick(rowDifficulty);
-
     const [selectedRadio, setSelectedRadio] = useState(rowCorrectAnswer);
 
     const [isRowOpen, setIsRowOpen] = useState(true);
+
+    const { isDifficultyClicked, handleDifficultyClick } =
+        useDifficultyLevelClick(rowDifficulty);
 
     const dispatch = useDispatch();
 
@@ -72,7 +68,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
         resolver: joiResolver(editFlashcardSchema),
     });
 
-    const submitForm = async (data) => {
+    const submitEditFlashcardForm = async (data) => {
         const { question, answerA, answerB, answerC, answerD } = data;
 
         const editedFlashcard = {
@@ -84,33 +80,9 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
             difficulty: isDifficultyClicked.selectedDifficulty,
         };
 
-        const newCollectionToDisplay = [...collectionToDisplay];
-
-        const editedCollectionToDisplay = newCollectionToDisplay.map(
-            (flashcard) => {
-                if (flashcard._id === _id) {
-                    return {
-                        ...flashcard,
-                        prompt: question,
-                        answers: [answerA, answerB, answerC, answerD],
-                        right_answer: selectedRadio,
-                        difficulty: isDifficultyClicked.selectedDifficulty,
-                    };
-                }
-
-                return flashcard;
-            },
-        );
-
-        dispatch(
-            collectionsSlice.actions.setCollectionToDisplay(
-                editedCollectionToDisplay,
-            ),
-        );
-
         await FlashcardsDataService.updateFlashcard(editedFlashcard);
 
-        handleEditAndCloseClick();
+        dispatch(collectionsSlice.actions.setCollectionsTrigger());
     };
 
     return (
@@ -171,7 +143,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
                             className='new-flashcard'
                             noValidate
                             autoComplete='off'
-                            onSubmit={handleSubmit(submitForm)}
+                            onSubmit={handleSubmit(submitEditFlashcardForm)}
                         >
                             <Box maxWidth='500px'>
                                 {NEW_FLASHCARD_INPUTS.map((input) => {
@@ -260,7 +232,9 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
                             <Box display='flex' justifyContent='end' mt={1}>
                                 <OptionButtonSave
                                     classToApply='collection__option'
-                                    handleClick={handleSubmit(submitForm)}
+                                    handleClick={handleSubmit(
+                                        submitEditFlashcardForm,
+                                    )}
                                     text='Save Changes'
                                 />
 

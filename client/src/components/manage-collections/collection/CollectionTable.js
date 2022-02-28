@@ -7,46 +7,44 @@ import LoadingBox from '../../loading/LoadingBox';
 
 import { Table, TableBody, TableContainer, Paper } from '@mui/material';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { collectionsSlice } from '../../../redux/slices/collectionsSlice';
+import { useSelector } from 'react-redux';
 
-const CollectionTable = ({ selectedCollectionName }) => {
-    const [isLoading, setIsLoading] = useState(false);
-
-    const collectionToDisplay = useSelector(
-        (state) => state.collections.collectionToDisplay,
+const CollectionTable = ({ collectionName }) => {
+    const collectionsTrigger = useSelector(
+        (state) => state.collections.collectionsTrigger,
     );
 
-    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
 
-    const getCollectionFlashcards = async (collectionName, isMounted) => {
-        setIsLoading(true);
-
-        try {
-            const res = await FlashcardsDataService.getCollection(
-                collectionName,
-            );
-
-            const data = res.data.flashcards.filter((flashcard) =>
-                flashcard.hasOwnProperty('isSampleCard') ? false : true,
-            );
-
-            if (isMounted)
-                dispatch(collectionsSlice.actions.setCollectionToDisplay(data));
-
-            setIsLoading(false);
-        } catch (e) {
-            console.log(e);
-        }
-    };
+    const [collectionToDisplay, setCollectionToDisplay] = useState([]);
 
     useEffect(() => {
         let isMounted = true;
 
-        getCollectionFlashcards(selectedCollectionName, isMounted);
+        const getCollectionFlashcards = async (collectionName, isMounted) => {
+            setIsLoading(true);
+
+            try {
+                const res = await FlashcardsDataService.getCollection(
+                    collectionName,
+                );
+
+                const data = res.data.flashcards.filter((flashcard) =>
+                    flashcard.hasOwnProperty('isSampleCard') ? false : true,
+                );
+
+                if (isMounted) setCollectionToDisplay(data);
+
+                setIsLoading(false);
+            } catch (e) {
+                console.log(e);
+            }
+        };
+
+        getCollectionFlashcards(collectionName, isMounted);
 
         return () => (isMounted = false);
-    }, []);
+    }, [collectionsTrigger]);
 
     return (
         <TableContainer className='collection-table' component={Paper}>

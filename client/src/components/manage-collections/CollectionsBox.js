@@ -69,6 +69,7 @@ const CollectionsBox = ({ collection }) => {
             old_collection_name: collectionName,
             new_collection_name: newCollectionName,
         };
+
         const existingCollectionNames = await getCollectionNames();
 
         if (existingCollectionNames.indexOf(newCollectionName) !== -1) {
