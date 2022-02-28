@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import FlashcardsDataService from '../../services/flashcards_service';
 
-import { getCollectionNames, getStateCollectionNames } from '../../utils';
+import { getCollectionNames } from '../../utils';
 
 import OptionButtonEdit from './option-buttons/OptionButtonEdit';
 import OptionButtonDelete from './option-buttons/OptionButtonDelete';
@@ -24,7 +24,7 @@ import {
 } from '@mui/material';
 import { BsFillCollectionFill } from 'react-icons/bs';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 
 import { useForm } from 'react-hook-form';
@@ -34,8 +34,6 @@ import { changeCollectionNameSchema } from '../../joiSchemas';
 const CollectionsBox = ({ collection }) => {
     const { collection_name: collectionName } = collection;
 
-    const collections = useSelector((state) => state.collections.collections);
-
     const [isEditable, setIsEditable] = useState(false);
 
     const [duplicateCollectionNameError, setDuplicateCollectionNameError] =
@@ -44,20 +42,12 @@ const CollectionsBox = ({ collection }) => {
     const dispatch = useDispatch();
 
     const handleDeleteClick = async (collectionName) => {
-        const newCollections = [...collections];
-
-        const filteredCollections = newCollections.filter(
-            (collection) => collection.collection_name !== collectionName,
-        );
-
-        dispatch(collectionsSlice.actions.setCollections(filteredCollections));
-
         await FlashcardsDataService.deleteCollection(collectionName);
+
+        dispatch(collectionsSlice.actions.setCollectionsTrigger());
     };
 
-    const handleEditClick = () => setIsEditable((prevState) => !prevState);
-
-    const handleCloseClick = () => {
+    const handleEditAndCloseClick = () => {
         setIsEditable((prevState) => !prevState);
 
         reset();
@@ -72,23 +62,16 @@ const CollectionsBox = ({ collection }) => {
         resolver: joiResolver(changeCollectionNameSchema),
     });
 
-    const submitForm = async (data) => {
+    const submitEditCollectionForm = async (data) => {
         const newCollectionName = data.newCollectionName;
 
         const editedCollection = {
             old_collection_name: collectionName,
             new_collection_name: newCollectionName,
         };
-
         const existingCollectionNames = await getCollectionNames();
 
-        const existingStateCollectionNames =
-            getStateCollectionNames(collections);
-
-        if (
-            existingCollectionNames.indexOf(newCollectionName) !== -1 ||
-            existingStateCollectionNames.indexOf(newCollectionName) !== -1
-        ) {
+        if (existingCollectionNames.indexOf(newCollectionName) !== -1) {
             setDuplicateCollectionNameError(true);
 
             setTimeout(() => {
@@ -98,23 +81,9 @@ const CollectionsBox = ({ collection }) => {
             return;
         }
 
-        const newCollections = [...collections];
-
-        const editedCollections = newCollections.map((collection) => {
-            if (collection.collection_name === collectionName) {
-                return { ...collection, collection_name: newCollectionName };
-            }
-
-            return collection;
-        });
-
-        dispatch(collectionsSlice.actions.setCollections(editedCollections));
-
         await FlashcardsDataService.updateCollection(editedCollection);
 
-        setIsEditable((prevState) => !prevState);
-
-        reset();
+        dispatch(collectionsSlice.actions.setCollectionsTrigger());
     };
 
     return (
@@ -155,7 +124,7 @@ const CollectionsBox = ({ collection }) => {
                         className='collections__form'
                         noValidate
                         autoComplete='off'
-                        onSubmit={handleSubmit(submitForm)}
+                        onSubmit={handleSubmit(submitEditCollectionForm)}
                     >
                         <Input
                             className='collections__input'
@@ -200,7 +169,7 @@ const CollectionsBox = ({ collection }) => {
                     <>
                         <OptionButtonEdit
                             classToApply='collections'
-                            handleClick={handleEditClick}
+                            handleClick={handleEditAndCloseClick}
                             text='Edit Collection Name'
                         />
 
@@ -218,13 +187,13 @@ const CollectionsBox = ({ collection }) => {
                     <>
                         <OptionButtonSave
                             classToApply='collections__edit-option'
-                            handleClick={handleSubmit(submitForm)}
+                            handleClick={handleSubmit(submitEditCollectionForm)}
                             text='Save Changes'
                         />
 
                         <OptionButtonClose
                             classToApply='collections__edit-option'
-                            handleClick={handleCloseClick}
+                            handleClick={handleEditAndCloseClick}
                             text='Close'
                         />
                     </>

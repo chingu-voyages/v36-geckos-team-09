@@ -30,21 +30,6 @@ export const getCollectionNames = async () => {
     return existingCollectionNames;
 };
 
-// The function retrives all existing STATE collection names
-export const getStateCollectionNames = (collections) => {
-    const existingStateCollectionNames = collections.reduce(
-        (collectionNames, collection) => {
-            if (!collectionNames.includes(collection.collection_name))
-                collectionNames.push(collection.collection_name);
-
-            return collectionNames;
-        },
-        [],
-    );
-
-    return existingStateCollectionNames;
-};
-
 // Fisher-Yates shuffle function
 export const shuffleData = (data) => {
     for (let i = data.length - 1; i > 0; i--) {

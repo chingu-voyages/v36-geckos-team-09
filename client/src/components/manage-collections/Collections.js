@@ -10,49 +10,45 @@ import FlashcardsDataService from '../../services/flashcards_service';
 import '../../styles/collections.scss';
 import { List } from '@mui/material';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { collectionsSlice } from '../../redux/slices/collectionsSlice';
+import { useSelector } from 'react-redux';
 
 const Collections = () => {
-    const collections = useSelector((state) => state.collections.collections);
+    const collectionsTrigger = useSelector(
+        (state) => state.collections.collectionsTrigger,
+    );
+
+    const [collections, setCollections] = useState([]);
 
     const [isLoading, setIsLoading] = useState(false);
-
-    const dispatch = useDispatch();
-
-    const getCollections = async (isMounted) => {
-        setIsLoading(true);
-
-        try {
-            const res = await FlashcardsDataService.getAll();
-
-            const data = res.data.flashcards;
-
-            const dataWithoutDuplicates = getUniqueListBy(
-                data,
-                'collection_name',
-            );
-
-            if (isMounted)
-                dispatch(
-                    collectionsSlice.actions.setCollections(
-                        dataWithoutDuplicates,
-                    ),
-                );
-
-            setIsLoading(false);
-        } catch (e) {
-            console.log(e);
-        }
-    };
 
     useEffect(() => {
         let isMounted = true;
 
+        const getCollections = async (isMounted) => {
+            setIsLoading(true);
+
+            try {
+                const res = await FlashcardsDataService.getAll();
+
+                const data = res.data.flashcards;
+
+                const dataWithoutDuplicates = getUniqueListBy(
+                    data,
+                    'collection_name',
+                );
+
+                if (isMounted) setCollections(dataWithoutDuplicates);
+
+                setIsLoading(false);
+            } catch (e) {
+                console.log(e);
+            }
+        };
+
         getCollections(isMounted);
 
         return () => (isMounted = false);
-    }, []);
+    }, [collectionsTrigger]);
 
     return (
         <List className='collections'>

@@ -15,27 +15,29 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { addNewCollectionSchema } from '../../joiSchemas';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 
 const ManageCollections = () => {
-    const collections = useSelector((state) => state.collections.collections);
-
     const [duplicateCollectionNameError, setDuplicateCollectionNameError] =
         useState(false);
 
     const [anchorEl, setAnchorEl] = useState(null);
-
     const isOpen = Boolean(anchorEl);
     const id = isOpen ? 'simple-popover' : undefined;
 
     const dispatch = useDispatch();
 
-    const handleAddClick = (e) => setAnchorEl(e.currentTarget);
+    const handleAddClick = (e) => {
+        setAnchorEl(e.currentTarget);
+
+        reset();
+    };
 
     const handleCloseClick = () => {
-        reset();
         setAnchorEl(null);
+
+        reset();
     };
 
     const {
@@ -47,14 +49,12 @@ const ManageCollections = () => {
         resolver: joiResolver(addNewCollectionSchema),
     });
 
-    const submitForm = async (data) => {
+    const submitAddCollectionForm = async (data) => {
         const collectionName = data.collectionName;
 
         const newCollection = {
             collection_name: collectionName,
         };
-
-        const newCollectionState = [...collections, newCollection];
 
         const existingCollectionNames = await getCollectionNames();
 
@@ -68,13 +68,11 @@ const ManageCollections = () => {
             return;
         }
 
-        dispatch(collectionsSlice.actions.setCollections(newCollectionState));
-
         await FlashcardsDataService.createCollection(newCollection);
 
-        setAnchorEl(null);
+        dispatch(collectionsSlice.actions.setCollectionsTrigger());
 
-        reset();
+        setAnchorEl(null);
     };
 
     return (
@@ -102,7 +100,7 @@ const ManageCollections = () => {
             >
                 <form
                     className='manage-collections__form'
-                    onSubmit={handleSubmit(submitForm)}
+                    onSubmit={handleSubmit(submitAddCollectionForm)}
                     noValidate
                     autoComplete='off'
                 >
