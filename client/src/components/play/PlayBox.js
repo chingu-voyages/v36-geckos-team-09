@@ -8,6 +8,7 @@ import Flashcard from './flashcard/Flashcard';
 import QuizFlashcard from './flashcard/quiz-flashcard/QuizFlashcard';
 import OptionButtonPrevNext from './option-butttons/OptionButtonPrevNext';
 import LoadingBox from '../loading/LoadingBox';
+import FlashcardError from './flashcard/FlashcardError';
 
 import '../../styles/playBox.scss';
 import { Box, Typography, Button } from '@mui/material';
@@ -26,6 +27,10 @@ const PlayBox = ({
 
     const selectedCollection = useSelector(
         (state) => state.play.selectedCollection,
+    );
+
+    const collectionToDisplay = useSelector(
+        (state) => state.play.collectionToDisplay,
     );
 
     const dispatch = useDispatch();
@@ -109,7 +114,9 @@ const PlayBox = ({
                 </Typography>
             </Box>
 
-            {isLoading ? (
+            {!collectionToDisplay.length ? (
+                <FlashcardError />
+            ) : isLoading ? (
                 <LoadingBox />
             ) : (
                 <>
