@@ -14,6 +14,7 @@ import About from './components/about/About';
 import ManageCollections from './components/manage-collections/ManageCollections';
 import Collection from './components/manage-collections/collection/Collection';
 import Play from './components/play/Play';
+import NotFound from './components/not-found/NotFound';
 
 const App = () => {
     return (
@@ -40,6 +41,7 @@ const App = () => {
                                 path='/collections/:collectionName'
                                 element={<Collection />}
                             />
+                            <Route path='*' element={<NotFound />} />
                         </Switch>
                     </Container>
                 </Box>
