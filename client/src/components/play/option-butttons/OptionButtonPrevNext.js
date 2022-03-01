@@ -26,7 +26,7 @@ const OptionButtonPrevNext = ({ direction }) => {
         <IconButton
             className={
                 flashcardIndex === 0
-                    ? 'play-box__btn play-box__btn-hide'
+                    ? 'play-box__btn play-box__btn-disabled'
                     : 'play-box__btn'
             }
             onClick={() => handleClick(direction)}
@@ -39,7 +39,7 @@ const OptionButtonPrevNext = ({ direction }) => {
         <IconButton
             className={
                 collectionToDisplay.length - 1 === flashcardIndex
-                    ? 'play-box__btn play-box__btn-hide'
+                    ? 'play-box__btn play-box__btn-disabled'
                     : 'play-box__btn'
             }
             onClick={() => handleClick(direction)}
