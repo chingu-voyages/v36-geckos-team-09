@@ -11,8 +11,9 @@
         background-color: transparent !important;
         transition: transform 0.2s ease-in-out !important;
 
-        &-hide {
-            display: none !important;
+        &-disabled {
+            color: $color-grey !important;
+            pointer-events: none !important;
         }
 
         &:hover {
