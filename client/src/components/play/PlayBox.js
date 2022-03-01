@@ -17,12 +17,7 @@ import { BsFillArrowLeftSquareFill } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { playSlice } from '../../redux/slices/playSlice';
 
-const PlayBox = ({
-    setIsPlaying,
-    setIsButtonDisabled,
-    isQuizModeChecked,
-    setIsQuizModeChecked,
-}) => {
+const PlayBox = ({ playMode, setPlayMode }) => {
     const selectedCollection = useSelector(
         (state) => state.play.selectedCollection,
     );
@@ -36,15 +31,16 @@ const PlayBox = ({
     const dispatch = useDispatch();
 
     const handleBackClick = () => {
-        setIsPlaying(false);
-
         dispatch(playSlice.actions.resetSelectedCollection());
 
         dispatch(playSlice.actions.resetFlashcardIndex());
 
-        setIsButtonDisabled(true);
-
-        setIsQuizModeChecked(false);
+        setPlayMode((prevState) => ({
+            ...prevState,
+            isButtonDisabled: true,
+            isQuizModeChecked: false,
+            isPlaying: false,
+        }));
     };
 
     const showQuizModeOrSelfTest = (isQuizModeChecked) =>
@@ -120,7 +116,7 @@ const PlayBox = ({
                 <LoadingBox />
             ) : (
                 <>
-                    {showQuizModeOrSelfTest(isQuizModeChecked)}
+                    {showQuizModeOrSelfTest(playMode.isQuizModeChecked)}
 
                     <Box
                         display='flex'

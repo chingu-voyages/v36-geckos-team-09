@@ -27,23 +27,36 @@ const Play = () => {
 
     const [collections, setCollections] = useState([]);
 
-    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-
-    const [isQuizModeChecked, setIsQuizModeChecked] = useState(false);
-
-    const [isPlaying, setIsPlaying] = useState(false);
+    const [playMode, setPlayMode] = useState({
+        isButtonDisabled: true,
+        isQuizModeChecked: false,
+        isPlaying: false,
+    });
 
     const dispatch = useDispatch();
 
     const handleSelectChange = (e) => {
         dispatch(playSlice.actions.setSelectedCollection(e.target.value));
 
-        setIsButtonDisabled(false);
+        setPlayMode((prevState) => ({
+            ...prevState,
+            isButtonDisabled: false,
+        }));
     };
 
-    const handleCheckboxChange = (e) => setIsQuizModeChecked(e.target.checked);
+    const handleCheckboxChange = (e) => {
+        setPlayMode((prevState) => ({
+            ...prevState,
+            isQuizModeChecked: e.target.checked,
+        }));
+    };
 
-    const handlePlayClick = () => setIsPlaying(true);
+    const handlePlayClick = () => {
+        setPlayMode((prevState) => ({
+            ...prevState,
+            isPlaying: true,
+        }));
+    };
 
     useEffect(() => {
         const getCollections = async () => {
@@ -65,7 +78,7 @@ const Play = () => {
 
     return (
         <>
-            {!isPlaying ? (
+            {!playMode.isPlaying ? (
                 <Box
                     className='play'
                     display='flex'
@@ -87,7 +100,7 @@ const Play = () => {
                             <FormControlLabel
                                 control={
                                     <Checkbox
-                                        checked={isQuizModeChecked}
+                                        checked={playMode.isQuizModeChecked}
                                         onChange={handleCheckboxChange}
                                         size='large'
                                         color='secondary'
@@ -135,7 +148,7 @@ const Play = () => {
                                 onClick={handlePlayClick}
                                 variant='contained'
                                 color='secondary'
-                                disabled={isButtonDisabled}
+                                disabled={playMode.isButtonDisabled}
                             >
                                 Play
                             </Button>
@@ -143,12 +156,7 @@ const Play = () => {
                     </Box>
                 </Box>
             ) : (
-                <PlayBox
-                    setIsPlaying={setIsPlaying}
-                    setIsButtonDisabled={setIsButtonDisabled}
-                    setIsQuizModeChecked={setIsQuizModeChecked}
-                    isQuizModeChecked={isQuizModeChecked}
-                />
+                <PlayBox playMode={playMode} setPlayMode={setPlayMode} />
             )}
         </>
     );
