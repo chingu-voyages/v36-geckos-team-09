@@ -23,8 +23,6 @@ const PlayBox = ({
     isQuizModeChecked,
     setIsQuizModeChecked,
 }) => {
-    const [isLoading, setIsLoading] = useState(false);
-
     const selectedCollection = useSelector(
         (state) => state.play.selectedCollection,
     );
@@ -32,6 +30,8 @@ const PlayBox = ({
     const collectionToDisplay = useSelector(
         (state) => state.play.collectionToDisplay,
     );
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const dispatch = useDispatch();
 

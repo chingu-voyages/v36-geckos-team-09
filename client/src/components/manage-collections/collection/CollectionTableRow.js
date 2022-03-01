@@ -22,14 +22,10 @@ import {
 } from '@mui/material';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { collectionsSlice } from '../../../redux/slices/collectionsSlice';
 
 const CollectionTableRow = ({ row, index }) => {
-    const [isRowOpen, setIsRowOpen] = useState(false);
-
-    const [isEditable, setIsEditable] = useState(false);
-
     const {
         _id: rowId,
         prompt: rowQuestion,
@@ -40,32 +36,22 @@ const CollectionTableRow = ({ row, index }) => {
 
     const rowIndex = index + 1;
 
-    const collectionToDisplay = useSelector(
-        (state) => state.collections.collectionToDisplay,
-    );
+    const [isRowOpen, setIsRowOpen] = useState(false);
+
+    const [isEditable, setIsEditable] = useState(false);
 
     const dispatch = useDispatch();
 
     const handleDropdownClick = () => setIsRowOpen((prevState) => !prevState);
 
-    const handleDeleteClick = async () => {
-        const newCollectionToDisplay = [...collectionToDisplay];
-
-        const filteredCollectionToDisplay = newCollectionToDisplay.filter(
-            (flashcard) => flashcard._id !== rowId,
-        );
-
-        dispatch(
-            collectionsSlice.actions.setCollectionToDisplay(
-                filteredCollectionToDisplay,
-            ),
-        );
-
-        await FlashcardsDataService.deleteFlashcard(rowId);
-    };
-
     const handleEditAndCloseClick = () =>
         setIsEditable((prevState) => !prevState);
+
+    const handleDeleteClick = async () => {
+        await FlashcardsDataService.deleteFlashcard(rowId);
+
+        dispatch(collectionsSlice.actions.setCollectionsTrigger());
+    };
 
     return (
         <>

@@ -14,7 +14,6 @@ const Collection = () => {
     const { collectionName } = useParams();
 
     const [anchorEl, setAnchorEl] = useState(null);
-
     const isOpen = Boolean(anchorEl);
     const id = isOpen ? 'simple-popover' : undefined;
 
@@ -83,7 +82,7 @@ const Collection = () => {
                 />
             </Popover>
 
-            <CollectionTable selectedCollectionName={collectionName} />
+            <CollectionTable collectionName={collectionName} />
         </Box>
     );
 };

@@ -26,7 +26,7 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { newFlashcardSchema } from '../../../../joiSchemas';
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { collectionsSlice } from '../../../../redux/slices/collectionsSlice';
 
 const NewFlashcard = ({ collectionName, handleClose }) => {
@@ -37,13 +37,9 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
     const { isDifficultyClicked, handleDifficultyClick } =
         useDifficultyLevelClick();
 
-    const collectionToDisplay = useSelector(
-        (collection) => collection.collections.collectionToDisplay,
-    );
-
     const dispatch = useDispatch();
 
-    const handleChange = (e) => setSelectedRadio(e.target.value);
+    const handleRadioChange = (e) => setSelectedRadio(e.target.value);
 
     const addNewFlashcard = async (data, selectedRadio, collectionName) => {
         const { question, answerA, answerB, answerC, answerD } = data;
@@ -56,15 +52,9 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
             difficulty: isDifficultyClicked.selectedDifficulty,
         };
 
-        const newCollectionToDisplayState = [...collectionToDisplay, flashcard];
-
-        dispatch(
-            collectionsSlice.actions.setCollectionToDisplay(
-                newCollectionToDisplayState,
-            ),
-        );
-
         await FlashcardsDataService.createFlashcard(flashcard);
+
+        dispatch(collectionsSlice.actions.setCollectionsTrigger());
     };
 
     const {
@@ -75,7 +65,7 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
         resolver: joiResolver(newFlashcardSchema),
     });
 
-    const submitForm = (data) => {
+    const submitAddFlashcardForm = (data) => {
         setIsButtonDisabled(true);
 
         addNewFlashcard(data, selectedRadio, collectionName);
@@ -88,7 +78,7 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
             className='new-flashcard'
             noValidate
             autoComplete='off'
-            onSubmit={handleSubmit(submitForm)}
+            onSubmit={handleSubmit(submitAddFlashcardForm)}
         >
             <Box width='500px' mb={1}>
                 {NEW_FLASHCARD_INPUTS.map((input) => (
@@ -119,7 +109,7 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
                     aria-labelledby='demo-row-radio-buttons-group-label'
                     name='row-radio-buttons-group'
                     value={selectedRadio}
-                    onChange={handleChange}
+                    onChange={handleRadioChange}
                 >
                     {NEW_FLASHCARD_RADIOS.map((radio) => (
                         <FormControlLabel

@@ -20,7 +20,11 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { playSlice } from '../../redux/slices/playSlice';
 
-export default function Play() {
+const Play = () => {
+    const selectedCollection = useSelector(
+        (state) => state.play.selectedCollection,
+    );
+
     const [collections, setCollections] = useState([]);
 
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -28,10 +32,6 @@ export default function Play() {
     const [isQuizModeChecked, setIsQuizModeChecked] = useState(false);
 
     const [isPlaying, setIsPlaying] = useState(false);
-
-    const selectedCollection = useSelector(
-        (state) => state.play.selectedCollection,
-    );
 
     const dispatch = useDispatch();
 
@@ -152,4 +152,6 @@ export default function Play() {
             )}
         </>
     );
-}
+};
+
+export default Play;
