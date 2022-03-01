@@ -39,7 +39,7 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
 
     const dispatch = useDispatch();
 
-    const handleChange = (e) => setSelectedRadio(e.target.value);
+    const handleRadioChange = (e) => setSelectedRadio(e.target.value);
 
     const addNewFlashcard = async (data, selectedRadio, collectionName) => {
         const { question, answerA, answerB, answerC, answerD } = data;
@@ -109,7 +109,7 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
                     aria-labelledby='demo-row-radio-buttons-group-label'
                     name='row-radio-buttons-group'
                     value={selectedRadio}
-                    onChange={handleChange}
+                    onChange={handleRadioChange}
                 >
                     {NEW_FLASHCARD_RADIOS.map((radio) => (
                         <FormControlLabel

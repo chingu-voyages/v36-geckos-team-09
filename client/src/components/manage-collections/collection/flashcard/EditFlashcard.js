@@ -58,7 +58,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
 
     const handleDropdownClick = () => setIsRowOpen((prevState) => !prevState);
 
-    const handleChange = (e) => setSelectedRadio(e.target.value);
+    const handleRadioChange = (e) => setSelectedRadio(e.target.value);
 
     const {
         register,
@@ -185,7 +185,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
                                     aria-labelledby='demo-row-radio-buttons-group-label'
                                     name='row-radio-buttons-group'
                                     value={selectedRadio}
-                                    onChange={handleChange}
+                                    onChange={handleRadioChange}
                                 >
                                     {NEW_FLASHCARD_RADIOS.map((radio) => (
                                         <FormControlLabel
