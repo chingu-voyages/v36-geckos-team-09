@@ -6,6 +6,10 @@
     &__fade-in {
         animation: fadeIn 0.3s ease-in-out;
     }
+
+    &__points {
+        transform: rotate(20deg);
+    }
 }
 
 @keyframes fadeIn {

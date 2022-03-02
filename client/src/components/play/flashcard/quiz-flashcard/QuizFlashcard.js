@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ANSWER_PREFIX } from '../../../../static';
 
@@ -11,16 +11,12 @@ import {
     Grid,
     ButtonGroup,
     Button,
+    Grow,
 } from '@mui/material';
 
 import { useSelector } from 'react-redux';
 
 const QuizFlashcard = () => {
-    const [answerResult, setAnswerResult] = useState({
-        showAnswer: false,
-        answerMessage: 'Correct Answer !',
-    });
-
     const collectionToDisplay = useSelector(
         (state) => state.play.collectionToDisplay,
     );
@@ -29,41 +25,124 @@ const QuizFlashcard = () => {
 
     const flashcardOrdNum = flashcardIndex + 1;
 
+    const [answerResult, setAnswerResult] = useState({
+        displayMessage: false,
+        answerMessage: '',
+        displayPointsWon: false,
+        pointsWon: null,
+        btnDisabled: false,
+        score: 0,
+    });
+
     const handleAnswerChoiceClick = (answerPrefix) => {
         const correctAnswer = collectionToDisplay[flashcardIndex].right_answer;
 
         const selectedAnswer = answerPrefix;
 
+        const flashcardDifficulty =
+            collectionToDisplay[flashcardIndex].difficulty;
+
         if (selectedAnswer === correctAnswer) {
-            setAnswerResult((prevState) => ({
-                ...prevState,
-                showAnswer: true,
-                answerMessage: 'Correct Answer !',
-            }));
+            if (flashcardDifficulty === 'easy') {
+                setAnswerResult((prevState) => ({
+                    ...prevState,
+                    displayMessage: true,
+                    answerMessage: 'Correct Answer !',
+                    displayPointsWon: true,
+                    pointsWon: '+1',
+                    btnDisabled: true,
+                    score: prevState.score + 1,
+                }));
+            } else if (flashcardDifficulty === 'medium') {
+                setAnswerResult((prevState) => ({
+                    ...prevState,
+                    displayMessage: true,
+                    answerMessage: 'Correct Answer !',
+                    displayPointsWon: true,
+                    pointsWon: '+2',
+                    btnDisabled: true,
+                    score: prevState.score + 2,
+                }));
+            } else {
+                setAnswerResult((prevState) => ({
+                    ...prevState,
+                    displayMessage: true,
+                    answerMessage: 'Correct Answer !',
+                    displayPointsWon: true,
+                    pointsWon: '+3',
+                    btnDisabled: true,
+                    score: prevState.score + 3,
+                }));
+            }
         } else {
             setAnswerResult((prevState) => ({
                 ...prevState,
-                showAnswer: true,
+                displayMessage: true,
                 answerMessage: 'Wrong Answer !',
+                displayPointsWon: true,
+                pointsWon: '+0',
+                btnDisabled: true,
             }));
         }
 
         setTimeout(() => {
             setAnswerResult((prevState) => ({
                 ...prevState,
-                showAnswer: false,
+                displayMessage: false,
+                answerMessage: '',
+                displayPointsWon: true,
             }));
-        }, 1500);
+        }, 1000);
     };
+
+    useEffect(() => {
+        setAnswerResult((prevState) => ({
+            ...prevState,
+            displayPointsWon: false,
+            pointsWon: '',
+            btnDisabled: false,
+        }));
+    }, [flashcardIndex]);
 
     return (
         <Card className='play-box__card'>
             <CardContent>
+                <Box display='flex' justifyContent='center' mb={1}>
+                    <Typography
+                        fontSize='2.2rem'
+                        display='flex'
+                        alignItems='center'
+                    >
+                        Kadeu Score:
+                        <Typography
+                            variant='span'
+                            fontSize='3rem'
+                            fontWeight={700}
+                            color='secondary'
+                            ml={1}
+                        >
+                            {answerResult.score}
+                        </Typography>
+                    </Typography>
+                </Box>
+
+                <Grow in={answerResult.displayPointsWon} timeout={1000}>
+                    <Box display='flex' justifyContent='right'>
+                        <Typography
+                            className='quiz-flashcard__points'
+                            fontSize='4em'
+                            color='secondary'
+                            fontWeight={700}
+                        >
+                            {answerResult.pointsWon}
+                        </Typography>
+                    </Box>
+                </Grow>
+
                 <Box
                     display='flex'
                     alignItems='center'
                     flexDirection='column'
-                    m={3}
                     maxWidth='600px'
                 >
                     <Typography variant='h5' fontWeight={500}>
@@ -116,6 +195,7 @@ const QuizFlashcard = () => {
                                         handleAnswerChoiceClick(prefix)
                                     }
                                     key={prefix}
+                                    disabled={answerResult.btnDisabled}
                                 >
                                     {prefix}
                                 </Button>

@@ -24,9 +24,6 @@ export const playSlice = createSlice({
         incrementFlashcardIndex: (state) => {
             state.flashcardIndex += 1;
         },
-        decrementFlashcardIndex: (state) => {
-            state.flashcardIndex -= 1;
-        },
         resetFlashcardIndex: (state) => {
             state.flashcardIndex = 0;
         },
@@ -38,7 +35,6 @@ export const {
     resetSelectedCollection,
     setCollectionToDisplay,
     incrementFlashcardIndex,
-    decrementFlashcardIndex,
     resetFlashcardIndex,
 } = playSlice.actions;
 
