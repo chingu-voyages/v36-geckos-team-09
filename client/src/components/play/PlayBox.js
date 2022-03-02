@@ -6,7 +6,7 @@ import { shuffleData } from '../../utils';
 
 import Flashcard from './flashcard/Flashcard';
 import QuizFlashcard from './flashcard/quiz-flashcard/QuizFlashcard';
-import OptionButtonPrevNext from './option-butttons/OptionButtonPrevNext';
+import OptionButtonNext from './option-butttons/OptionButtonNext';
 import LoadingBox from '../loading/LoadingBox';
 import FlashcardError from './flashcard/FlashcardError';
 
@@ -124,19 +124,7 @@ const PlayBox = ({ playMode, setPlayMode }) => {
                         alignItems='center'
                         mt={2}
                     >
-                        <OptionButtonPrevNext direction='prev' />
-
-                        <Typography
-                            fontSize='3rem'
-                            fontWeight={300}
-                            color='white'
-                            mr={1}
-                            ml={1}
-                        >
-                            |
-                        </Typography>
-
-                        <OptionButtonPrevNext direction='next' />
+                        <OptionButtonNext direction='next' />
                     </Box>
                 </>
             )}

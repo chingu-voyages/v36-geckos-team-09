@@ -4,6 +4,7 @@
     &__card {
         background-color: transparent !important;
         color: $color-white !important;
+        padding: 3rem !important;
     }
 
     &__btn {
@@ -11,9 +12,8 @@
         background-color: transparent !important;
         transition: transform 0.2s ease-in-out !important;
 
-        &-disabled {
+        &[disabled] {
             color: $color-grey !important;
-            pointer-events: none !important;
         }
 
         &:hover {

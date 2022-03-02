@@ -4,6 +4,7 @@ const initialState = {
     selectedCollection: '',
     collectionToDisplay: [],
     flashcardIndex: 0,
+    isNextButtonDisabled: true,
 };
 
 const name = 'play';
@@ -24,11 +25,11 @@ export const playSlice = createSlice({
         incrementFlashcardIndex: (state) => {
             state.flashcardIndex += 1;
         },
-        decrementFlashcardIndex: (state) => {
-            state.flashcardIndex -= 1;
-        },
         resetFlashcardIndex: (state) => {
             state.flashcardIndex = 0;
+        },
+        setIsNextButtonDisabled: (state, action) => {
+            state.isNextButtonDisabled = action.payload;
         },
     },
 });
@@ -38,8 +39,8 @@ export const {
     resetSelectedCollection,
     setCollectionToDisplay,
     incrementFlashcardIndex,
-    decrementFlashcardIndex,
     resetFlashcardIndex,
+    setIsNextButtonDisabled,
 } = playSlice.actions;
 
 export default playSlice.reducer;
