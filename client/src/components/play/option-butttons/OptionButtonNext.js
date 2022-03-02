@@ -12,6 +12,10 @@ const OptionButtonNext = () => {
         (state) => state.play.collectionToDisplay,
     );
 
+    const isNextButtonDisabled = useSelector(
+        (state) => state.play.isNextButtonDisabled,
+    );
+
     const dispatch = useDispatch();
 
     const handleClick = () =>
@@ -19,15 +23,12 @@ const OptionButtonNext = () => {
 
     return (
         <IconButton
-            className={
-                collectionToDisplay.length - 1 === flashcardIndex
-                    ? 'play-box__btn play-box__btn-disabled'
-                    : 'play-box__btn'
-            }
+            className='play-box__btn'
             onClick={handleClick}
             size='small'
+            disabled={isNextButtonDisabled}
         >
-            <Typography fontSize='1.8rem'>NEXT</Typography>
+            <Typography fontSize='1.8rem'>NEXT FLASHCARD</Typography>
             <IoIosArrowForward size='2.5rem' />
         </IconButton>
     );

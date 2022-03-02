@@ -56,6 +56,8 @@ const Play = () => {
             ...prevState,
             isPlaying: true,
         }));
+
+        dispatch(playSlice.actions.setIsNextButtonDisabled(true));
     };
 
     useEffect(() => {

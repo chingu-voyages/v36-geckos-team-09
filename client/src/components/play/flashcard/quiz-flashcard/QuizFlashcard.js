@@ -15,7 +15,8 @@ import {
 } from '@mui/material';
 import LinearProgress from '@mui/material/LinearProgress';
 
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { playSlice } from '../../../../redux/slices/playSlice';
 
 const QuizFlashcard = () => {
     const collectionToDisplay = useSelector(
@@ -39,6 +40,8 @@ const QuizFlashcard = () => {
         score: 0,
         progress: progressLength,
     });
+
+    const dispatch = useDispatch();
 
     const handleAnswerChoiceClick = (answerPrefix) => {
         const correctAnswer = collectionToDisplay[flashcardIndex].right_answer;
@@ -99,6 +102,8 @@ const QuizFlashcard = () => {
                 displayPointsWon: true,
             }));
         }, 1500);
+
+        dispatch(playSlice.actions.setIsNextButtonDisabled(false));
     };
 
     useEffect(() => {
@@ -107,13 +112,21 @@ const QuizFlashcard = () => {
             return;
         }
 
-        setAnswerResult((prevState) => ({
-            ...prevState,
-            displayPointsWon: false,
-            pointsWon: '',
-            btnDisabled: false,
-            progress: prevState.progress + progressLength,
-        }));
+        let isMounted = true;
+
+        if (isMounted) {
+            setAnswerResult((prevState) => ({
+                ...prevState,
+                displayPointsWon: false,
+                pointsWon: '',
+                btnDisabled: false,
+                progress: prevState.progress + progressLength,
+            }));
+
+            dispatch(playSlice.actions.setIsNextButtonDisabled(true));
+        }
+
+        return () => (isMounted = false);
     }, [flashcardIndex]);
 
     return (
