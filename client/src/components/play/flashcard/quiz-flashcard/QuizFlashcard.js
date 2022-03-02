@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { ANSWER_PREFIX } from '../../../../static';
 
@@ -13,6 +13,7 @@ import {
     Button,
     Grow,
 } from '@mui/material';
+import LinearProgress from '@mui/material/LinearProgress';
 
 import { useSelector } from 'react-redux';
 
@@ -23,7 +24,11 @@ const QuizFlashcard = () => {
 
     const flashcardIndex = useSelector((state) => state.play.flashcardIndex);
 
+    const isFirstRun = useRef(true);
+
     const flashcardOrdNum = flashcardIndex + 1;
+
+    const progressLength = 100 / collectionToDisplay.length;
 
     const [answerResult, setAnswerResult] = useState({
         displayMessage: false,
@@ -32,6 +37,7 @@ const QuizFlashcard = () => {
         pointsWon: null,
         btnDisabled: false,
         score: 0,
+        progress: progressLength,
     });
 
     const handleAnswerChoiceClick = (answerPrefix) => {
@@ -92,15 +98,21 @@ const QuizFlashcard = () => {
                 answerMessage: '',
                 displayPointsWon: true,
             }));
-        }, 1000);
+        }, 1500);
     };
 
     useEffect(() => {
+        if (isFirstRun.current) {
+            isFirstRun.current = false;
+            return;
+        }
+
         setAnswerResult((prevState) => ({
             ...prevState,
             displayPointsWon: false,
             pointsWon: '',
             btnDisabled: false,
+            progress: prevState.progress + progressLength,
         }));
     }, [flashcardIndex]);
 
@@ -126,18 +138,40 @@ const QuizFlashcard = () => {
                     </Typography>
                 </Box>
 
-                <Grow in={answerResult.displayPointsWon} timeout={1000}>
-                    <Box display='flex' justifyContent='right'>
-                        <Typography
-                            className='quiz-flashcard__points'
-                            fontSize='4em'
-                            color='secondary'
-                            fontWeight={700}
-                        >
-                            {answerResult.pointsWon}
-                        </Typography>
+                <Box
+                    display='flex'
+                    alignItems='center'
+                    justifyContent='space-between'
+                    mb={3}
+                >
+                    <Box width='80%' display='flex' alignItems='center'>
+                        <Box width='80%' mr={1}>
+                            <LinearProgress
+                                variant='determinate'
+                                value={answerResult.progress}
+                                color='secondary'
+                            />
+                        </Box>
+                        <Box minWidth={35}>
+                            <Typography color='white'>{`${Math.round(
+                                answerResult.progress,
+                            )}%`}</Typography>
+                        </Box>
                     </Box>
-                </Grow>
+
+                    <Grow in={answerResult.displayPointsWon} timeout={1000}>
+                        <Box width='20%' display='flex' justifyContent='right'>
+                            <Typography
+                                className='quiz-flashcard__points'
+                                fontSize='4rem'
+                                color='secondary'
+                                fontWeight={700}
+                            >
+                                {answerResult.pointsWon}
+                            </Typography>
+                        </Box>
+                    </Grow>
+                </Box>
 
                 <Box
                     display='flex'
@@ -202,7 +236,7 @@ const QuizFlashcard = () => {
                             ))}
                         </ButtonGroup>
 
-                        {answerResult.showAnswer && (
+                        {answerResult.displayMessage && (
                             <Typography
                                 className='quiz-flashcard__fade-in'
                                 textAlign='center'
