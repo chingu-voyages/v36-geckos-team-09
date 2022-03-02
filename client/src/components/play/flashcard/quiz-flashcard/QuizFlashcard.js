@@ -43,6 +43,18 @@ const QuizFlashcard = () => {
 
     const dispatch = useDispatch();
 
+    const setAnswerResultPoints = (correctOrNot, points) => {
+        setAnswerResult((prevState) => ({
+            ...prevState,
+            displayMessage: true,
+            answerMessage: `${correctOrNot} Answer !`,
+            displayPointsWon: true,
+            pointsWon: `+ ${points}`,
+            btnDisabled: true,
+            score: prevState.score + points,
+        }));
+    };
+
     const handleAnswerChoiceClick = (answerPrefix) => {
         const correctAnswer = collectionToDisplay[flashcardIndex].right_answer;
 
@@ -53,45 +65,14 @@ const QuizFlashcard = () => {
 
         if (selectedAnswer === correctAnswer) {
             if (flashcardDifficulty === 'easy') {
-                setAnswerResult((prevState) => ({
-                    ...prevState,
-                    displayMessage: true,
-                    answerMessage: 'Correct Answer !',
-                    displayPointsWon: true,
-                    pointsWon: '+1',
-                    btnDisabled: true,
-                    score: prevState.score + 1,
-                }));
+                setAnswerResultPoints('Correct', 1);
             } else if (flashcardDifficulty === 'medium') {
-                setAnswerResult((prevState) => ({
-                    ...prevState,
-                    displayMessage: true,
-                    answerMessage: 'Correct Answer !',
-                    displayPointsWon: true,
-                    pointsWon: '+2',
-                    btnDisabled: true,
-                    score: prevState.score + 2,
-                }));
+                setAnswerResultPoints('Correct', 2);
             } else {
-                setAnswerResult((prevState) => ({
-                    ...prevState,
-                    displayMessage: true,
-                    answerMessage: 'Correct Answer !',
-                    displayPointsWon: true,
-                    pointsWon: '+3',
-                    btnDisabled: true,
-                    score: prevState.score + 3,
-                }));
+                setAnswerResultPoints('Correct', 3);
             }
         } else {
-            setAnswerResult((prevState) => ({
-                ...prevState,
-                displayMessage: true,
-                answerMessage: 'Wrong Answer !',
-                displayPointsWon: true,
-                pointsWon: '+0',
-                btnDisabled: true,
-            }));
+            setAnswerResultPoints('Wrong', 0);
         }
 
         setTimeout(() => {
