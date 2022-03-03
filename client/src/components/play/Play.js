@@ -57,7 +57,7 @@ const Play = () => {
             isPlaying: true,
         }));
 
-        dispatch(playSlice.actions.setIsNextButtonDisabled(true));
+        playMode.isQuizModeChecked ? dispatch(playSlice.actions.setIsNextButtonDisabled(true)) : dispatch(playSlice.actions.setIsNextButtonDisabled(false)); //nextcard bug solved
     };
 
     useEffect(() => {
