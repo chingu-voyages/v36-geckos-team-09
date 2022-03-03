@@ -26,7 +26,10 @@ const OptionButtonNext = () => {
             className='play-box__btn'
             onClick={handleClick}
             size='small'
-            disabled={isNextButtonDisabled}
+            disabled={
+                isNextButtonDisabled ||
+                flashcardIndex === collectionToDisplay.length - 1
+            }
         >
             <Typography fontSize='1.8rem'>NEXT FLASHCARD</Typography>
             <IoIosArrowForward size='2.5rem' />
