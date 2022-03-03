@@ -1,31 +1,29 @@
 import express from 'express';
-import FlashcardController from './flashcards.controller.js'  
+import FlashcardController from './flashcards.controller.js';
 
+const router = express.Router();
 
-const router = express.Router()
-
-router.route("/")
+router
+    .route('/')
     .get(FlashcardController.apiGetFlashcards)
     .post(FlashcardController.apiPostFlashcard)
-    .put(FlashcardController.apiUpdateFlashcard)
+    .put(FlashcardController.apiUpdateFlashcard);
 
-router.route("/collection/")
+router
+    .route('/collection/')
     .put(FlashcardController.apiUpdateCollection)
-    .post(FlashcardController.apiPostCollection)
+    .post(FlashcardController.apiPostCollection);
 
-router.route("/collection/:collection_name")
+router
+    .route('/collection/:collection_name')
     .get(FlashcardController.apiGetFlashcardByCollection)
     .delete(FlashcardController.apiDeleteCollection)
-    .put(FlashcardController.apiUpdateCollection)
+    .put(FlashcardController.apiUpdateCollection);
 
+router
+    .route('/id/:id')
+    .get(FlashcardController.apiGetFlashcardById)
+    .put(FlashcardController.apiUpdateFlashcard)
+    .delete(FlashcardController.apiDeleteFlashcard);
 
-router.route("/id/:id")
-    .get(FlashcardController.apiGetFlashcardById) 
-    .put(FlashcardController.apiUpdateFlashcard) 
-    .delete(FlashcardController.apiDeleteFlashcard) 
-
-
-
-
-
-export default router
+export default router;
