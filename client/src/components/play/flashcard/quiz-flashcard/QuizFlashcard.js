@@ -38,7 +38,7 @@ const QuizFlashcard = () => {
         pointsWon: null,
         btnDisabled: false,
         score: 0,
-        progress: progressLength,
+        progress: 0,
     });
 
     const dispatch = useDispatch();
@@ -53,6 +53,8 @@ const QuizFlashcard = () => {
             btnDisabled: true,
             score: prevState.score + points,
         }));
+
+        dispatch(playSlice.actions.setFinalScore(points));
     };
 
     const handleAnswerChoiceClick = (answerPrefix) => {
@@ -107,7 +109,9 @@ const QuizFlashcard = () => {
             dispatch(playSlice.actions.setIsNextButtonDisabled(true));
         }
 
-        return () => (isMounted = false);
+        return () => {
+            isMounted = false;
+        };
     }, [flashcardIndex]);
 
     return (

@@ -26,13 +26,20 @@ const OptionButtonNext = () => {
             className='play-box__btn'
             onClick={handleClick}
             size='small'
-            disabled={
-                isNextButtonDisabled ||
-                flashcardIndex === collectionToDisplay.length - 1
-            }
+            disabled={isNextButtonDisabled}
         >
-            <Typography fontSize='1.8rem'>NEXT FLASHCARD</Typography>
-            <IoIosArrowForward size='2.5rem' />
+            {flashcardIndex === collectionToDisplay.length - 1 ? (
+                <Typography fontSize='1.8rem'>FINISH</Typography>
+            ) : (
+                <Typography
+                    fontSize='1.8rem'
+                    display='flex'
+                    alignItems='center'
+                >
+                    NEXT FLASHCARD
+                    <IoIosArrowForward size='2.5rem' />
+                </Typography>
+            )}
         </IconButton>
     );
 };

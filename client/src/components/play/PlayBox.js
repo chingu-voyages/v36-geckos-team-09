@@ -9,6 +9,7 @@ import QuizFlashcard from './flashcard/quiz-flashcard/QuizFlashcard';
 import OptionButtonNext from './option-butttons/OptionButtonNext';
 import LoadingBox from '../loading/LoadingBox';
 import FlashcardError from './flashcard/FlashcardError';
+import EndGame from './end-game/EndGame';
 
 import '../../styles/playBox.scss';
 import { Box, Typography, Button } from '@mui/material';
@@ -25,6 +26,10 @@ const PlayBox = ({ playMode, setPlayMode }) => {
     const collectionToDisplay = useSelector(
         (state) => state.play.collectionToDisplay,
     );
+
+    const flashcardIndex = useSelector((state) => state.play.flashcardIndex);
+
+    const gameOver = flashcardIndex === collectionToDisplay.length;
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -116,16 +121,24 @@ const PlayBox = ({ playMode, setPlayMode }) => {
                 <LoadingBox />
             ) : (
                 <>
-                    {showQuizModeOrSelfTest(playMode.isQuizModeChecked)}
+                    {gameOver ? (
+                        <EndGame
+                            isQuizModeChecked={playMode.isQuizModeChecked}
+                        />
+                    ) : (
+                        <>
+                            {showQuizModeOrSelfTest(playMode.isQuizModeChecked)}
 
-                    <Box
-                        display='flex'
-                        justifyContent='center'
-                        alignItems='center'
-                        mt={2}
-                    >
-                        <OptionButtonNext direction='next' />
-                    </Box>
+                            <Box
+                                display='flex'
+                                justifyContent='center'
+                                alignItems='center'
+                                mt={2}
+                            >
+                                <OptionButtonNext direction='next' />
+                            </Box>
+                        </>
+                    )}
                 </>
             )}
         </Box>

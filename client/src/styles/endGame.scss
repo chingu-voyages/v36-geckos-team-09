@@ -1,0 +1,7 @@
+@import './abstracts/_config';
+
+.end-game {
+    &__divider {
+        background-color: $color-secondary !important;
+    }
+}

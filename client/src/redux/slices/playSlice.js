@@ -5,6 +5,7 @@ const initialState = {
     collectionToDisplay: [],
     flashcardIndex: 0,
     isNextButtonDisabled: true,
+    finalScore: 0,
 };
 
 const name = 'play';
@@ -31,6 +32,12 @@ export const playSlice = createSlice({
         setIsNextButtonDisabled: (state, action) => {
             state.isNextButtonDisabled = action.payload;
         },
+        setFinalScore: (state, action) => {
+            state.finalScore += action.payload;
+        },
+        resetFinalScore: (state) => {
+            state.finalScore = 0;
+        },
     },
 });
 
@@ -41,6 +48,8 @@ export const {
     incrementFlashcardIndex,
     resetFlashcardIndex,
     setIsNextButtonDisabled,
+    setFinalScore,
+    resetFinalScore,
 } = playSlice.actions;
 
 export default playSlice.reducer;
