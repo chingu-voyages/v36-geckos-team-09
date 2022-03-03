@@ -74,5 +74,4 @@ const FlashcardFront = ({ cardRef, handleFlipClick }) => {
         </Card>
     );
 };
-
 export default FlashcardFront;

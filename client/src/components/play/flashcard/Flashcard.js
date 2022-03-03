@@ -7,7 +7,7 @@ import ReactCardFlip from 'react-card-flip';
 
 import { useSelector } from 'react-redux';
 
-const Flashcard2 = () => {
+const Flashcard = () => {
     const [isCardFlipped, setIsCardFlipped] = useState(false);
 
     const [cardDimensions, setCardDimensions] = useState({
@@ -51,4 +51,4 @@ const Flashcard2 = () => {
     );
 };
 
-export default Flashcard2;
+export default Flashcard;
