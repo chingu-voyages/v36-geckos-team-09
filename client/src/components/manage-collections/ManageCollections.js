@@ -2,18 +2,18 @@ import { useState } from 'react';
 
 import FlashcardsDataService from '../../services/flashcards_service';
 
-import { getCollectionNames } from '../../utils';
+import { getCollectionNames } from '../../utils-static/utils';
 
 import Collections from './Collections';
 
-import '../../styles/manageCollections.scss';
+import '../../styles/collections/manageCollections.scss';
 import { Button, Box, Popover, Input, Typography } from '@mui/material';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import { BsFillArrowRightSquareFill } from 'react-icons/bs';
 
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { addNewCollectionSchema } from '../../joiSchemas';
+import { addNewCollectionSchema } from '../../joi-schemas/joiSchemas';
 
 import { useDispatch } from 'react-redux';
 import { collectionsSlice } from '../../redux/slices/collectionsSlice';

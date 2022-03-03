@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
 
+import { NAVBAR_BUTTONS } from '../../utils-static/static';
+
 import '../../styles/navbar.scss';
-
 import { AppBar, Toolbar, Button, Container, ButtonGroup } from '@mui/material';
-
-import { NAVBAR_BUTTONS } from '../../static';
 
 const Navbar = () => {
     return (

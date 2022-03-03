@@ -1,5 +1,5 @@
-import '../../../styles/collections.scss';
-import '../../../styles/collection.scss';
+import '../../../styles/collections/collections.scss';
+import '../../../styles/collections/collection.scss';
 import { Typography, IconButton, Tooltip } from '@mui/material';
 import { BiEdit } from 'react-icons/bi';
 

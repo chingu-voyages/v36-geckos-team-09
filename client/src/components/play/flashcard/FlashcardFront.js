@@ -1,8 +1,8 @@
 import OptionButtonFlip from '../option-butttons/OptionButtonFlip';
 
-import { ANSWER_PREFIX } from '../../../static';
+import { ANSWER_PREFIX } from '../../../utils-static/static';
 
-import '../../../styles/playBox.scss';
+import '../../../styles/play/playBox.scss';
 import { Card, CardContent, Typography, Box, Grid } from '@mui/material';
 
 import { useSelector } from 'react-redux';

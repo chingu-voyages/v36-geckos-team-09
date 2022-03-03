@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 
+import { getCollectionNames } from '../../utils-static/utils';
+
 import PlayBox from './PlayBox';
 
-import { getCollectionNames } from '../../utils';
-
-import '../../styles/play.scss';
+import '../../styles/play/play.scss';
 import {
     Box,
     Typography,

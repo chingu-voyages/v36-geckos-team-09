@@ -1,6 +1,6 @@
 import OptionButtonFlip from '../option-butttons/OptionButtonFlip';
 
-import '../../../styles/playBox.scss';
+import '../../../styles/play/playBox.scss';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 
 import { useSelector } from 'react-redux';

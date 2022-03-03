@@ -2,25 +2,7 @@ import Joi from 'joi';
 
 const string = Joi.string();
 
-export const newFlashcardSchema = Joi.object({
-    question: string.trim().required().messages({
-        'string.empty': 'This field is required!',
-    }),
-    answerA: string.trim().required().messages({
-        'string.empty': 'This field is required!',
-    }),
-    answerB: string.trim().required().messages({
-        'string.empty': 'This field is required!',
-    }),
-    answerC: string.trim().required().messages({
-        'string.empty': 'This field is required!',
-    }),
-    answerD: string.trim().required().messages({
-        'string.empty': 'This field is required!',
-    }),
-});
-
-export const editFlashcardSchema = Joi.object({
+export const flashcardSchema = Joi.object({
     question: string.trim().required().messages({
         'string.empty': 'This field is required!',
     }),

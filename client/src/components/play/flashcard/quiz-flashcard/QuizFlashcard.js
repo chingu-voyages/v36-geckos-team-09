@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
-import { ANSWER_PREFIX } from '../../../../static';
+import { ANSWER_PREFIX } from '../../../../utils-static/static';
 
-import '../../../../styles/quizFlashcard.scss';
+import '../../../../styles/play/quizFlashcard.scss';
 import {
     Card,
     CardContent,

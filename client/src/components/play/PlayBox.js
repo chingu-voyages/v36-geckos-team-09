@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import FlashcardsDataService from '../../services/flashcards_service';
 
-import { shuffleData } from '../../utils';
+import { shuffleData } from '../../utils-static/utils';
 
 import Flashcard from './flashcard/Flashcard';
 import QuizFlashcard from './flashcard/quiz-flashcard/QuizFlashcard';
@@ -11,7 +11,7 @@ import LoadingBox from '../loading/LoadingBox';
 import FlashcardError from './flashcard/FlashcardError';
 import EndGame from './end-game/EndGame';
 
-import '../../styles/playBox.scss';
+import '../../styles/play/playBox.scss';
 import { Box, Typography, Button } from '@mui/material';
 import { BsFillArrowLeftSquareFill } from 'react-icons/bs';
 
