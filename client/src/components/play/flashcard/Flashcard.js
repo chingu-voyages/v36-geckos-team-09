@@ -27,10 +27,17 @@ const Flashcard2 = () => {
             cardHeight: cardRef.current.clientHeight,
             cardWidth: cardRef.current.clientWidth,
         }));
+
+        setIsCardFlipped(false);
     }, [flashcardIndex]);
 
     return (
-        <ReactCardFlip isFlipped={isCardFlipped} flipDirection='horizontal'>
+        <ReactCardFlip
+            isFlipped={isCardFlipped}
+            flipDirection='horizontal'
+            flipSpeedBackToFront={0.3}
+            flipSpeedFrontToBack={0.3}
+        >
             <FlashcardFront
                 cardRef={cardRef}
                 handleFlipClick={handleFlipClick}

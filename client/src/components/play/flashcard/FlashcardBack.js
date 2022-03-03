@@ -12,6 +12,24 @@ const FlashcardBack = ({ cardDimensions, handleFlipClick }) => {
 
     const flashcardIndex = useSelector((state) => state.play.flashcardIndex);
 
+    const flashcardCorrectAnswerPrefix =
+        collectionToDisplay[flashcardIndex].right_answer;
+
+    const returnFlashcardCorrectAnswerPrefixIndex = (prefix) => {
+        if (prefix === 'A') return 0;
+        else if (prefix === 'B') return 1;
+        else if (prefix === 'C') return 2;
+        else return 3;
+    };
+
+    const flashcardCorrectAnswerPrefixIndex =
+        returnFlashcardCorrectAnswerPrefixIndex(flashcardCorrectAnswerPrefix);
+
+    const flashcardCorrectAnswer =
+        collectionToDisplay[flashcardIndex].answers[
+            flashcardCorrectAnswerPrefixIndex
+        ];
+
     return (
         <Card className='play-box__card '>
             <CardContent>
@@ -32,22 +50,23 @@ const FlashcardBack = ({ cardDimensions, handleFlipClick }) => {
                     minHeight={cardDimensions.cardHeight}
                     width={cardDimensions.cardWidth}
                 >
-                    <Typography
-                        variant='span'
-                        fontWeight={500}
-                        fontSize='3rem'
-                        mb={2}
-                        color='white'
-                    >
+                    <Typography fontWeight={500} fontSize='3rem' color='white'>
                         Correct Answer
                     </Typography>
+
                     <Typography
                         variant='span'
                         fontWeight={500}
                         fontSize='5rem'
+                        mb={2}
+                        mt={2}
                         color='secondary'
                     >
-                        "{collectionToDisplay[flashcardIndex]?.right_answer}"
+                        "{flashcardCorrectAnswerPrefix}"
+                    </Typography>
+
+                    <Typography fontSize='1.5rem'>
+                        {flashcardCorrectAnswer}
                     </Typography>
                 </Box>
             </CardContent>
