@@ -27,6 +27,8 @@ const Flashcard2 = () => {
             cardHeight: cardRef.current.clientHeight,
             cardWidth: cardRef.current.clientWidth,
         }));
+
+        setIsCardFlipped(false);
     }, [flashcardIndex]);
 
     return (
