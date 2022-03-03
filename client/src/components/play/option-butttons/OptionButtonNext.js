@@ -1,4 +1,4 @@
-import '../../../styles/playBox.scss';
+import '../../../styles/play/playBox.scss';
 import { Typography, IconButton } from '@mui/material';
 import { IoIosArrowForward } from 'react-icons/io';
 

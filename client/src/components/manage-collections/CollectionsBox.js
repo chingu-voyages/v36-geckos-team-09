@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 
 import FlashcardsDataService from '../../services/flashcards_service';
 
-import { getCollectionNames } from '../../utils';
+import { getCollectionNames } from '../../utils-static/utils';
 
 import OptionButtonEdit from './option-buttons/OptionButtonEdit';
 import OptionButtonDelete from './option-buttons/OptionButtonDelete';
 import OptionButtonSave from './option-buttons/OptionButtonSave';
 import OptionButtonClose from './option-buttons/OptionButtonClose';
 
-import '../../styles/collections.scss';
+import '../../styles/collections/collections.scss';
 import {
     ListItem,
     ListItemText,
@@ -29,7 +29,7 @@ import { collectionsSlice } from '../../redux/slices/collectionsSlice';
 
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { changeCollectionNameSchema } from '../../joiSchemas';
+import { changeCollectionNameSchema } from '../../joi-schemas/joiSchemas';
 
 const CollectionsBox = ({ collection }) => {
     const { collection_name: collectionName } = collection;

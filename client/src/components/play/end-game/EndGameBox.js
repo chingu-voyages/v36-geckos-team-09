@@ -1,4 +1,4 @@
-import '../../../styles/endGame.scss';
+import '../../../styles/play/endGame.scss';
 import { Typography, Box, IconButton } from '@mui/material';
 import { BsArrowRepeat } from 'react-icons/bs';
 

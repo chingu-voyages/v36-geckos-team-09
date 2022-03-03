@@ -1,7 +1,5 @@
 import '../../styles/about.scss';
-
 import { Box, Typography, Link } from '@mui/material';
-
 import { AiFillGithub } from 'react-icons/ai';
 
 const About = () => {

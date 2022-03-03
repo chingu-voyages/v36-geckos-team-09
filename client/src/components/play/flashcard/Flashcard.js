@@ -8,16 +8,16 @@ import ReactCardFlip from 'react-card-flip';
 import { useSelector } from 'react-redux';
 
 const Flashcard = () => {
+    const flashcardIndex = useSelector((state) => state.play.flashcardIndex);
+
+    const cardRef = useRef();
+
     const [isCardFlipped, setIsCardFlipped] = useState(false);
 
     const [cardDimensions, setCardDimensions] = useState({
         cardHeight: null,
         cardWidth: null,
     });
-
-    const flashcardIndex = useSelector((state) => state.play.flashcardIndex);
-
-    const cardRef = useRef();
 
     const handleFlipClick = () => setIsCardFlipped((prevState) => !prevState);
 

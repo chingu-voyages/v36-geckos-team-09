@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
-import DifficultyLevelButtonGroup from '../../../difficulty-level-buttons/DifficultyLevelButtonGroup';
+import FlashcardsDataService from '../../../../services/flashcards_service';
 
-import { NEW_FLASHCARD_INPUTS } from '../../../../static';
-import { NEW_FLASHCARD_RADIOS } from '../../../../static';
+import { NEW_FLASHCARD_INPUTS } from '../../../../utils-static/static';
+import { NEW_FLASHCARD_RADIOS } from '../../../../utils-static/static';
 
 import useDifficultyLevelClick from '../../../../custom-hooks/useDifficultyLevelClick';
 
-import FlashcardsDataService from '../../../../services/flashcards_service';
+import DifficultyLevelButtonGroup from '../../../difficulty-level-buttons/DifficultyLevelButtonGroup';
 
-import '../../../../styles/newFlashcard.scss';
+import '../../../../styles/collections/newFlashcard.scss';
 import {
     Input,
     Button,
@@ -24,7 +24,7 @@ import {
 
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { newFlashcardSchema } from '../../../../joiSchemas';
+import { flashcardSchema } from '../../../../joi-schemas/joiSchemas';
 
 import { useDispatch } from 'react-redux';
 import { collectionsSlice } from '../../../../redux/slices/collectionsSlice';
@@ -62,7 +62,7 @@ const NewFlashcard = ({ collectionName, handleClose }) => {
         handleSubmit,
         formState: { errors },
     } = useForm({
-        resolver: joiResolver(newFlashcardSchema),
+        resolver: joiResolver(flashcardSchema),
     });
 
     const submitAddFlashcardForm = (data) => {

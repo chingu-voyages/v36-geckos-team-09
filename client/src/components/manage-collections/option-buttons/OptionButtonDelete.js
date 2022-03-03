@@ -3,8 +3,8 @@ import { useState } from 'react';
 import OptionButtonSave from './OptionButtonSave';
 import OptionButtonClose from './OptionButtonClose';
 
-import '../../../styles/collections.scss';
-import '../../../styles/collection.scss';
+import '../../../styles/collections/collections.scss';
+import '../../../styles/collections/collection.scss';
 import { Typography, IconButton, Tooltip, Popover, Box } from '@mui/material';
 import { MdDelete } from 'react-icons/md';
 

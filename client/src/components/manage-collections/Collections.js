@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
-import { getUniqueListBy } from '../../utils';
+import FlashcardsDataService from '../../services/flashcards_service';
+
+import { getUniqueListBy } from '../../utils-static/utils';
 
 import CollectionsBox from './CollectionsBox';
 import LoadingBox from '../loading/LoadingBox';
 
-import FlashcardsDataService from '../../services/flashcards_service';
-
-import '../../styles/collections.scss';
+import '../../styles/collections/collections.scss';
 import { List } from '@mui/material';
 
 import { useSelector } from 'react-redux';

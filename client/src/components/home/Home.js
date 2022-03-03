@@ -1,6 +1,5 @@
-import { GiCardPickup } from 'react-icons/gi';
-
 import { Box, Typography } from '@mui/material';
+import { GiCardPickup } from 'react-icons/gi';
 
 const Home = () => {
     return (

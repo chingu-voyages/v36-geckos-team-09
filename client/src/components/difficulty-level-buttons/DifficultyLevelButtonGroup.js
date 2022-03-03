@@ -1,4 +1,4 @@
-import { DIFFICULTY_CHIPS } from '../../static';
+import { DIFFICULTY_CHIPS } from '../../utils-static/static';
 
 import { Typography, Stack, Chip } from '@mui/material';
 

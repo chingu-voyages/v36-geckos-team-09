@@ -1,4 +1,4 @@
-import FlashcardsDataService from './services/flashcards_service';
+import FlashcardsDataService from '../services/flashcards_service';
 
 // The function iterates through array of objects and throws out duplicates based on the passed key
 export const getUniqueListBy = (arr, key) => {

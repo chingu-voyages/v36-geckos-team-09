@@ -1,13 +1,12 @@
 import { useState } from 'react';
 
+import { ANSWER_PREFIX } from '../../../utils-static/static';
+
 import FlashcardsDataService from '../../../services/flashcards_service';
 
 import EditFlashcard from './flashcard/EditFlashcard';
-
 import OptionButtonEdit from '../option-buttons/OptionButtonEdit';
 import OptionButtonDelete from '../option-buttons/OptionButtonDelete';
-
-import { ANSWER_PREFIX } from '../../../static';
 
 import {
     Box,

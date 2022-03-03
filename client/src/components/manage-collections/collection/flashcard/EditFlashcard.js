@@ -1,20 +1,18 @@
 import { useState } from 'react';
 
-import DifficultyLevelButtonGroup from '../../../difficulty-level-buttons/DifficultyLevelButtonGroup';
-
-import { NEW_FLASHCARD_INPUTS } from '../../../../static';
-import { NEW_FLASHCARD_RADIOS } from '../../../../static';
-
 import FlashcardsDataService from '../../../../services/flashcards_service';
+
+import { NEW_FLASHCARD_INPUTS } from '../../../../utils-static/static';
+import { NEW_FLASHCARD_RADIOS } from '../../../../utils-static/static';
 
 import useDifficultyLevelClick from '../../../../custom-hooks/useDifficultyLevelClick';
 
+import DifficultyLevelButtonGroup from '../../../difficulty-level-buttons/DifficultyLevelButtonGroup';
 import OptionButtonSave from '../../option-buttons/OptionButtonSave';
 import OptionButtonClose from '../../option-buttons/OptionButtonClose';
-
 import EditFlashcardInput from './EditFlashcardInput';
 
-import '../../../../styles/collection.scss';
+import '../../../../styles/collections/collection.scss';
 import {
     Box,
     TableRow,
@@ -32,7 +30,7 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { editFlashcardSchema } from '../../../../joiSchemas';
+import { flashcardSchema } from '../../../../joi-schemas/joiSchemas';
 
 import { useDispatch } from 'react-redux';
 import { collectionsSlice } from '../../../../redux/slices/collectionsSlice';
@@ -65,7 +63,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
         handleSubmit,
         formState: { errors },
     } = useForm({
-        resolver: joiResolver(editFlashcardSchema),
+        resolver: joiResolver(flashcardSchema),
     });
 
     const submitEditFlashcardForm = async (data) => {

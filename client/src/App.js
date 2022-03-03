@@ -4,10 +4,6 @@ import {
     Route,
 } from 'react-router-dom';
 
-import './styles/app.scss';
-
-import { Box, Container } from '@mui/material';
-
 import Home from './components/home/Home';
 import Navbar from './components/navbar/Navbar';
 import About from './components/about/About';
@@ -15,6 +11,9 @@ import ManageCollections from './components/manage-collections/ManageCollections
 import Collection from './components/manage-collections/collection/Collection';
 import Play from './components/play/Play';
 import NotFound from './components/not-found/NotFound';
+
+import './styles/app.scss';
+import { Box, Container } from '@mui/material';
 
 const App = () => {
     return (

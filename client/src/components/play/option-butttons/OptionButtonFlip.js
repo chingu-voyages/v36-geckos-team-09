@@ -1,4 +1,4 @@
-import '../../../styles/playBox.scss';
+import '../../../styles/play/playBox.scss';
 import { Typography, IconButton, Tooltip } from '@mui/material';
 import { TiArrowBack, TiArrowForward } from 'react-icons/ti';
 

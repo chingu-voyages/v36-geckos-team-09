@@ -5,7 +5,7 @@ import { useParams, Link } from 'react-router-dom';
 import CollectionTable from './CollectionTable';
 import NewFlashcard from './flashcard/NewFlashcard';
 
-import '../../../styles/collection.scss';
+import '../../../styles/collections/collection.scss';
 import { Box, Typography, Button, Popover } from '@mui/material';
 import { BsFillArrowLeftSquareFill } from 'react-icons/bs';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
