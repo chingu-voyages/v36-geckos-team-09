@@ -29,7 +29,7 @@ const QuizFlashcard = () => {
 
     const flashcardOrdNum = flashcardIndex + 1;
 
-    const progressLength = 100 / collectionToDisplay.length;
+    const progressLength = Math.round(100 / collectionToDisplay.length);
 
     const [answerResult, setAnswerResult] = useState({
         displayMessage: false,
@@ -52,6 +52,7 @@ const QuizFlashcard = () => {
             pointsWon: `+ ${points}`,
             btnDisabled: true,
             score: prevState.score + points,
+            progress: prevState.progress + progressLength,
         }));
 
         dispatch(playSlice.actions.setFinalScore(points));
@@ -103,7 +104,6 @@ const QuizFlashcard = () => {
                 displayPointsWon: false,
                 pointsWon: '',
                 btnDisabled: false,
-                progress: prevState.progress + progressLength,
             }));
 
             dispatch(playSlice.actions.setIsNextButtonDisabled(true));
@@ -151,9 +151,7 @@ const QuizFlashcard = () => {
                             />
                         </Box>
                         <Box minWidth={35}>
-                            <Typography color='white'>{`${Math.round(
-                                answerResult.progress,
-                            )}%`}</Typography>
+                            <Typography color='white'>{`${answerResult.progress}%`}</Typography>
                         </Box>
                     </Box>
 
