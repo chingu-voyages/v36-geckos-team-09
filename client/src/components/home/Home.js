@@ -14,7 +14,7 @@ const Home = () => {
             textAlign='center'
         >
             <GiCardPickup size='8rem' />
-            <Typography variant='h2' mt={2}>
+            <Typography variant='h2' mt={2} color='secondary'>
                 Kadeu Flashcards !
             </Typography>
             <Typography variant='h4' mt={2}>

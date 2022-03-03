@@ -22,6 +22,11 @@
         flex: 90%;
         margin-right: 1rem;
         font-size: 1.4rem !important;
+
+        &::after,
+        &::before {
+            border-color: $color-secondary !important;
+        }
     }
 
     &__submit-btn {

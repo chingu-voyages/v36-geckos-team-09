@@ -60,15 +60,14 @@ const CollectionTableRow = ({ row, index }) => {
                     <TableRow>
                         <TableCell component='th' scope='row'>
                             <Typography
-                                className='collection__prefix'
                                 variant='h6'
                                 fontWeight={700}
                                 fontSize='1.3rem'
                                 mr='0.3rem'
                                 display='inline'
+                                color='secondary'
                             >
                                 <Typography
-                                    className='collection__prefix'
                                     variant='span'
                                     fontWeight={700}
                                     fontSize='1rem'
@@ -93,6 +92,7 @@ const CollectionTableRow = ({ row, index }) => {
                                 aria-label='expand row'
                                 size='small'
                                 onClick={handleDropdownClick}
+                                color='secondary'
                             >
                                 {isRowOpen ? (
                                     <IoIosArrowUp size='1.5rem' />
@@ -127,6 +127,7 @@ const CollectionTableRow = ({ row, index }) => {
                                                             fontWeight={700}
                                                             fontSize='1.2rem'
                                                             mr='0.2rem'
+                                                            color='secondary'
                                                         >
                                                             {
                                                                 ANSWER_PREFIX[
@@ -155,14 +156,16 @@ const CollectionTableRow = ({ row, index }) => {
                                                         variant='p'
                                                         fontWeight={700}
                                                         fontSize='1.2rem'
+                                                        color='secondary'
                                                     >
-                                                        Correct Answer:
+                                                        Correct Answer:{' '}
                                                     </Typography>
                                                     <Typography
                                                         variant='p'
                                                         color='secondary'
                                                         fontWeight={700}
                                                         fontSize='1.2rem'
+                                                        color='white'
                                                     >
                                                         {rowCorrectAnswer}
                                                     </Typography>
@@ -179,6 +182,7 @@ const CollectionTableRow = ({ row, index }) => {
                                                         fontWeight={700}
                                                         fontSize='1.2rem'
                                                         mr={1}
+                                                        color='secondary'
                                                     >
                                                         Flashcard Difficulty
                                                         Level:

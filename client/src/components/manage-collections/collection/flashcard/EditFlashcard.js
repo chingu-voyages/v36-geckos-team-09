@@ -96,6 +96,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
                         fontSize='1.3rem'
                         mr='0.3rem'
                         display='inline'
+                        color='secondary'
                     >
                         <Typography
                             className='collection__prefix'
@@ -192,12 +193,15 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
                                             key={radio.id}
                                             value={radio.value}
                                             control={
-                                                <Radio color='secondary' />
+                                                <Radio
+                                                    style={{ color: 'white' }}
+                                                />
                                             }
                                             label={
                                                 <Typography
                                                     fontWeight='500'
                                                     fontSize='1.2rem'
+                                                    color='white'
                                                 >
                                                     {radio.value}
                                                 </Typography>
@@ -211,6 +215,7 @@ const EditFlashcard = ({ row, rowIndex, handleEditAndCloseClick }) => {
                                 display='flex'
                                 flexDirection='column'
                                 alignItems='start'
+                                mt={1}
                             >
                                 <Typography
                                     fontSize='1.4rem'

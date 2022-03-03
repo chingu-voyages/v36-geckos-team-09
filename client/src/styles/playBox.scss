@@ -13,7 +13,7 @@
         transition: transform 0.2s ease-in-out !important;
 
         &[disabled] {
-            color: $color-grey !important;
+            color: $color-white-transparent-2 !important;
         }
 
         &:hover {

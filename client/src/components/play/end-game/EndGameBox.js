@@ -65,7 +65,7 @@ const EndGameBox = ({ isQuizModeChecked }) => {
             )}
 
             <Typography fontSize='1.8rem' color='white'>
-                Play Again
+                Learn Again
             </Typography>
 
             <IconButton
