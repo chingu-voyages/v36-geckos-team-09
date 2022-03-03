@@ -154,7 +154,7 @@ const Play = () => {
                                 color='secondary'
                                 disabled={playMode.isButtonDisabled}
                             >
-                                Play
+                                Learn
                             </Button>
                         </Box>
                     </Box>

@@ -1,6 +1,12 @@
+@import './abstracts/_config';
+
 .quiz-flashcard {
     &__btn {
         font-size: 1.5rem !important;
+
+        &[disabled] {
+            color: $color-white-transparent-2 !important;
+        }
     }
 
     &__fade-in {

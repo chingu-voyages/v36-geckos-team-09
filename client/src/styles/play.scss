@@ -12,6 +12,7 @@
 
         &:disabled {
             background-color: $color-secondary-transparent !important;
+            color: $color-white-transparent !important;
         }
     }
 }
