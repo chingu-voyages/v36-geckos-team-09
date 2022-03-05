@@ -32,14 +32,19 @@ The **Standard Mode** will let you play the [classic flashcards game](https://en
 FLASHCARDS_DB_URI=<<your mongoDB URI>>
 FLASHCARDS_NS=<<your mongoDB server name>>
 PORT=<<local port you want to connect to>>
+NODE_ENV=<<development>>
 ```
+3. go to `client/src/services/http-common.js` and replace the `baseURL` field with your local one.
+4. `npm install` and `npm start` to run the server
+5. `cd client` , `npm install`  and `npm start` to run the frontend
 
-3. `cd client` and run `npm start`
-4. `cd server` and run `npm run server`
+---
+
+If you want to test only the frontend `cd client`, `npm install`  and `npm start` without making any changes.
 
 ## Dependencies
 
-(if i missed something please check the package.json file)
+(if i missed something please check the package.json files)
 
 ### Backend
 
