@@ -1,5 +1,5 @@
-import express from 'express';
-import FlashcardController from './flashcards.controller.js';
+const express = require('express');
+const FlashcardController = require('./flashcards.controller.js');
 
 const router = express.Router();
 
@@ -26,4 +26,5 @@ router
     .put(FlashcardController.apiUpdateFlashcard)
     .delete(FlashcardController.apiDeleteFlashcard);
 
-export default router;
+
+module.exports = router;

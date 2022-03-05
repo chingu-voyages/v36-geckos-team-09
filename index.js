@@ -1,7 +1,7 @@
-import app from './server.js';
-import mongodb from 'mongodb';
-import dotenv from 'dotenv';
-import FlashcardsDAO from './dao/flashcardsDAO.js';
+const app = require('./server.js') ;
+const mongodb = require('mongodb') ;
+const dotenv = require('dotenv') ;
+const FlashcardsDAO = require('./dao/flashcardsDAO.js');
 
 dotenv.config();
 
