@@ -1,6 +1,6 @@
-import FlashcardsDAO from '../dao/flashcardsDAO.js';
+const FlashcardsDAO = require('../dao/flashcardsDAO.js');
 
-export default class FlashcardsController {
+module.exports = class FlashcardsController {
     static async apiGetFlashcards(req, res, next) {
         const flashcardsPerPage = req.query.flashcardsPerPage
             ? parseInt(req.query.flashcardsPerPage, 10)

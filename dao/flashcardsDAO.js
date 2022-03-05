@@ -1,9 +1,9 @@
-import mongodb from 'mongodb';
+const mongodb = require('mongodb');
 const ObjectId = mongodb.ObjectId;
 
 let flashcards;
 
-export default class FlashcardsDAO {
+module.exports = class FlashcardsDAO {
     static async injectDB(conn) {
         if (flashcards) {
             return;
