@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start":"nodemon server",
+    "start": "nodemon server",
     "dev": "nodemon server",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
-  "engines":{
-    "node":"14.17.0"
+  "engines": {
+    "node": "14.17.0"
   },
   "keywords": [],
   "author": "",
