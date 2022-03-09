@@ -35,7 +35,7 @@ PORT=<<local port you want to connect to>>
 NODE_ENV=<<development>>
 ```
 3. go to `client/src/services/http-common.js` and replace the `baseURL` field with your local one.
-4. `npm install` and `npm start` to run the server
+4. `npm install` and `npm run dev` to run the server
 5. `cd client` , `npm install`  and `npm start` to run the frontend
 
 ---
