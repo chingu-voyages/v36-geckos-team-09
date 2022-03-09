@@ -26,7 +26,7 @@ The **Standard Mode** will let you play the [classic flashcards game](https://en
 ## How to run it
 
 1. `git clone https://github.com/chingu-voyages/v36-geckos-team-09.git`
-2. add a .env file inside the server folder and replace those values down below
+2. add a .env file and replace those values down below
 
 ```
 FLASHCARDS_DB_URI=<<your mongoDB URI>>
